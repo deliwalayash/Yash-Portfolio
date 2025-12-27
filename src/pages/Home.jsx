@@ -56,7 +56,7 @@ const Home = () => {
                                         transitionDuration={800}
                                         playOnce={false}
                                     >
-                                        <a href="/resume/my-resume.pdf" target="_blank">
+                                        <a href="https://drive.google.com/file/d/1-2mGymaDQuPSpYSSl4Bmqa_wk6vmGSDe/view?usp=sharing" target="_blank">
                                             <span className="text-sm text-white">Resume <i className="ri-download-2-line text-xl ms-2"></i>
                                             </span>
                                         </a>
@@ -64,10 +64,10 @@ const Home = () => {
                                 </div>
                                 <ul className="flex justify-center sm:justify-start">
                                     {[
-                                        { href: "https://www.instagram.com/dubeyabhishekofficial/", icon: "ri-instagram-line" },
-                                        { href: "https://x.com/Abhishe07685380", icon: "ri-twitter-x-line" },
-                                        { href: "https://www.linkedin.com/in/abhishek-dubey-3a5824307/", icon: "ri-linkedin-fill" },
-                                        { href: "https://github.com/7700ABHISHEK", icon: "ri-github-fill" },
+                                        
+                                        { href: "https://x.com/YDeliwala94759", icon: "ri-twitter-x-line"  } ,
+                                        { href: "https://www.linkedin.com/in/yash-deliwala", icon: "ri-linkedin-fill" },
+                                        { href: "https://github.com/deliwalayash", icon: "ri-github-fill" },
                                     ].map((social, index) => (
                                         <li key={index} className="social-link rounded-full border border-[#8750f7] text-[#8750f7]">
                                             <a href={social.href} target="_blank" rel="noopener noreferrer">

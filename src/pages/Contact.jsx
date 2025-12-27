@@ -1,5 +1,6 @@
 import React from 'react';
 import SectionHeading from '../components/SectionHeading';
+import Form from '../components/Form'
 
 const Contact = () => {
     return (
@@ -25,7 +26,8 @@ const Contact = () => {
                         </div>
 
                         {/* Form Side */}
-                        <form className="space-y-4 sm:space-y-6">
+                        {/* <form className="space-y-4 sm:space-y-6" action="https://api.web3forms.com/submit" method="POST">
+                          <input type="hidden" name="access_key" value="2c6efe99-dc5c-4acc-b523-656523121182"></input>
                             <input
                                 type="text"
                                 required
@@ -53,7 +55,8 @@ const Contact = () => {
                             >
                                 Send Message
                             </button>
-                        </form>
+                        </form> */}
+                        <Form></Form>
                     </div>
                 </div>
             </div>

@@ -10,29 +10,28 @@ const GithubStats = () => {
   useEffect(() => {
     // Fetch user stats
     fetch(`https://api.github.com/users/${username}`)
-      .then(res => res.json())
-      .then(data => {
+      .then((res) => res.json())
+      .then((data) => {
         setStats({
           repos: data.public_repos,
           followers: data.followers,
           following: data.following,
         });
       })
-      .catch(err => console.error(err));
+      .catch((err) => console.error(err));
 
     // Fetch repositories
     fetch(`https://api.github.com/users/${username}/repos?sort=updated`)
-      .then(res => res.json())
-      .then(data => {
+      .then((res) => res.json())
+      .then((data) => {
         setRepos(data);
       })
-      .catch(err => console.error(err));
+      .catch((err) => console.error(err));
   }, []);
 
   return (
-    <section className=" py-20">
+    <section className=" py-20" id="gitstats">
       <div className="container mx-auto px-4">
-
         <SectionHeading
           title="GitHub Activity"
           dsc="Live stats pulled directly from GitHub — code never lies."
@@ -54,6 +53,25 @@ const GithubStats = () => {
           />
         </div>
 
+        {/* CONTRIBUTION HEATMAP */}
+        <div className="mt-20 flex flex-col items-center">
+          <h3 className="text-center text-2xl font-semibold text-[#8750f7] mb-8">
+            GitHub Contribution Graph
+          </h3>
+
+          <div className="overflow-x-auto w-full flex justify-center">
+            <img
+              src={`https://ghchart.rshah.org/8750f7/deliwalayash`}
+              alt="GitHub contribution graph"
+              className="w-full p-20"
+            />
+          </div>
+
+          <p className="text-sm text-white/60 mt-4">
+            Live contributions from the last year
+          </p>
+        </div>
+
         {/* REPOSITORIES LIST */}
         <div className="mt-20">
           <h3 className="text-center text-2xl font-semibold text-[#8750f7] mb-10">
@@ -61,14 +79,12 @@ const GithubStats = () => {
           </h3>
 
           <div className="flex flex-wrap gap-6 justify-center">
-            {repos.slice(0, 6).map(repo => (
+            {repos.slice(0, 6).map((repo) => (
               <div
                 key={repo.id}
                 className="w-full sm:w-[320px] bg-[#1a1a2e] p-6 rounded-xl hover:shadow-xl hover:shadow-[#8750f7]/20 transition"
               >
-                <h4 className="text-white font-semibold mb-2">
-                  {repo.name}
-                </h4>
+                <h4 className="text-white font-semibold mb-2">{repo.name}</h4>
 
                 <p className="text-white/70 text-sm mb-4 min-h-[40px]">
                   {repo.description || "No description provided"}
@@ -91,7 +107,6 @@ const GithubStats = () => {
             ))}
           </div>
         </div>
-
       </div>
     </section>
   );
@@ -100,9 +115,7 @@ const GithubStats = () => {
 const StatCard = ({ label, value }) => {
   return (
     <div className="w-64 bg-[#1a1a2e] rounded-2xl p-6 text-center hover:shadow-xl hover:shadow-[#8750f7]/20 transition">
-      <h2 className="text-4xl font-bold text-[#8750f7]">
-        {value ?? "--"}
-      </h2>
+      <h2 className="text-4xl font-bold text-[#8750f7]">{value ?? "--"}</h2>
       <p className="text-sm text-white/80 mt-2">{label}</p>
     </div>
   );

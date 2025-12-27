@@ -22,6 +22,9 @@ const Header = () => {
                             <a href="#about">About</a>
                         </li>
                         <li className="header-text">
+                            <a href="#gitstats">Git Stats</a>
+                        </li>
+                        <li className="header-text">
                             <a href="#service">Service</a>
                         </li>
                         <li className="header-text">
