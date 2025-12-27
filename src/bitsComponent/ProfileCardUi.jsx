@@ -43,7 +43,7 @@ const ProfileCardComponent = ({
     enableTilt = true,
     miniAvatarUrl,
     name = "Yash Deliwala",
-    title = "Full Stack Web Dev",
+    title = "Full Stack Developer",
     handle = "Abhid_codes",
     status = "Online",
     contactText = "Hacker Rank",
@@ -78,7 +78,7 @@ const ProfileCardComponent = ({
                 "--pointer-y": `${percentY}%`,
                 "--background-x": `${adjust(percentX, 0, 100, 35, 65)}%`,
                 "--background-y": `${adjust(percentY, 0, 100, 35, 65)}%`,
-                "--pointer-from-center": `${clamp(Math.hypot(percentY - 50, percentX - 50) / 50, 0, 1)}`,
+                "--pointer-from-center": `${clamp(Math.hypot(percentY - 50, percentX - 40) / 50, 0, 1)}`,
                 "--pointer-from-top": `${percentY / 100}`,
                 "--pointer-from-left": `${percentX / 100}`,
                 "--rotate-x": `${round(-(centerX / 5))}deg`,
@@ -252,7 +252,7 @@ const ProfileCardComponent = ({
                     <div className="pc-content pc-avatar-content">
                         <img
                             className="avatar"
-                            src={'/avatar_url.png'}
+                            src={'/yash-3.png'}
                             alt={`${name || "User"} avatar`}
                             loading="lazy"
                             onError={(e) => {
@@ -265,7 +265,7 @@ const ProfileCardComponent = ({
                                 <div className="pc-user-details">
                                     <div className="pc-mini-avatar">
                                         <img
-                                            src={"/mini-avatar.JPG" || "/mini-avatar.JPG"}
+                                            src={"/yash-4.png" || "/mini-avatar.JPG"}
                                             alt={`${name || "User"} mini avatar`}
                                             loading="lazy"
                                             // onError={(e) => {
@@ -287,7 +287,7 @@ const ProfileCardComponent = ({
                                     type="button"
                                     aria-label={`Contact ${name || "user"}`}
                                 >
-                                    Hacker Rank
+                                    Hacker Rank 
                                 </button>
                             </div>
                         )}

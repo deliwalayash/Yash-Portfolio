@@ -14,9 +14,9 @@ const AboutMe = () => {
 
           {/* LEFT SIDE – IMAGE */}
           <div className="w-full lg:w-1/2 flex justify-center">
-            <div className="relative">
+            <div className="relative ">
               <img
-                src="/images/profile.jpg"
+                src="/yash-6.png"
                 alt="profile"
                 className="w-[320px] h-[420px] object-cover rounded-2xl grayscale hover:grayscale-0 transition duration-500"
               />

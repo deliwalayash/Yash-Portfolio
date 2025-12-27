@@ -9,6 +9,9 @@ import MyWork from "./components/MyWork";
 import MySkills from "./pages/MySkills";
 import AboutMe from "./components/AboutMe";
 import GithubStats from "./components/GitHubStats";
+import Testimonial from "./pages/Testimonial";
+import Contact from "./pages/Contact";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -47,6 +50,9 @@ function App() {
           <MyService/>
            <MyWork />
            <MySkills></MySkills>
+             <Testimonial />
+             <Contact/>
+             <Footer></Footer>
         </div>
       </div>
     </>

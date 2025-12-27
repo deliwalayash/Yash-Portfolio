@@ -12,7 +12,7 @@ const Header = () => {
                 <a href="#">
                     <div className="flex items-center gap-7 cursor-pointer">
                         <img className="w-14" src="/coder-2.png" alt="logo" />
-                        <p className="font-medium md:block hidden text-sm">yashdeliwala10@gmail.com</p>
+                        <p className="text-xl sm:text-2xl font-semibold whitespace-nowrap">Code With Yash</p>
                     </div>
                 </a>
 
