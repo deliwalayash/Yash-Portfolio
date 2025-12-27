@@ -16,7 +16,7 @@ const Home = () => {
                                 <h1 className="text-white text-2xl sm:text-3xl font-bold">I am Yash</h1>
                                 <div className="sm:ms-3 mt-2 sm:mt-0">
                                     <RotatingText
-                                        texts={['Developer', 'Freelancer', 'Coder', 'Learner']}
+                                        texts={['Web Developer', 'Frontend Developer', 'Backend Developer', 'Coder']}
                                         mainClassName="pt-3 rotating sm:px-2 text-xl sm:text-2xl md:px-3 sm:pt-1 sm:pb-0 px-2 mt-1 bg-slate-900 text-white overflow-hidden sm:py-1 justify-center rounded-lg"
                                         staggerFrom={"last"}
                                         initial={{ y: "100%" }}

@@ -20,7 +20,7 @@ const MySkills = () => {
   return (
     <div id="skills" className="container mx-auto px-4 py-10">
       <SectionHeading
-        title={"My Skills"}
+        title={"Languages on Which I work"}
         dsc={"These skills reflect my passion, dedication, and development journey."}
       />
 

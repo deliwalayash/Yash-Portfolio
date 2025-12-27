@@ -95,9 +95,11 @@ const AboutMe = () => {
             </div>
 
             {/* BUTTON */}
-            <button className="mt-10 bg-[#8750f7] text-white px-8 py-3 rounded-full font-semibold hover:bg-[#6b3ee4] transition">
+            <a href="https://drive.google.com/file/d/1-2mGymaDQuPSpYSSl4Bmqa_wk6vmGSDe/view?usp=sharing" target="_blank">
+              <button className="mt-10 bg-[#8750f7] text-white px-8 py-3 rounded-full font-semibold hover:bg-[#6b3ee4] transition">
               Download CV
             </button>
+            </a>
 
           </div>
         </div>

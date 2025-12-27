@@ -12,12 +12,15 @@ const Header = () => {
                 <a href="#">
                     <div className="flex items-center gap-7 cursor-pointer">
                         <img className="w-14" src="/coder-2.png" alt="logo" />
-                        <p className="text-xl sm:text-2xl font-semibold whitespace-nowrap">Code With Yash</p>
+                        <p className="text-xl sm:text-2xl font-semibold whitespace-nowrap sm:block hidden">Code With Yash</p>
                     </div>
                 </a>
 
                 <nav className="xl:block hidden">
                     <ul className="flex gap-5 cursor-pointer font-medium">
+                        <li className="header-text">
+                            <a href="#home">Home</a>
+                        </li>
                         <li className="header-text">
                             <a href="#about">About</a>
                         </li>
@@ -73,6 +76,12 @@ const Header = () => {
                         }`}
                 >
                     <ul className="flex flex-col items-center justify-center gap-8 glass-card text-sm font-medium py-6 w-full max-w-xs">
+                        <li className="hover:text-purple-800 cursor-pointer">
+                            <a href="#home" onClick={() => setMenuOpen(false)}>Home</a>
+                        </li>
+                        <li className="hover:text-purple-800 cursor-pointer">
+                            <a href="#about" onClick={() => setMenuOpen(false)}>About</a>
+                        </li>
                         <li className="hover:text-purple-800 cursor-pointer">
                             <a href="#service" onClick={() => setMenuOpen(false)}>Service</a>
                         </li>
