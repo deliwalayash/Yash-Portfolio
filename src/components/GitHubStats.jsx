@@ -63,7 +63,7 @@ const GithubStats = () => {
             <img
               src={`https://ghchart.rshah.org/8750f7/deliwalayash`}
               alt="GitHub contribution graph"
-              className="w-full p-20"
+              className="w-full p-4 sm:p-6 md:p-12 lg:p-20"
             />
           </div>
 
