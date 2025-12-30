@@ -50,7 +50,7 @@ const AboutMe = () => {
                   <span className="inline-block w-24 text-white font-semibold">
                     Birthday:
                   </span>
-                  07 May 1989
+                  28 March 1989
                 </p>
 
                 <p>
