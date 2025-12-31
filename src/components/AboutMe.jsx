@@ -36,7 +36,7 @@ const AboutMe = () => {
             </h4>
 
             <p className="text-white/70 leading-7 mb-8">
-              I design and develop clean, responsive, and high-performing web
+              I design and develop modern, responsive, and high-performing web
               applications. My background in business and marketing helps me
               build products that are not only functional but impactful.
             </p>
