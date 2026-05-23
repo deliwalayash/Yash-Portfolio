@@ -56,7 +56,7 @@ const Header = () => {
                             playOnce={false}
                         >
                             <span className="text-sm font-bold text-white">
-                                <a href="#contact">Hire Me!</a>
+                                <a href="tel:+919712952456">9712952456</a>
                             </span>
                         </GlareHover>
                     </div>

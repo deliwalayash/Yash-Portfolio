@@ -1,10 +1,9 @@
 import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, Pagination, EffectCoverflow } from 'swiper/modules';
+import { Autoplay, Pagination } from 'swiper/modules';
 import { LiaStarSolid } from 'react-icons/lia';
 import 'swiper/css';
 import 'swiper/css/pagination';
-import 'swiper/css/effect-coverflow';
 import SectionHeading from '../components/SectionHeading';
 
 const testimonials = [
@@ -50,27 +49,26 @@ const testimonials = [
 
 const Testimonial = () => {
     return (
-        <div id='testimonials' className='container mx-auto py-10'>
+        <div id='testimonials' className='testimonials-section container mx-auto py-10'>
             <SectionHeading title={"Client's Review"} dsc={"Empowering people in new a digital journey with my super services"} />
-            <div className="py-12 px-4">
-                <div className="max-w-7xl mx-auto">
+            <div className="testimonials-section__slider py-12 px-4">
+                <div className="testimonials-section__inner max-w-7xl mx-auto">
                     <Swiper
                         slidesPerView={1}
                         spaceBetween={30}
                         loop={true}
                         autoplay={{ delay: 3000, disableOnInteraction: false }}
-                        effect="coverflow"
                         pagination={{ el: '.custom-pagination', clickable: true }}
                         breakpoints={{
                             768: { slidesPerView: 2 },
                             1024: { slidesPerView: 3 },
                         }}
-                        modules={[Autoplay, EffectCoverflow, Pagination]}
-                        className="mySwiper"
+                        modules={[Autoplay, Pagination]}
+                        className="mySwiper testimonials-swiper"
                     >
                         {testimonials.map((client, idx) => (
                             <SwiperSlide key={idx}>
-                                <div className="bg-[#1e1e1e] border border-[#8750f7] rounded-2xl p-6 shadow-lg h-full flex flex-col justify-between">
+                                <div className="testimonial-card bg-[#1e1e1e] border border-[#8750f7] rounded-2xl p-6 shadow-lg h-full flex flex-col justify-between">
                                     <div>
                                         <div className="flex justify-center text-yellow-400 text-xl mb-4">
                                             {Array.from({ length: 5 }, (_, i) => (

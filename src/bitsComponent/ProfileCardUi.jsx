@@ -33,22 +33,15 @@ const easeInOutCubic = (x) =>
     x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
 
 const ProfileCardComponent = ({
-    avatarUrl = "",
     iconUrl = "<Placeholder for icon URL>",
     grainUrl = "<Placeholder for grain URL>",
     behindGradient,
     innerGradient,
     showBehindGradient = true,
     className = "",
-    enableTilt = true,
-    miniAvatarUrl,
+    enableTilt = false,
     name = "Yash Deliwala",
     title = "Full Stack Developer",
-    handle = "Abhid_codes",
-    status = "Online",
-    contactText = "Hacker Rank",
-    showUserInfo = true,
-    onContactClick,
 }) => {
     const wrapRef = useRef(null);
     const cardRef = useRef(null);
@@ -235,68 +228,28 @@ const ProfileCardComponent = ({
         [iconUrl, grainUrl, showBehindGradient, behindGradient, innerGradient]
     );
 
-    const handleContactClick = useCallback(() => {
-        onContactClick?.();
-    }, [onContactClick]);
-
     return (
         <div
             ref={wrapRef}
             className={`flex justify-center pc-card-wrapper ${className}`.trim()}
             style={cardStyle}
         >
-            <section ref={cardRef} className="pc-card">
-                <div className="pc-inside">
-                    <div className="pc-shine" />
-                    <div className="pc-glare" />
-                    <div className="pc-content pc-avatar-content">
-                        <img
-                            className="avatar"
-                            src={'/yash-3.png'}
-                            alt={`${name || "User"} avatar`}
-                            loading="lazy"
-                            onError={(e) => {
-                                const target = e.target;
-                                target.style.display = "none";
-                            }}
-                        />
-                        {showUserInfo && (
-                            <div className="pc-user-info">
-                                <div className="pc-user-details">
-                                    <div className="pc-mini-avatar">
-                                        <img
-                                            src={"/yash-4.png" || "/mini-avatar.JPG"}
-                                            alt={`${name || "User"} mini avatar`}
-                                            loading="lazy"
-                                            // onError={(e) => {
-                                            //     const target = e.target;
-                                            //     target.style.opacity = "0.5";
-                                            //     target.src = avatarUrl;
-                                            // }}
-                                        />
-                                    </div>
-                                    <div className="pc-user-text">
-                                        <div className="pc-handle">Yash</div>
-                                        <div className="pc-status">{status}</div>
-                                    </div>
-                                </div>
-                                <button
-                                    className="pc-contact-btn"
-                                    onClick={handleContactClick}
-                                    style={{ pointerEvents: "auto" }}
-                                    type="button"
-                                    aria-label={`Contact ${name || "user"}`}
-                                >
-                                    Hacker Rank 
-                                </button>
-                            </div>
-                        )}
-                    </div>
-                    <div className="pc-content">
-                        <div className="pc-details">
-                            <h3>{name}</h3>
-                            <p>{title}</p>
-                        </div>
+            <section ref={cardRef} className="pc-card pc-profile-card">
+                <div className="pc-profile-photo">
+                    <img
+                        src="/yash-8.jpeg"
+                        alt={`${name || "Yash Deliwala"} profile`}
+                        loading="lazy"
+                    />
+                </div>
+                <div className="pc-profile-body">
+                    <span className="pc-profile-label">Portfolio</span>
+                    <h3>{name}</h3>
+                    <p>{title}</p>
+                    <div className="pc-profile-tags" aria-label="Primary skills">
+                        <span>React</span>
+                        <span>Node.js</span>
+                        <span>UI</span>
                     </div>
                 </div>
             </section>

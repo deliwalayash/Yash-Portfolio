@@ -10,6 +10,10 @@ body,
     height: 100%;
 }
 
+:root {
+    --app-vh: 100vh;
+}
+
 body{
     background-color: #0f0716;
 }
@@ -29,8 +33,8 @@ html.fullpage-active .fullpage-track {
 }
 
 .fullpage-section {
-    height: 100vh;
-    overflow-y: auto;
+    height: var(--app-vh);
+    overflow: hidden;
     overflow-x: hidden;
     padding-top: 96px;
     scrollbar-width: none;
@@ -47,9 +51,10 @@ body.is-inner-section .fullpage-section {
 }
 
 html.fullpage-active .fullpage-section {
-    height: 100vh;
-    min-height: 100vh;
-    overflow-y: auto;
+    height: var(--app-vh);
+    min-height: var(--app-vh);
+    padding-top: 0;
+    overflow: hidden;
 }
 
 .fullpage-section::before,
@@ -332,20 +337,81 @@ html.fullpage-active .fullpage-section {
 }
 
 .fullpage-section--service #service {
-    min-height: calc(100vh - 56px);
+    min-height: var(--app-vh);
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
+html.fullpage-active #home {
+    min-height: var(--app-vh);
+    display: flex;
+    align-items: center;
+    padding-top: clamp(112px, 14vh, 140px);
+    padding-bottom: clamp(18px, 3vh, 34px);
+}
+
+html.fullpage-active #home > div {
+    width: 100%;
+}
+
+html.fullpage-active #home .home-info .text {
+    margin-bottom: clamp(14px, 2vh, 24px);
+}
+
+html.fullpage-active #home h2 {
+    font-size: clamp(44px, 4.2vw, 68px) !important;
+    line-height: 1.1 !important;
+}
+
+html.fullpage-active #home p {
+    margin-top: clamp(12px, 2vh, 20px) !important;
+    font-size: clamp(16px, 1.25vw, 20px) !important;
+    line-height: 1.5 !important;
+}
+
+html.fullpage-active .pc-card-wrapper {
+    --card-height: min(58vh, 560px);
+    --card-width: min(28vw, 430px);
+}
+
+html.fullpage-active .fullpage-section--about #about {
+    min-height: var(--app-vh);
+    display: flex;
+    align-items: center;
+    padding-top: clamp(26px, 4vh, 46px);
+    padding-bottom: clamp(22px, 3vh, 36px);
+}
+
+html.fullpage-active .fullpage-section--about #about .container > .flex {
+    gap: clamp(28px, 4vw, 56px);
+    margin-top: clamp(28px, 4vh, 48px);
+}
+
+html.fullpage-active .fullpage-section--about img {
+    width: min(28vw, 300px);
+    height: min(42vh, 390px);
+}
+
+html.fullpage-active .section-heading-title {
+    font-size: clamp(34px, 3vw, 52px) !important;
+    margin-top: 0 !important;
+    margin-bottom: clamp(10px, 1.6vh, 18px) !important;
+}
+
+html.fullpage-active .section-heading-description {
+    margin-bottom: clamp(10px, 1.6vh, 18px) !important;
+    line-height: 1.45 !important;
+}
+
 .fullpage-section--service .section-heading-title {
     margin-top: 0 !important;
-    margin-bottom: 14px !important;
+    margin-bottom: 10px !important;
 }
 
 .fullpage-section--service .section-heading-description {
-    margin-bottom: 18px !important;
-    line-height: 1.55 !important;
+    margin-bottom: 12px !important;
+    line-height: 1.35 !important;
 }
 
 .fullpage-section--service .service-grid {
@@ -354,6 +420,45 @@ html.fullpage-active .fullpage-section {
 
 .fullpage-section--service .service-grid > div > div {
     min-height: 178px;
+}
+
+html.fullpage-active .fullpage-section--service .service-grid {
+    gap: clamp(8px, 1.4vh, 14px) !important;
+    padding-top: clamp(6px, 1vh, 10px) !important;
+    padding-bottom: clamp(6px, 1vh, 10px) !important;
+}
+
+html.fullpage-active .fullpage-section--service .service-grid > div > div {
+    min-height: 0;
+    height: min(18.5vh, 158px);
+    padding: clamp(12px, 1.7vh, 16px) !important;
+    overflow: hidden;
+}
+
+html.fullpage-active .fullpage-section--service .service-grid .text-3xl {
+    font-size: clamp(22px, 2.5vh, 28px) !important;
+}
+
+html.fullpage-active .fullpage-section--service .service-grid .gap-3 {
+    gap: clamp(6px, 1vh, 10px) !important;
+}
+
+html.fullpage-active .fullpage-section--service .service-grid h2 {
+    font-size: clamp(16px, 1.6vh, 19px) !important;
+    line-height: 1.15 !important;
+}
+
+html.fullpage-active .fullpage-section--service .service-grid p {
+    display: -webkit-box;
+    font-size: clamp(12px, 1.3vh, 14px) !important;
+    line-height: 1.35 !important;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+html.fullpage-active .fullpage-section--service .service-grid span {
+    margin-top: 0 !important;
 }
 
 @media (max-height: 850px) and (min-width: 1024px) {
@@ -375,31 +480,42 @@ html.fullpage-active .fullpage-section {
     }
 
     .google-ads-showcase {
-        padding-top: 22px;
-        padding-bottom: 22px;
+        padding-top: 14px;
+        padding-bottom: 14px;
     }
 
     .google-ads-showcase__copy h2 {
-        font-size: clamp(34px, 4vw, 56px);
-        margin-top: 18px;
+        font-size: clamp(36px, 3.5vw, 58px);
+        line-height: 1.02;
+        margin-top: 14px;
     }
 
     .google-ads-showcase__copy p {
         font-size: 15px;
-        line-height: 1.55;
-        margin-top: 14px;
+        line-height: 1.48;
+        margin-top: 12px;
     }
 
     .google-ads-showcase__stats {
-        margin-top: 18px;
+        margin-top: 14px;
+        gap: 10px;
     }
 
     .google-ads-showcase__stats div {
-        padding: 14px;
+        padding: 12px 14px;
+        border-radius: 14px;
+    }
+
+    .google-ads-showcase__stats span {
+        font-size: 24px;
+    }
+
+    .google-ads-showcase__stats p {
+        font-size: 12px;
     }
 
     .google-ads-showcase__visual img {
-        height: min(52vh, 430px);
+        height: min(50vh, 390px);
     }
 
     .fullpage-section--works .grid.sm\:grid-cols-2 > div {
@@ -411,15 +527,61 @@ html.fullpage-active .fullpage-section {
     min-height: 100vh;
     display: flex;
     align-items: center;
-    padding: 34px 24px;
+    padding: clamp(22px, 4vh, 42px) clamp(24px, 3vw, 56px);
+}
+
+@media (max-height: 720px) and (min-width: 1024px) {
+    .google-ads-showcase__content {
+        grid-template-columns: minmax(340px, 0.66fr) minmax(560px, 1.34fr);
+        gap: clamp(26px, 3.4vw, 52px);
+    }
+
+    .google-ads-showcase__badge {
+        padding: 8px 14px;
+        font-size: 14px;
+    }
+
+    .google-ads-showcase__copy h2 {
+        font-size: clamp(32px, 2.9vw, 46px);
+        margin-top: 12px;
+    }
+
+    .google-ads-showcase__copy p {
+        max-width: 560px;
+        margin-top: 10px;
+        font-size: 13px;
+        line-height: 1.42;
+    }
+
+    .google-ads-showcase__stats {
+        margin-top: 12px;
+    }
+
+    .google-ads-showcase__stats div {
+        padding: 10px 14px;
+    }
+
+    .google-ads-showcase__stats span {
+        font-size: 22px;
+    }
+
+    .google-ads-showcase__visual {
+        padding: 10px;
+        border-radius: 24px;
+    }
+
+    .google-ads-showcase__visual img {
+        height: min(46vh, 310px);
+        border-radius: 16px;
+    }
 }
 
 .google-ads-showcase__content {
-    width: min(1380px, 100%);
+    width: min(1540px, 100%);
     margin: 0 auto;
     display: grid;
-    grid-template-columns: minmax(340px, 0.68fr) minmax(520px, 1.32fr);
-    gap: 44px;
+    grid-template-columns: minmax(360px, 0.72fr) minmax(620px, 1.28fr);
+    gap: clamp(34px, 4vw, 72px);
     align-items: center;
 }
 
@@ -438,16 +600,16 @@ html.fullpage-active .fullpage-section {
 .google-ads-showcase__copy h2 {
     margin-top: 24px;
     color: #ffffff;
-    font-size: clamp(40px, 4.6vw, 68px);
-    line-height: 1.02;
+    font-size: clamp(40px, 4.1vw, 66px);
+    line-height: 1.04;
     font-weight: 850;
 }
 
 .google-ads-showcase__copy p {
     margin-top: 18px;
     color: rgba(238, 248, 255, 0.78);
-    font-size: 17px;
-    line-height: 1.68;
+    font-size: clamp(16px, 1.05vw, 19px);
+    line-height: 1.62;
 }
 
 .google-ads-showcase__stats {
@@ -461,14 +623,14 @@ html.fullpage-active .fullpage-section {
     border: 1px solid rgba(255, 255, 255, 0.16);
     border-radius: 18px;
     background: rgba(255, 255, 255, 0.1);
-    padding: 18px;
+    padding: clamp(14px, 1.8vh, 18px);
     backdrop-filter: blur(14px);
 }
 
 .google-ads-showcase__stats span {
     display: block;
     color: #fbbc05;
-    font-size: 28px;
+    font-size: clamp(24px, 2vw, 30px);
     font-weight: 850;
 }
 
@@ -490,20 +652,165 @@ html.fullpage-active .fullpage-section {
 
 .google-ads-showcase__visual img {
     width: 100%;
-    height: min(56vh, 500px);
+    height: clamp(360px, 54vh, 560px);
     object-fit: cover;
     object-position: left top;
     border-radius: 22px;
     display: block;
 }
 
-.fullpage-section--works #works {
-    min-height: 100vh;
+html.fullpage-active .google-ads-showcase {
+    min-height: var(--app-vh);
+    padding-top: clamp(14px, 2.4vh, 30px);
+    padding-bottom: clamp(14px, 2.4vh, 30px);
+}
+
+html.fullpage-active .google-ads-showcase__visual img {
+    height: clamp(340px, 52vh, 560px);
+}
+
+html.fullpage-active .testimonials-section {
+    min-height: var(--app-vh);
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding-top: 24px;
-    padding-bottom: 24px;
+    max-width: min(1580px, calc(100vw - 96px));
+    padding-top: clamp(18px, 3vh, 32px) !important;
+    padding-bottom: clamp(18px, 3vh, 32px) !important;
+}
+
+html.fullpage-active .testimonials-section__slider {
+    padding-top: clamp(26px, 5vh, 52px) !important;
+    padding-bottom: 0 !important;
+}
+
+html.fullpage-active .testimonials-section__inner {
+    max-width: min(1480px, 100%);
+}
+
+html.fullpage-active .testimonials-swiper {
+    padding: 0 4px 4px;
+}
+
+html.fullpage-active .testimonials-swiper .swiper-wrapper {
+    align-items: stretch;
+}
+
+html.fullpage-active .testimonials-swiper .swiper-slide {
+    height: auto;
+}
+
+html.fullpage-active .testimonial-card {
+    min-height: clamp(360px, 52vh, 470px);
+    padding: clamp(22px, 3vh, 34px) !important;
+    border-radius: 20px !important;
+}
+
+html.fullpage-active .testimonial-card p {
+    font-size: clamp(14px, 1vw, 17px) !important;
+    line-height: 1.62 !important;
+}
+
+html.fullpage-active .testimonial-card .w-20 {
+    width: clamp(72px, 8vh, 92px) !important;
+    height: clamp(72px, 8vh, 92px) !important;
+}
+
+html.fullpage-active .contact-section {
+    min-height: var(--app-vh);
+    padding: clamp(18px, 3vh, 34px) clamp(24px, 5vw, 72px) !important;
+}
+
+html.fullpage-active .contact-section__inner {
+    max-width: min(1540px, 100%);
+}
+
+html.fullpage-active .contact-panel {
+    margin-top: clamp(24px, 4vh, 42px) !important;
+    margin-bottom: 0 !important;
+    padding: clamp(30px, 4.4vh, 54px) clamp(34px, 5vw, 70px) !important;
+    border-radius: 22px !important;
+}
+
+html.fullpage-active .contact-panel__grid {
+    align-items: center;
+    grid-template-columns: minmax(320px, 0.9fr) minmax(480px, 1.1fr);
+    gap: clamp(42px, 7vw, 100px) !important;
+}
+
+html.fullpage-active .contact-panel h3 {
+    font-size: clamp(32px, 3vw, 48px) !important;
+    margin-bottom: clamp(16px, 2.4vh, 26px) !important;
+}
+
+html.fullpage-active .contact-panel form {
+    display: grid;
+    gap: clamp(18px, 2.8vh, 28px);
+}
+
+html.fullpage-active .contact-panel form > * {
+    margin: 0 !important;
+}
+
+html.fullpage-active .contact-panel input {
+    min-height: clamp(54px, 7vh, 74px);
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+    font-size: clamp(16px, 1.35vw, 22px) !important;
+}
+
+html.fullpage-active .contact-panel textarea {
+    height: clamp(130px, 20vh, 190px);
+    padding: 22px 24px !important;
+    font-size: clamp(16px, 1.35vw, 22px) !important;
+}
+
+html.fullpage-active .contact-panel button {
+    min-height: clamp(50px, 6.5vh, 68px);
+    font-size: clamp(15px, 1vw, 18px) !important;
+}
+
+html.fullpage-active .fullpage-section--skills {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+html.fullpage-active .skills-section {
+    width: min(1540px, calc(100vw - 96px));
+    min-height: var(--app-vh);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: clamp(22px, 4vh, 48px) !important;
+    padding-bottom: clamp(22px, 4vh, 48px) !important;
+}
+
+html.fullpage-active .skills-grid {
+    width: 100%;
+    margin-top: clamp(28px, 5vh, 48px) !important;
+    gap: clamp(26px, 3.2vw, 44px) clamp(30px, 3.8vw, 54px) !important;
+}
+
+html.fullpage-active .skills-grid .skill {
+    min-height: clamp(132px, 17vh, 168px);
+    justify-content: center;
+    border-radius: 12px !important;
+}
+
+html.fullpage-active .skills-grid .skill img {
+    width: clamp(54px, 7vh, 72px) !important;
+    height: clamp(54px, 7vh, 72px) !important;
+    margin-bottom: clamp(10px, 1.6vh, 14px) !important;
+}
+
+.fullpage-section--works #works {
+    min-height: var(--app-vh);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: clamp(18px, 3vh, 28px);
+    padding-bottom: clamp(16px, 3vh, 28px);
 }
 
 .fullpage-section--works .section-heading-title {
@@ -517,8 +824,8 @@ html.fullpage-active .fullpage-section {
 }
 
 .fullpage-section--works .px-4.py-6 {
-    padding-top: 12px !important;
-    padding-bottom: 32px !important;
+    padding-top: clamp(8px, 1.4vh, 12px) !important;
+    padding-bottom: clamp(10px, 1.8vh, 18px) !important;
 }
 
 .fullpage-section--works .relative.overflow-hidden.py-16 {
@@ -529,11 +836,12 @@ html.fullpage-active .fullpage-section {
 
 .fullpage-section--works .grid.sm\:grid-cols-2 {
     align-items: stretch;
+    gap: clamp(18px, 2.2vw, 32px) !important;
 }
 
 .fullpage-section--works .grid.sm\:grid-cols-2 > div {
-    min-height: 430px;
-    max-height: 500px;
+    min-height: 0;
+    max-height: min(44vh, 390px);
     overflow: hidden;
 }
 
@@ -542,19 +850,23 @@ html.fullpage-active .fullpage-section {
 }
 
 .fullpage-section--works .grid.sm\:grid-cols-2 > div img {
-    height: 190px !important;
+    height: clamp(130px, 19vh, 180px) !important;
 }
 
 .fullpage-section--works .grid.sm\:grid-cols-2 h3 {
-    font-size: 22px !important;
+    font-size: clamp(18px, 1.4vw, 22px) !important;
     line-height: 1.25 !important;
 }
 
 .fullpage-section--works .grid.sm\:grid-cols-2 p {
     display: -webkit-box;
-    -webkit-line-clamp: 5;
+    -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
+}
+
+.fullpage-section--works .project-card .p-6 {
+    padding: clamp(16px, 2vh, 22px) !important;
 }
 
 .footer-slide {
@@ -1058,6 +1370,46 @@ body.is-inner-section header {
 body.is-home-section header {
     opacity: 1;
     transform: translateY(0);
+}
+
+.floating-contact-button {
+    position: fixed;
+    bottom: clamp(18px, 3vh, 32px);
+    z-index: 60;
+    width: clamp(50px, 4vw, 58px);
+    height: clamp(50px, 4vw, 58px);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    color: #ffffff;
+    font-size: clamp(21px, 1.7vw, 25px);
+    box-shadow: 0 18px 42px rgba(0, 0, 0, 0.28);
+    transition: opacity 0.25s ease, visibility 0.25s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.floating-contact-button:hover,
+.floating-contact-button:focus-visible {
+    transform: translateY(-3px);
+    box-shadow: 0 22px 54px rgba(0, 0, 0, 0.34);
+    outline: none;
+}
+
+.floating-contact-button--phone {
+    left: clamp(18px, 3vw, 42px);
+    background: linear-gradient(135deg, #2563eb, #18c7a8);
+}
+
+.floating-contact-button--whatsapp {
+    right: clamp(18px, 3vw, 42px);
+    background: linear-gradient(135deg, #19c25e, #0e9f51);
+}
+
+body.is-inner-section .floating-contact-button {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(14px);
 }
 
 header {

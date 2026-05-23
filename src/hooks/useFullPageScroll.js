@@ -22,6 +22,12 @@ export default function useFullPageScroll() {
       return undefined;
     }
 
+    const getViewportHeight = () => window.visualViewport?.height || window.innerHeight;
+
+    const updateViewportHeight = () => {
+      document.documentElement.style.setProperty("--app-vh", `${getViewportHeight()}px`);
+    };
+
     const showHeader = () => {
       if (!header) return;
 
@@ -43,6 +49,7 @@ export default function useFullPageScroll() {
       document.body.classList.remove("is-inner-section");
 
       animate(track, { translateY: 0, duration: 0 });
+      document.documentElement.style.removeProperty("--app-vh");
       showHeader();
     };
 
@@ -51,6 +58,7 @@ export default function useFullPageScroll() {
 
       document.documentElement.classList.add("fullpage-active");
       document.body.classList.add("fullpage-active");
+      updateViewportHeight();
 
       const updatePageState = (index) => {
         const isHome = index === 0;
@@ -104,7 +112,7 @@ export default function useFullPageScroll() {
         updatePageState(clampedIndex);
 
         animate(track, {
-          translateY: -clampedIndex * window.innerHeight,
+          translateY: -clampedIndex * getViewportHeight(),
           duration: prefersReducedMotion ? 0 : ANIMATION_TIME,
           ease: "outCubic",
         });
@@ -129,7 +137,7 @@ export default function useFullPageScroll() {
         activeIndex.current = nextIndex;
         updatePageState(nextIndex);
         animate(track, {
-          translateY: -nextIndex * window.innerHeight,
+          translateY: -nextIndex * getViewportHeight(),
           duration: 0,
         });
         animateSectionContent(nextIndex, 1);
@@ -179,8 +187,9 @@ export default function useFullPageScroll() {
       };
 
       const handleResize = () => {
+        updateViewportHeight();
         animate(track, {
-          translateY: -activeIndex.current * window.innerHeight,
+          translateY: -activeIndex.current * getViewportHeight(),
           duration: 0,
         });
       };
@@ -192,6 +201,8 @@ export default function useFullPageScroll() {
       window.addEventListener("touchstart", handleTouchStart, { passive: true });
       window.addEventListener("touchend", handleTouchEnd, { passive: true });
       window.addEventListener("resize", handleResize);
+      window.addEventListener("hashchange", syncToHash);
+      window.visualViewport?.addEventListener("resize", handleResize);
       document.addEventListener("click", handleAnchorClick);
 
       cleanupDesktop.current = () => {
@@ -200,6 +211,8 @@ export default function useFullPageScroll() {
         window.removeEventListener("touchstart", handleTouchStart);
         window.removeEventListener("touchend", handleTouchEnd);
         window.removeEventListener("resize", handleResize);
+        window.removeEventListener("hashchange", syncToHash);
+        window.visualViewport?.removeEventListener("resize", handleResize);
         document.removeEventListener("click", handleAnchorClick);
       };
     };
@@ -224,6 +237,7 @@ export default function useFullPageScroll() {
       document.body.classList.remove("fullpage-active");
       document.body.classList.remove("is-home-section");
       document.body.classList.remove("is-inner-section");
+      document.documentElement.style.removeProperty("--app-vh");
       showHeader();
     };
   }, []);

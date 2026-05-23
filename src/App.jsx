@@ -12,6 +12,7 @@ import GoogleAdsShowcase from "./components/GoogleAdsShowcase";
 import Testimonial from "./pages/Testimonial";
 import Contact from "./pages/Contact";
 import Footer from "./components/Footer";
+import FloatingContactButtons from "./components/FloatingContactButtons";
 import useFullPageScroll from "./hooks/useFullPageScroll";
 
 
@@ -22,6 +23,7 @@ function App() {
   return (
     <>
       <div className="font-sora   ">
+        <FloatingContactButtons />
         <div
           style={{
             width: "100%",

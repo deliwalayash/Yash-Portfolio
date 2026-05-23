@@ -3,11 +3,11 @@ import SectionHeading from '../components/SectionHeading';
 
 const Contact = () => {
     return (
-        <section id="contact" className="flex items-center justify-center py-16 px-4 sm:px-6">
-            <div className="w-full max-w-6xl">
+        <section id="contact" className="contact-section flex items-center justify-center py-16 px-4 sm:px-6">
+            <div className="contact-section__inner w-full max-w-6xl">
                 <SectionHeading title={"Let's work together!"} dsc={"I design and code beautifully simple things and i love what i do. Just simple like that!"} />
-                <div className="h-full bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 sm:p-10 shadow-xl my-10">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
+                <div className="contact-panel h-full bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 sm:p-10 shadow-xl my-10">
+                    <div className="contact-panel__grid grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
 
                         {/* Info Side */}
                         <div className="flex flex-col">

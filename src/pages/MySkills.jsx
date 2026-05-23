@@ -18,13 +18,13 @@ const MySkills = () => {
   ];
 
   return (
-    <div id="skills" className="container mx-auto px-4 py-10">
+    <div id="skills" className="skills-section container mx-auto px-4 py-10">
       <SectionHeading
         title={"Languages on Which I work"}
         dsc={"These skills reflect my passion, dedication, and development journey."}
       />
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 md:gap-10 mt-8">
+      <div className="skills-grid grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 md:gap-10 mt-8">
         {skills.map((skill, idx) => (
           <div
             key={idx}
