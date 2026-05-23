@@ -6,46 +6,46 @@ const Header = () => {
     const [menuOpen, setMenuOpen] = useState(false);
 
     return (
-        <header className="w-full text-white sticky top-0 z-50 bg-[#0f0f0f]/80 backdrop-blur-sm">
-            <div className="container mx-auto px-10 gap-5 py-5 flex items-center justify-between">
+        <header data-site-header className="site-header w-full text-white fixed top-0 left-0 z-50">
+            <div className="container mx-auto px-5 sm:px-8 lg:px-10 gap-5 py-5 flex items-center justify-between">
 
                 <a href="#">
                     <div className="flex items-center gap-7 cursor-pointer">
                         <img className="w-14" src="/coder-2.png" alt="logo" />
-                        <p className="text-xl sm:text-2xl font-semibold whitespace-nowrap sm:block hidden">Code With Yash</p>
+                        <p className="text-xl sm:text-2xl font-semibold tracking-tight whitespace-nowrap sm:block hidden">Code With Yash</p>
                     </div>
                 </a>
 
                 <nav className="xl:block hidden">
-                    <ul className="flex gap-5 cursor-pointer font-medium">
+                    <ul className="site-nav flex items-center gap-1 cursor-pointer font-medium rounded-full px-2 py-2">
                         <li className="header-text">
-                            <a href="#home">Home</a>
+                            <a className="nav-link" href="#home">Home</a>
                         </li>
                         <li className="header-text">
-                            <a href="#about">About</a>
+                            <a className="nav-link" href="#about">About</a>
                         </li>
                         <li className="header-text">
-                            <a href="#gitstats">Git Stats</a>
+                            <a className="nav-link" href="#service">Service</a>
                         </li>
                         <li className="header-text">
-                            <a href="#service">Service</a>
+                            <a className="nav-link" href="#google-ads">Ads</a>
                         </li>
                         <li className="header-text">
-                            <a href="#works">Works</a>
+                            <a className="nav-link" href="#works">Works</a>
                         </li>
                         <li className="header-text">
-                            <a href="#skills">Skills</a>
+                            <a className="nav-link" href="#skills">Skills</a>
                         </li>
                         <li className="header-text">
-                            <a href="#testimonials">Testimonial</a>
+                            <a className="nav-link" href="#testimonials">Testimonial</a>
                         </li>
                         <li className="header-text">
-                            <a href="#contact">Contact</a>
+                            <a className="nav-link" href="#contact">Contact</a>
                         </li>
                     </ul>
                 </nav>
 
-                <div className="flex gap-4">
+                <div className="header-actions flex items-center gap-3">
                     <div className="flex items-center" >
                         <GlareHover
                             glareColor="#ffffff"
@@ -62,7 +62,7 @@ const Header = () => {
                     </div>
                     {/* For Mobile Screen */}
 
-                    <button className="xl:hidden text-3xl text-purple-800" onClick={() => {
+                    <button className="mobile-menu-button xl:hidden text-3xl text-white" onClick={() => {
                         return setMenuOpen(!menuOpen);
                     }}>
                         <i className={menuOpen ? "ri-close-line" : "ri-menu-line"}></i>
@@ -84,6 +84,9 @@ const Header = () => {
                         </li>
                         <li className="hover:text-purple-800 cursor-pointer">
                             <a href="#service" onClick={() => setMenuOpen(false)}>Service</a>
+                        </li>
+                        <li className="hover:text-purple-800 cursor-pointer">
+                            <a href="#google-ads" onClick={() => setMenuOpen(false)}>Google Ads</a>
                         </li>
                         <li className="hover:text-purple-800 cursor-pointer">
                             <a href="#works" onClick={() => setMenuOpen(false)}>Works</a>

@@ -56,7 +56,7 @@ const Home = () => {
                                         transitionDuration={800}
                                         playOnce={false}
                                     >
-                                        <a href="https://drive.google.com/file/d/1-2mGymaDQuPSpYSSl4Bmqa_wk6vmGSDe/view?usp=sharing" target="_blank">
+                                        <a href="https://drive.google.com/file/d/1BOa0CRBe0aBIQKhOJ4a8BEZA1SMkXkYN/view?usp=sharing" target="_blank">
                                             <span className="text-sm text-white">Resume <i className="ri-download-2-line text-xl ms-2"></i>
                                             </span>
                                         </a>

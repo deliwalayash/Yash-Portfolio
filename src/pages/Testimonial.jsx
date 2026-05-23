@@ -13,35 +13,35 @@ const testimonials = [
             profileImg: "/testimonials/suraj.jpeg",
             designation: "Designer",
             review:
-                "Abhishek is skilled in both front-end and back-end development. He works confidently with React, Angular, and Vue. His attention to responsive design ensures clean, accessible layouts across devices, making him a reliable and consistent contributor in any tech stack.",
+                "Yash is skilled in both front-end and back-end development. He works confidently with React, Angular, and Vue. His attention to responsive design ensures clean, accessible layouts across devices, making him a reliable and consistent contributor in any tech stack.",
         },
         {
             name: "Aryan",
             profileImg: "/testimonials/aryan.jpeg",
             designation: "Developer",
             review:
-                "Abhishek approaches every challenge with a solution-first mindset. His creativity in improving user experience, combined with strong debugging skills, results in smooth and efficient applications. He handles issues quickly and ensures project momentum is never lost during development.",
+                "Yash approaches every challenge with a solution-first mindset. His creativity in improving user experience, combined with strong debugging skills, results in smooth and efficient applications. He handles issues quickly and ensures project momentum is never lost during development.",
         },
         {
             name: "Kaushal",
             profileImg: "/testimonials/kaushal.jpg",
             designation: "Full Stack Developer",
             review:
-                "Abhishek is a great team player and communicator. He brings thoughtful insights to group discussions, shares helpful feedback, and collaborates across roles to meet project goals. His ability to align with teams makes working with him both smooth and productive.",
+                "Yash is a great team player and communicator. He brings thoughtful insights to group discussions, shares helpful feedback, and collaborates across roles to meet project goals. His ability to align with teams makes working with him both smooth and productive.",
         },
         {
             name: "Anant",
             profileImg: "/testimonials/anant.jpeg",
             designation: "Freelancer",
             review:
-                "Abhishek builds efficient backends using Node.js, Python, and Java. He’s skilled with RESTful APIs and databases like MongoDB and PostgreSQL. His ability to structure clean code and manage server-side logic helps deliver powerful and scalable web applications.",
+                "Yash builds efficient backends using Node.js, Python, and Java. He’s skilled with RESTful APIs and databases like MongoDB and PostgreSQL. His ability to structure clean code and manage server-side logic helps deliver powerful and scalable web applications.",
         },
         {
             name: "Divyadarshan",
             profileImg: "/testimonials/dev.jpeg",
             designation: "DevOps",
             review:
-                "Working with Abhishek has been a fantastic experience. He delivers well-organized code, responsive designs with Tailwind CSS, and dependable backend logic. His consistency, quality of work, and timely delivery make him a valuable developer on any modern project.",
+                "Working with Yash has been a fantastic experience. He delivers well-organized code, responsive designs with Tailwind CSS, and dependable backend logic. His consistency, quality of work, and timely delivery make him a valuable developer on any modern project.",
         },
 ];
 

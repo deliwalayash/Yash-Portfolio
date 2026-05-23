@@ -10,7 +10,7 @@ const ProjectWork = ({ projects }) => {
                         {projects.map((project, index) => (
                             <div
                                 key={index}
-                                className="group relative flex flex-col bg-gradient-to-br from-gray-900/80 via-gray-800/60 to-gray-900/80 dark:from-gray-800 dark:via-gray-900 dark:to-gray-800 border border-gray-700/40 rounded-3xl shadow-lg hover:shadow-purple-500/30 transition-transform duration-300 hover:-translate-y-2"
+                                className="project-card group relative flex flex-col bg-gradient-to-br from-gray-900/80 via-gray-800/60 to-gray-900/80 dark:from-gray-800 dark:via-gray-900 dark:to-gray-800 border border-gray-700/40 rounded-3xl shadow-lg hover:shadow-purple-500/30 transition-transform duration-300 hover:-translate-y-2"
                             >
                                 {/* Project Image */}
                                 <div className="overflow-hidden rounded-t-3xl">

@@ -8,16 +8,17 @@ import MyService from "./pages/MyService";
 import MyWork from "./components/MyWork";
 import MySkills from "./pages/MySkills";
 import AboutMe from "./components/AboutMe";
-import GithubStats from "./components/GitHubStats";
+import GoogleAdsShowcase from "./components/GoogleAdsShowcase";
 import Testimonial from "./pages/Testimonial";
 import Contact from "./pages/Contact";
 import Footer from "./components/Footer";
-import LightRays from "./bitsComponent/Lightrays";
-import Aurora from "./bitsComponent/Aurora";
+import useFullPageScroll from "./hooks/useFullPageScroll";
 
 
 
 function App() {
+  useFullPageScroll();
+
   return (
     <>
       <div className="font-sora   ">
@@ -77,15 +78,35 @@ function App() {
         </div>
         <div className="relative z-10">
           <Header />
-          <Home />
-          <AboutMe></AboutMe>
-          <GithubStats></GithubStats>
-          <MyService/>
-           <MyWork />
-           <MySkills></MySkills>
-             <Testimonial />
-             <Contact/>
-             <Footer></Footer>
+          <main className="fullpage-track" data-fullpage-track>
+          <section className="fullpage-section fullpage-section--home" data-fullpage-section data-section-id="home">
+            <Home />
+          </section>
+          <section className="fullpage-section fullpage-section--about" data-fullpage-section data-section-id="about">
+            <AboutMe></AboutMe>
+          </section>
+          <section className="fullpage-section fullpage-section--service" data-fullpage-section data-section-id="service">
+            <MyService/>
+          </section>
+          <section className="fullpage-section fullpage-section--google-ads" data-fullpage-section data-section-id="google-ads">
+            <GoogleAdsShowcase />
+          </section>
+          <section className="fullpage-section fullpage-section--works" data-fullpage-section data-section-id="works">
+            <MyWork />
+          </section>
+          <section className="fullpage-section fullpage-section--skills" data-fullpage-section data-section-id="skills">
+            <MySkills></MySkills>
+          </section>
+          <section className="fullpage-section fullpage-section--testimonials" data-fullpage-section data-section-id="testimonials">
+            <Testimonial />
+          </section>
+          <section className="fullpage-section fullpage-section--contact" data-fullpage-section data-section-id="contact">
+            <Contact/>
+          </section>
+          <section className="fullpage-section fullpage-section--footer" data-fullpage-section data-section-id="footer">
+            <Footer></Footer>
+          </section>
+          </main>
         </div>
       </div>
     </>

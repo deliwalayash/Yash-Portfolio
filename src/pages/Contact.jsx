@@ -1,6 +1,5 @@
 import React from 'react';
 import SectionHeading from '../components/SectionHeading';
-import Form from '../components/Form'
 
 const Contact = () => {
     return (
@@ -26,10 +25,11 @@ const Contact = () => {
                         </div>
 
                         {/* Form Side */}
-                        {/* <form className="space-y-4 sm:space-y-6" action="https://api.web3forms.com/submit" method="POST">
-                          <input type="hidden" name="access_key" value="2c6efe99-dc5c-4acc-b523-656523121182"></input>
+                        <form className="space-y-4 sm:space-y-6" action="https://api.web3forms.com/submit" method="POST">
+                            <input type="hidden" name="access_key" value="2c6efe99-dc5c-4acc-b523-656523121182" />
                             <input
                                 type="text"
+                                name="name"
                                 required
                                 placeholder="Your Name"
                                 className="w-full bg-transparent border border-white/20 rounded-md px-4 py-3 text-white placeholder-gray-400 text-sm sm:text-base focus:outline-none focus:border-purple-500"
@@ -37,6 +37,7 @@ const Contact = () => {
 
                             <input
                                 type="email"
+                                name="email"
                                 required
                                 placeholder="Your Email"
                                 className="w-full bg-transparent border border-white/20 rounded-md px-4 py-3 text-white placeholder-gray-400 text-sm sm:text-base focus:outline-none focus:border-purple-500"
@@ -44,19 +45,19 @@ const Contact = () => {
 
                             <textarea
                                 required
+                                name="message"
                                 placeholder="Your Message"
                                 rows={4}
                                 className="w-full bg-transparent border border-white/20 rounded-md px-4 py-3 text-white placeholder-gray-400 text-sm sm:text-base focus:outline-none focus:border-purple-500 resize-none"
                             ></textarea>
 
                             <button
-                                type="button"
+                                type="submit"
                                 className="w-full py-3 px-6 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold rounded-md hover:from-purple-700 hover:to-indigo-700 transition duration-300 shadow-md shadow-purple-500/30 text-sm sm:text-base"
                             >
                                 Send Message
                             </button>
-                        </form> */}
-                        <Form></Form>
+                        </form>
                     </div>
                 </div>
             </div>

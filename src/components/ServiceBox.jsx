@@ -53,26 +53,26 @@ const ServiceBox = () => {
     {
         icon: <FaGoogle />,
         heading: "Google Ads",
-        paragraph: "We run high-performing Google Ads campaigns focused on ROI — smart targeting, optimized budgets, and measurable results.",
+        paragraph: "I run focused Google Ads campaigns with smart targeting, budget control, conversion tracking, and performance analysis to turn clicks into real leads.",
     },
 ];
 
 
     return (
-        <div className="container mx-auto px-4 py-10 grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="service-grid container mx-auto px-4 py-4 grid md:grid-cols-2 lg:grid-cols-3 gap-4 xl:gap-5">
             {servicesCard.map((card, index) => (
                 <div
                     key={index}
                     className="relative group p-[1px] rounded-2xl bg-gradient-to-br from-[#8750f7] to-transparent hover:from-[#8750f7] hover:to-[#2a0845] transition-all duration-500"
                 >
-                    <div className="bg-[#1a1a2e] rounded-2xl p-8 h-full hover:shadow-2xl hover:shadow-[#8750f7]/30 transition-shadow duration-300">
-                        <div className="text-white flex flex-col gap-4 items-start">
-                            <div className="text-[#8750f7] text-4xl transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
+                    <div className="bg-[#1a1a2e] rounded-2xl p-5 xl:p-6 h-full hover:shadow-2xl hover:shadow-[#8750f7]/30 transition-shadow duration-300">
+                        <div className="text-white flex flex-col gap-3 items-start">
+                            <div className="text-[#8750f7] text-3xl transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
                                 {card.icon}
                             </div>
-                            <h2 className="text-xl font-semibold tracking-wide">{card.heading}</h2>
-                            <p className="text-sm text-white/80 leading-relaxed">{card.paragraph}</p>
-                            <span className="mt-2 h-[2px] w-16 bg-[#8750f7] block rounded-full group-hover:w-24 transition-all duration-300" />
+                            <h2 className="text-lg font-semibold tracking-wide">{card.heading}</h2>
+                            <p className="text-xs xl:text-sm text-white/80 leading-relaxed">{card.paragraph}</p>
+                            <span className="mt-1 h-[2px] w-14 bg-[#8750f7] block rounded-full group-hover:w-20 transition-all duration-300" />
                         </div>
                     </div>
                 </div>
