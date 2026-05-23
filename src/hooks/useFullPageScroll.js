@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { animate } from "animejs";
 
-const ANIMATION_TIME = 900;
+const ANIMATION_TIME = 650;
 const DESKTOP_QUERY = "(min-width: 901px)";
 
 export default function useFullPageScroll() {
@@ -9,6 +9,7 @@ export default function useFullPageScroll() {
   const isAnimating = useRef(false);
   const touchStartY = useRef(0);
   const cleanupDesktop = useRef(null);
+  const animationTimer = useRef(null);
 
   useEffect(() => {
     const track = document.querySelector("[data-fullpage-track]");
@@ -41,7 +42,7 @@ export default function useFullPageScroll() {
       document.body.classList.remove("is-home-section");
       document.body.classList.remove("is-inner-section");
 
-      animate(track, { y: 0, duration: 0 });
+      animate(track, { translateY: 0, duration: 0 });
       showHeader();
     };
 
@@ -64,8 +65,21 @@ export default function useFullPageScroll() {
 
         animate(header, {
           opacity: isHome ? 1 : 0,
-          y: isHome ? 0 : -120,
+          translateY: isHome ? 0 : -120,
           duration: prefersReducedMotion ? 0 : 360,
+          ease: "outCubic",
+        });
+      };
+
+      const animateSectionContent = (index, direction) => {
+        const content = sections[index]?.firstElementChild;
+        if (!content || prefersReducedMotion) return;
+
+        animate(content, {
+          opacity: [0.82, 1],
+          translateY: [direction * 36, 0],
+          scale: [0.985, 1],
+          duration: 520,
           ease: "outCubic",
         });
       };
@@ -84,18 +98,21 @@ export default function useFullPageScroll() {
           return;
         }
 
+        const direction = clampedIndex > activeIndex.current ? 1 : -1;
         activeIndex.current = clampedIndex;
         isAnimating.current = true;
         updatePageState(clampedIndex);
 
         animate(track, {
-          y: -clampedIndex * window.innerHeight,
+          translateY: -clampedIndex * window.innerHeight,
           duration: prefersReducedMotion ? 0 : ANIMATION_TIME,
-          ease: "inOutCubic",
+          ease: "outCubic",
         });
+        animateSectionContent(clampedIndex, direction);
 
         updateHash(clampedIndex);
-        window.setTimeout(() => {
+        window.clearTimeout(animationTimer.current);
+        animationTimer.current = window.setTimeout(() => {
           isAnimating.current = false;
         }, prefersReducedMotion ? 0 : ANIMATION_TIME);
       };
@@ -112,9 +129,10 @@ export default function useFullPageScroll() {
         activeIndex.current = nextIndex;
         updatePageState(nextIndex);
         animate(track, {
-          y: -nextIndex * window.innerHeight,
+          translateY: -nextIndex * window.innerHeight,
           duration: 0,
         });
+        animateSectionContent(nextIndex, 1);
       };
 
       const handleWheel = (event) => {
@@ -162,7 +180,7 @@ export default function useFullPageScroll() {
 
       const handleResize = () => {
         animate(track, {
-          y: -activeIndex.current * window.innerHeight,
+          translateY: -activeIndex.current * window.innerHeight,
           duration: 0,
         });
       };
@@ -201,6 +219,7 @@ export default function useFullPageScroll() {
       desktopQuery.removeEventListener("change", syncMode);
       cleanupDesktop.current?.();
       cleanupDesktop.current = null;
+      window.clearTimeout(animationTimer.current);
       document.documentElement.classList.remove("fullpage-active");
       document.body.classList.remove("fullpage-active");
       document.body.classList.remove("is-home-section");
