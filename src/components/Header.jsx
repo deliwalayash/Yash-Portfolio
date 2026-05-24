@@ -16,7 +16,7 @@ const Header = () => {
                     </div>
                 </a>
 
-                <nav className="xl:block hidden">
+                <nav className="lg:block hidden">
                     <ul className="site-nav flex items-center gap-1 cursor-pointer font-medium rounded-full px-2 py-2">
                         <li className="header-text">
                             <a className="nav-link" href="#home">Home</a>
@@ -62,7 +62,7 @@ const Header = () => {
                     </div>
                     {/* For Mobile Screen */}
 
-                    <button className="mobile-menu-button xl:hidden text-3xl text-white" onClick={() => {
+                    <button className="mobile-menu-button lg:hidden text-3xl text-white" onClick={() => {
                         return setMenuOpen(!menuOpen);
                     }}>
                         <i className={menuOpen ? "ri-close-line" : "ri-menu-line"}></i>
@@ -72,7 +72,7 @@ const Header = () => {
 
             {
                 <div
-                    className={`xl:hidden overflow-hidden menu-open px-10 transition-all duration-500 ms-20 ease-in-out flex justify-start ${menuOpen ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"
+                    className={`lg:hidden overflow-hidden menu-open px-10 transition-all duration-500 ms-20 ease-in-out flex justify-start ${menuOpen ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"
                         }`}
                 >
                     <ul className="flex flex-col items-center justify-center gap-8 glass-card text-sm font-medium py-6 w-full max-w-xs">

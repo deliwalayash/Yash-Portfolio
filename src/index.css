@@ -1089,7 +1089,7 @@ html.fullpage-active .skills-grid .skill img {
     }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1023px) {
     html,
     body,
     #root {

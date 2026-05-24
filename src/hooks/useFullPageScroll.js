@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { animate } from "animejs";
 
 const ANIMATION_TIME = 650;
-const DESKTOP_QUERY = "(min-width: 901px)";
+const DESKTOP_QUERY = "(min-width: 1024px)";
 
 export default function useFullPageScroll() {
   const activeIndex = useRef(0);
