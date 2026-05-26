@@ -167,8 +167,16 @@ export default function useFullPageScroll() {
       };
 
       const handleTouchEnd = (event) => {
+        const track = document.querySelector("[data-fullpage-track]");
+        if (!track) return;
         const distance = touchStartY.current - event.changedTouches[0].clientY;
-        if (Math.abs(distance) > 45) {
+        if (Math.abs(distance) > 50) {
+          const sectionHeight = window.innerHeight;
+          const currentScroll = track.getBoundingClientRect().top;
+          const isAtTop = Math.abs(currentScroll) < 10;
+          const isAtBottom = Math.abs(currentScroll - (window.innerHeight * (sections.length - 1))) < 10;
+          if (isAtTop && distance < 0) return;
+          if (isAtBottom && distance > 0) return;
           moveBy(distance > 0 ? 1 : -1);
         }
       };
