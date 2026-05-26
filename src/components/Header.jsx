@@ -1,9 +1,20 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import GlareHover from '../bitsComponent/GlareHover'
 
 const Header = () => {
 
     const [menuOpen, setMenuOpen] = useState(false);
+
+    useEffect(() => {
+        if (menuOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+        return () => {
+            document.body.style.overflow = '';
+        };
+    }, [menuOpen]);
 
     return (
         <header data-site-header className="site-header w-full text-white fixed top-0 left-0 z-50">
@@ -72,7 +83,7 @@ const Header = () => {
 
             {
                 <div
-                    className={`lg:hidden overflow-hidden menu-open px-10 transition-all duration-500 ms-20 ease-in-out flex justify-start ${menuOpen ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"
+                    className={`lg:hidden menu-open px-10 transition-all duration-500 ms-20 ease-in-out flex justify-start ${menuOpen ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0 pointer-events-none"
                         }`}
                 >
                     <ul className="flex flex-col items-center justify-center gap-8 glass-card text-sm font-medium py-6 w-full max-w-xs">
