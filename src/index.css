@@ -35,7 +35,7 @@ html.fullpage-active .fullpage-track {
 
 .fullpage-section {
     min-height: 100vh;
-    overflow: hidden;
+    overflow: visible;
     overflow-x: hidden;
     padding-top: 96px;
     position: relative;
@@ -52,7 +52,7 @@ body.is-inner-section .fullpage-section {
 
 html.fullpage-active .fullpage-section {
     min-height: 100vh;
-    overflow: hidden;
+    overflow: visible;
 }
 
 .fullpage-section::before,
@@ -68,12 +68,7 @@ html.fullpage-active .fullpage-section {
 }
 
 .fullpage-section::after {
-    width: 42vw;
-    height: 42vw;
-    right: -12vw;
-    bottom: -18vw;
-    border: 2px solid rgba(255, 255, 255, 0.18);
-    border-radius: 999px;
+    display: none;
 }
 
 .fullpage-section--home::before {

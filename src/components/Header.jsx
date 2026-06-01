@@ -1,20 +1,9 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import GlareHover from '../bitsComponent/GlareHover'
 
 const Header = () => {
 
     const [menuOpen, setMenuOpen] = useState(false);
-
-    useEffect(() => {
-        if (menuOpen) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = '';
-        }
-        return () => {
-            document.body.style.overflow = '';
-        };
-    }, [menuOpen]);
 
     return (
         <header data-site-header className="site-header w-full text-white fixed top-0 left-0 z-50">
