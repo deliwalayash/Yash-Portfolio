@@ -8,6 +8,7 @@ import MyWork from "./components/MyWork";
 import MySkills from "./pages/MySkills";
 import AboutMe from "./components/AboutMe";
 import GoogleAdsShowcase from "./components/GoogleAdsShowcase";
+import FreePrompt from "./pages/FreePrompt";
 import Testimonial from "./pages/Testimonial";
 import Contact from "./pages/Contact";
 import Footer from "./components/Footer";
@@ -16,6 +17,18 @@ import FloatingContactButtons from "./components/FloatingContactButtons";
 
 
 function App() {
+  if (window.location.pathname === "/prompt") {
+    return (
+      <div className="font-sora">
+        <main className="fullpage-track">
+          <section className="fullpage-section fullpage-section--free-prompt fullpage-section--standalone-prompt">
+            <FreePrompt />
+          </section>
+        </main>
+      </div>
+    );
+  }
+
   return (
     <>
       <div className="font-sora   ">
