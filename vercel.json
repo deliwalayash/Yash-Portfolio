@@ -1,8 +1,0 @@
-{
-  "rewrites": [
-    {
-      "source": "/prompt",
-      "destination": "/index.html"
-    }
-  ]
-}

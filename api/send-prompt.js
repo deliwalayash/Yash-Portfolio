@@ -183,8 +183,16 @@ export default async function handler(request, response) {
 
         return json(response, 200, { message: "Prompt sent successfully." });
     } catch (error) {
+        const rawMessage = error.message || "";
+
+        if (rawMessage.toLowerCase().includes("unrecognised ip")) {
+            return json(response, 500, {
+                message: "Email delivery is temporarily unavailable. Please try again in a few minutes.",
+            });
+        }
+
         return json(response, 500, {
-            message: error.message || "Could not send the prompt right now.",
+            message: rawMessage || "Could not send the prompt right now.",
         });
     }
 }
