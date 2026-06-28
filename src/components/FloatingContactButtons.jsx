@@ -1,6 +1,5 @@
 import { FaPhoneAlt, FaWhatsapp } from "react-icons/fa";
-
-const PHONE_NUMBER = "+919712952456";
+import { PHONE_NUMBER, WHATSAPP_LINK } from "../lib/site-config";
 
 const FloatingContactButtons = () => {
   return (
@@ -14,7 +13,7 @@ const FloatingContactButtons = () => {
       </a>
       <a
         className="floating-contact-button floating-contact-button--whatsapp"
-        href={`https://wa.me/${PHONE_NUMBER.replace("+", "")}`}
+        href={WHATSAPP_LINK}
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Message Yash Deliwala on WhatsApp"

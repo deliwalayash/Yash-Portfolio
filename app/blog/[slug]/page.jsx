@@ -3,12 +3,12 @@ import {
   BlogContent,
   BlogVisual,
   ConfigNotice,
-  SITE_URL,
   SiteShell,
   formatDate,
 } from "../../../src/components/GoogleAdsSite";
 import { getPublishedBlogBySlug } from "../../../src/lib/blog-data";
 import { isSupabaseConfigured } from "../../../src/lib/supabase";
+import { SITE_URL } from "../../../src/lib/site-config";
 
 export const dynamic = "force-dynamic";
 

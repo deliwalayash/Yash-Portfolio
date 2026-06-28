@@ -6,12 +6,10 @@ import {
   FaSearchDollar,
   FaWhatsapp,
 } from "react-icons/fa";
+import AdsHeader from "./AdsHeader";
 import FloatingContactButtons from "./FloatingContactButtons";
 import { isSupabaseConfigured } from "../lib/supabase";
-
-export const PHONE_NUMBER = "+919712952456";
-export const SITE_URL = "https://yashdeliwala.com";
-const WHATSAPP_LINK = `https://wa.me/${PHONE_NUMBER.replace("+", "")}`;
+import { PHONE_NUMBER, WHATSAPP_LINK } from "../lib/site-config";
 
 const services = [
   "Google Search Ads",
@@ -136,24 +134,7 @@ export function BlogCard({ blog }) {
 export function SiteShell({ children }) {
   return (
     <div className="ads-site">
-      <header className="ads-header">
-        <a className="ads-brand" href="/" aria-label="Yash Google Ads Expert">
-          <img src="/clients/logo.png" alt="Yash Deliwala Google Ads Expert logo" />
-          <span>Yash Google Ads Expert</span>
-        </a>
-
-        <nav className="ads-nav" aria-label="Primary navigation">
-          <a href="/">Home</a>
-          <a href="/blogs">Blogs</a>
-          <a href="/admin">Admin</a>
-          <a href="/#contact">Contact</a>
-        </nav>
-
-        <a className="ads-header-call" href={`tel:${PHONE_NUMBER}`}>
-          <FaPhoneAlt />
-          <span>Call Now</span>
-        </a>
-      </header>
+      <AdsHeader variant="inner" />
       {children}
       <footer className="ads-footer">
         <span>Yash Deliwala - Google Ads Expert</span>
@@ -185,29 +166,7 @@ export function GoogleAdsLanding({ blogs = [] }) {
   return (
     <div className="ads-site">
       <FloatingContactButtons />
-
-      <header className="ads-header">
-        <a className="ads-brand" href="#home" aria-label="Yash Google Ads Expert">
-          <img src="/clients/logo.png" alt="Yash Deliwala Google Ads Expert logo" />
-          <span>Yash Google Ads Expert</span>
-        </a>
-
-        <nav className="ads-nav" aria-label="Primary navigation">
-          <a href="#services">Services</a>
-          <a href="#video">Video</a>
-          <a href="#pricing">Pricing</a>
-          <a href="#blog">Blog</a>
-          <a href="/blogs">Blogs</a>
-          <a href="#clients">Clients</a>
-          <a href="#process">Process</a>
-          <a href="#contact">Contact</a>
-        </nav>
-
-        <a className="ads-header-call" href={`tel:${PHONE_NUMBER}`}>
-          <FaPhoneAlt />
-          <span>Call Now</span>
-        </a>
-      </header>
+      <AdsHeader />
 
       <main>
         <section id="home" className="ads-hero">
