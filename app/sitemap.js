@@ -1,4 +1,5 @@
 import { getPublishedBlogs } from "../src/lib/blog-data";
+import { locationPages } from "../src/lib/location-pages";
 
 export const dynamic = "force-dynamic";
 
@@ -19,6 +20,12 @@ export default async function sitemap() {
       changeFrequency: "weekly",
       priority: 0.8,
     },
+    ...locationPages.map((page) => ({
+      url: `${baseUrl}/${page.slug}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.85,
+    })),
     ...blogs.map((blog) => ({
       url: `${baseUrl}/blog/${blog.slug}`,
       lastModified: blog.updated_at

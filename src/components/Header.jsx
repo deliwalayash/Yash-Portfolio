@@ -62,7 +62,12 @@ const Header = () => {
                     </div>
                     {/* For Mobile Screen */}
 
-                    <button className="mobile-menu-button lg:hidden text-3xl text-white" onClick={() => {
+                    <button
+                        className="mobile-menu-button lg:hidden text-3xl text-white"
+                        type="button"
+                        aria-label={menuOpen ? "Close menu" : "Open menu"}
+                        aria-expanded={menuOpen}
+                        onClick={() => {
                         return setMenuOpen(!menuOpen);
                     }}>
                         <i className={menuOpen ? "ri-close-line" : "ri-menu-line"}></i>

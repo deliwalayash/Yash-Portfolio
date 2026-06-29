@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { FaBars, FaPhoneAlt, FaTimes } from "react-icons/fa";
+import { FaBars, FaChevronDown, FaPhoneAlt, FaTimes } from "react-icons/fa";
+import { locationPages } from "../lib/location-pages";
 import { PHONE_NUMBER } from "../lib/site-config";
 
 const homeLinks = [
@@ -19,6 +20,15 @@ const innerLinks = [
   { href: "/blogs", label: "Blogs" },
   { href: "/admin", label: "Admin" },
   { href: "/#contact", label: "Contact" },
+];
+
+const pageLinks = [
+  { href: "/", label: "Google Ads Expert in India" },
+  { href: "/blogs", label: "Google Ads Blog" },
+  ...locationPages.map((page) => ({
+    href: `/${page.slug}`,
+    label: `Google Ads Expert in ${page.city}`,
+  })),
 ];
 
 export default function AdsHeader({ variant = "home" }) {
@@ -40,6 +50,19 @@ export default function AdsHeader({ variant = "home" }) {
             {link.label}
           </a>
         ))}
+        <div className="ads-nav-dropdown">
+          <button type="button" aria-haspopup="true">
+            Pages
+            <FaChevronDown />
+          </button>
+          <div className="ads-nav-dropdown__menu">
+            {pageLinks.map((link) => (
+              <a href={link.href} key={link.href}>
+                {link.label}
+              </a>
+            ))}
+          </div>
+        </div>
       </nav>
 
       <a className="ads-header-call" href={`tel:${PHONE_NUMBER}`}>
@@ -72,6 +95,12 @@ export default function AdsHeader({ variant = "home" }) {
 
             <nav className="ads-mobile-menu__links">
               {links.map((link) => (
+                <a href={link.href} key={link.href} onClick={closeMenu}>
+                  {link.label}
+                </a>
+              ))}
+              <span>Pages</span>
+              {pageLinks.map((link) => (
                 <a href={link.href} key={link.href} onClick={closeMenu}>
                   {link.label}
                 </a>

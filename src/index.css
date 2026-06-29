@@ -1547,6 +1547,7 @@ html.fullpage-active .skills-grid .skill img {
         width: 40px;
         height: 40px;
         min-width: 40px;
+        padding: 0;
         flex-shrink: 0;
         display: inline-flex;
         align-items: center;
@@ -1556,6 +1557,15 @@ html.fullpage-active .skills-grid .skill img {
         background: rgba(255, 255, 255, 0.08);
         color: #ffffff !important;
         font-size: 24px;
+        line-height: 1;
+    }
+
+    .mobile-menu-button i {
+        width: 1em;
+        height: 1em;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
         line-height: 1;
     }
 

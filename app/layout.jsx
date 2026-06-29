@@ -6,16 +6,20 @@ export const metadata = {
   metadataBase: new URL("https://yashdeliwala.com"),
   applicationName: "Yash Google Ads Expert",
   title: {
-    default: "Yash Deliwala | Google Ads Expert in Surat",
+    default: "Google Ads Expert in India | Freelancer & PPC Consultant",
     template: "%s | Yash Google Ads Expert",
   },
   description:
-    "Google Ads expert in Surat helping businesses generate quality leads, calls, and local enquiries with focused Google Ads campaigns.",
+    "Hire Yash Deliwala, a Google Ads expert in India for Search Ads, PPC management, lead generation, conversion tracking, and Performance Max campaigns.",
   keywords: [
-    "Google Ads Expert in Surat",
-    "Google Ads Specialist Surat",
-    "Google Ads Management",
-    "PPC Expert Surat",
+    "Google Ads Expert in India",
+    "Google Ads Freelancer in India",
+    "Google Ads Agency in India",
+    "Google Ads Consultant in India",
+    "Google Ads Management Services",
+    "Google Search Ads Expert",
+    "PPC Expert in India",
+    "Performance Max Campaign Expert",
     "Lead Generation Google Ads",
     "Yash Deliwala",
   ],
@@ -28,9 +32,9 @@ export const metadata = {
     apple: "/clients/logo.png",
   },
   openGraph: {
-    title: "Yash Deliwala | Google Ads Expert in Surat",
+    title: "Google Ads Expert in India | Freelancer & PPC Consultant",
     description:
-      "Google Ads management for local lead generation, calls, and business growth in Surat.",
+      "Google Ads management, Search Ads, PPC campaigns, and lead generation services for businesses across India.",
     url: "https://yashdeliwala.com",
     siteName: "Yash Google Ads Expert",
     images: ["/yash-google-ads-photo.png"],
@@ -39,9 +43,9 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Yash Deliwala | Google Ads Expert in Surat",
+    title: "Google Ads Expert in India | Freelancer & PPC Consultant",
     description:
-      "Google Ads expert in Surat helping businesses generate quality leads, calls, and local enquiries.",
+      "Hire a Google Ads expert in India for Search Ads, PPC management, lead generation, and Performance Max campaigns.",
     images: ["/yash-google-ads-photo.png"],
   },
   alternates: {
