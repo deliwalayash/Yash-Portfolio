@@ -99,12 +99,6 @@ export default function AdsHeader({ variant = "home" }) {
                   {link.label}
                 </a>
               ))}
-              <span>Pages</span>
-              {pageLinks.map((link) => (
-                <a href={link.href} key={link.href} onClick={closeMenu}>
-                  {link.label}
-                </a>
-              ))}
             </nav>
 
             <a className="ads-mobile-menu__call" href={`tel:${PHONE_NUMBER}`}>
