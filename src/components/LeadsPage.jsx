@@ -46,6 +46,12 @@ export default function LeadsPage() {
   const [leadsError, setLeadsError] = useState("");
   const [leadsSearch, setLeadsSearch] = useState("");
   const [leadsFilterType, setLeadsFilterType] = useState("clients"); // "clients" or "suppliers"
+  const [needsRefresh, setNeedsRefresh] = useState(false);
+  const [isSavingRefresh, setIsSavingRefresh] = useState(false);
+
+  const hasLeads = useMemo(() => {
+    return leadsData.clients.length > 0 || leadsData.suppliers.length > 0;
+  }, [leadsData]);
 
   const serviceOptions = useMemo(
     () => (form.leadType === "supplier" ? supplierServices : clientServices),
@@ -53,6 +59,17 @@ export default function LeadsPage() {
   );
 
   useEffect(() => {
+    if (typeof window !== "undefined") {
+      const cached = localStorage.getItem("leads_data");
+      if (cached) {
+        try {
+          setLeadsData(JSON.parse(cached));
+        } catch (e) {
+          console.error("Failed to parse cached leads:", e);
+        }
+      }
+    }
+
     if (!isSupabaseConfigured) return;
 
     supabase.auth.getSession().then(({ data }) => {
@@ -81,22 +98,30 @@ export default function LeadsPage() {
       if (!response.ok) {
         throw new Error(data.message || "Failed to load leads.");
       }
-      setLeadsData({
+      const newLeads = {
         clients: data.clients || [],
         suppliers: data.suppliers || [],
-      });
+      };
+      setLeadsData(newLeads);
+      if (typeof window !== "undefined") {
+        localStorage.setItem("leads_data", JSON.stringify(newLeads));
+      }
     } catch (err) {
       setLeadsError(err.message);
     } finally {
       setLeadsLoading(false);
+      setIsSavingRefresh(false);
     }
   };
 
   useEffect(() => {
     if (session && view === "list") {
-      fetchLeads();
+      if (!hasLeads || needsRefresh) {
+        fetchLeads();
+        setNeedsRefresh(false);
+      }
     }
-  }, [session, view]);
+  }, [session, view, needsRefresh, hasLeads]);
 
   const filteredLeads = useMemo(() => {
     const list = leadsFilterType === "suppliers" ? leadsData.suppliers : leadsData.clients;
@@ -131,6 +156,9 @@ export default function LeadsPage() {
     await supabase.auth.signOut();
     setLastSaved(null);
     setLeadsData({ clients: [], suppliers: [] });
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("leads_data");
+    }
   };
 
   const updateField = (field, value) => {
@@ -200,6 +228,8 @@ export default function LeadsPage() {
         time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
       });
       setMessage("Saved to Google Sheet.");
+      setNeedsRefresh(true);
+      setIsSavingRefresh(true);
       resetForm();
     } catch (error) {
       setMessage(error.message);
@@ -478,7 +508,7 @@ export default function LeadsPage() {
               </div>
             </div>
 
-            {leadsLoading && (
+            {leadsLoading && (!hasLeads || isSavingRefresh) && (
               <div className="leads-list-loading">
                 <FaSync className="animate-spin" style={{ fontSize: "24px", marginBottom: "12px" }} />
                 <p>Loading leads from Google Sheet...</p>
@@ -492,13 +522,13 @@ export default function LeadsPage() {
               </div>
             )}
 
-            {!leadsLoading && !leadsError && filteredLeads.length === 0 && (
+            {(!leadsLoading || hasLeads) && !isSavingRefresh && !leadsError && filteredLeads.length === 0 && (
               <div className="leads-list-empty">
                 <p>No leads found.</p>
               </div>
             )}
 
-            {!leadsLoading && !leadsError && filteredLeads.length > 0 && (
+            {(!leadsLoading || hasLeads) && !isSavingRefresh && !leadsError && filteredLeads.length > 0 && (
               <div className="leads-grid-list">
                 {filteredLeads.map((lead, idx) => (
                   <div key={idx} className="lead-card">
