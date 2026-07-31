@@ -113,60 +113,201 @@ export const formatDate = (value) =>
       }).format(new Date(value))
     : "";
 
+export function calculateReadingTime(text) {
+  if (!text) return "3 min read";
+  const words = text.trim().split(/\s+/).length;
+  const minutes = Math.max(1, Math.ceil(words / 200));
+  return `${minutes} min read`;
+}
+
 export function BlogVisual({ blog, variant = "card" }) {
-  if (blog.image_url) {
-    return <img src={blog.image_url} alt="" />;
-  }
+  const imgSrc = blog?.image_url || "/yash-google-ads-photo.png";
+  const className = variant === "thumb" ? "blog-thumb-img" : "blog-card-img";
 
   return (
-    <div className={`blog-template blog-template--${variant}`}>
-      <div className="blog-template__media">
-        <img src="/yash-google-ads-photo.png" alt="" />
-      </div>
-      <div className="blog-template__overlay">
-        <span>Google Ads</span>
-        <strong>Yash Deliwala</strong>
+    <img
+      src={imgSrc}
+      alt={blog?.title || "Yash Deliwala Google Ads Expert"}
+      className={className}
+    />
+  );
+}
+
+export function BlogContent({ content = "" }) {
+  if (!content) return null;
+
+  const rawLines = content.split("\n").map((l) => l.trim()).filter(Boolean);
+  const elements = [];
+  let currentList = [];
+
+  const flushList = (keyPrefix) => {
+    if (currentList.length > 0) {
+      elements.push(
+        <ul className="blog-content__list" key={`${keyPrefix}-list-${elements.length}`}>
+          {currentList.map((item, idx) => (
+            <li key={idx}>{item}</li>
+          ))}
+        </ul>
+      );
+      currentList = [];
+    }
+  };
+
+  const isShortNoPunctuation = (str) =>
+    str && str.length < 65 && !/[.,?;!]$/.test(str) && !str.startsWith("#");
+
+  for (let index = 0; index < rawLines.length; index++) {
+    const line = rawLines[index];
+    const nextLine = rawLines[index + 1] || "";
+
+    // Checkmark bullet points
+    if (line.startsWith("✅") || line.startsWith("âœ…") || line.startsWith("✔")) {
+      flushList(index);
+      const text = line.replace(/^(\u2705|âœ…|✔)\s*/, "");
+      elements.push(
+        <div className="blog-content__check" key={index}>
+          <span className="blog-check-badge">✓</span>
+          <span>{text}</span>
+        </div>
+      );
+      continue;
+    }
+
+    // Markdown bullet list item (- , * , • )
+    if (/^[-*•]\s+/.test(line)) {
+      const itemText = line.replace(/^[-*•]\s+/, "");
+      currentList.push(itemText);
+      continue;
+    }
+
+    // Explicit markdown sub-headers
+    if (line.startsWith("### ")) {
+      flushList(index);
+      elements.push(<h3 key={index}>{line.replace(/^###\s*/, "")}</h3>);
+      continue;
+    }
+    if (line.startsWith("## ") || line.startsWith("# ")) {
+      flushList(index);
+      elements.push(<h2 key={index}>{line.replace(/^###?\s*/, "")}</h2>);
+      continue;
+    }
+
+    // First line lead paragraph
+    if (index === 0) {
+      flushList(index);
+      elements.push(
+        <p className="blog-content__lead" key={index}>
+          {line}
+        </p>
+      );
+      continue;
+    }
+
+    // Heading determination logic:
+    const isNumberedHeading = /^\d+\.\s+[A-Z]/.test(line);
+    const endsWithColon = line.endsWith(":");
+
+    // If this line and the next line are both short lines without punctuation, they form a LIST!
+    if (
+      !endsWithColon &&
+      !isNumberedHeading &&
+      isShortNoPunctuation(line) &&
+      isShortNoPunctuation(nextLine)
+    ) {
+      currentList.push(line);
+      continue;
+    }
+
+    // If we reach a non-list item, flush any collected list items
+    flushList(index);
+
+    // Is it a genuine Section Title?
+    const isExplicitHeader =
+      endsWithColon ||
+      isNumberedHeading ||
+      (line.length < 50 &&
+        !/[.,?;!]$/.test(line) &&
+        !currentList.length &&
+        nextLine.length > 40);
+
+    if (isExplicitHeader) {
+      const cleanHeader = line.replace(/:$/, "");
+      if (isNumberedHeading || line.length < 35) {
+        elements.push(<h3 key={index}>{cleanHeader}</h3>);
+      } else {
+        elements.push(<h2 key={index}>{cleanHeader}</h2>);
+      }
+      continue;
+    }
+
+    // Standard readable paragraph
+    elements.push(<p key={index}>{line}</p>);
+  }
+
+  flushList("final");
+
+  return <div className="blog-content">{elements}</div>;
+}
+
+export function BlogAuthorBio() {
+  return (
+    <div className="blog-author-bio">
+      <img src="/yash-google-ads-photo.png" alt="Yash Deliwala Google Ads Expert" />
+      <div>
+        <span>WRITTEN BY</span>
+        <h3>Yash Deliwala</h3>
+        <p>
+          Google Ads Freelancer and PPC Consultant based in India. Specializing in high-intent Search campaigns, Performance Max, lead generation, and conversion tracking for businesses across India.
+        </p>
       </div>
     </div>
   );
 }
 
-export function BlogContent({ content }) {
-  const lines = content.split("\n").map((line) => line.trim()).filter(Boolean);
-
+export function BlogSidebar({ suggestedBlogs = [] }) {
   return (
-    <div className="blog-content">
-      {lines.map((line, index) => {
-        if (line.startsWith("\u2705") || line.startsWith("âœ…")) {
-          return (
-            <p className="blog-content__check" key={index}>
-              {line.replace(/^(\u2705|âœ…)\s*/, "")}
-            </p>
-          );
-        }
+    <aside className="blog-sidebar">
+      <div className="blog-sidebar__widget blog-author-widget">
+        <div className="blog-author-widget__avatar">
+          <img src="/yash-google-ads-photo.png" alt="Yash Deliwala" />
+        </div>
+        <div className="blog-author-widget__info">
+          <h3>Yash Deliwala</h3>
+          <span>Google Ads Expert in India</span>
+          <p>Helping Indian businesses run profitable Google Ads for leads, calls, and WhatsApp sales enquiries.</p>
+          <a href={WHATSAPP_LINK} target="_blank" rel="noreferrer" className="ads-button ads-button--primary blog-author-widget__btn">
+            Chat on WhatsApp
+          </a>
+        </div>
+      </div>
 
-        if (index === 0) {
-          return (
-            <p className="blog-content__lead" key={index}>
-              {line}
-            </p>
-          );
-        }
+      {suggestedBlogs.length > 0 && (
+        <div className="blog-sidebar__widget blog-suggested-widget">
+          <h3 className="blog-sidebar__title">Suggested Articles</h3>
+          <div className="blog-suggested__list">
+            {suggestedBlogs.map((item) => (
+              <a href={`/blog/${item.slug}`} className="blog-suggested__item" key={item.slug}>
+                <div className="blog-suggested__media">
+                  <BlogVisual blog={item} variant="thumb" />
+                </div>
+                <div className="blog-suggested__content">
+                  <span>{formatDate(item.created_at)}</span>
+                  <h4>{item.title}</h4>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
 
-        const isHeading =
-          line.length < 90 &&
-          !line.endsWith(".") &&
-          !line.endsWith(",") &&
-          !line.includes("?") &&
-          index !== 0;
-
-        if (isHeading) {
-          return <h2 key={index}>{line}</h2>;
-        }
-
-        return <p key={index}>{line}</p>;
-      })}
-    </div>
+      <div className="blog-sidebar__widget blog-cta-widget">
+        <h3>Need Google Ads Results?</h3>
+        <p>Get a direct campaign review and Search Ads structure built for your business goals.</p>
+        <a href="#contact" className="ads-button ads-button--secondary">
+          Book Rs. 1000 Consultation
+        </a>
+      </div>
+    </aside>
   );
 }
 

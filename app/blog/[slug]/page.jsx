@@ -1,14 +1,18 @@
 import { notFound } from "next/navigation";
 import {
+  BlogAuthorBio,
   BlogContent,
+  BlogSidebar,
   BlogVisual,
   ConfigNotice,
   SiteShell,
+  calculateReadingTime,
   formatDate,
 } from "../../../src/components/GoogleAdsSite";
-import { getPublishedBlogBySlug } from "../../../src/lib/blog-data";
+import { getPublishedBlogBySlug, getPublishedBlogs } from "../../../src/lib/blog-data";
 import { isSupabaseConfigured } from "../../../src/lib/supabase";
-import { SITE_URL } from "../../../src/lib/site-config";
+import { SITE_URL, WHATSAPP_LINK } from "../../../src/lib/site-config";
+import { FaArrowLeft, FaCalendarAlt, FaClock, FaUserEdit, FaWhatsapp } from "react-icons/fa";
 
 export const dynamic = "force-dynamic";
 
@@ -27,14 +31,14 @@ export async function generateMetadata({ params }) {
   const image = blog.image_url || "/yash-google-ads-photo.png";
 
   return {
-    title,
+    title: `${title} | Yash Google Ads Expert`,
     description,
     keywords: [
       "Google Ads",
       "Google Ads Expert",
       "PPC",
       "Lead Generation",
-      "Surat",
+      "India",
       blog.title,
     ],
     alternates: {
@@ -66,6 +70,10 @@ export default async function BlogDetailPage({ params }) {
 
   if (!blog) notFound();
 
+  const { data: allBlogs } = await getPublishedBlogs(6);
+  const suggestedBlogs = (allBlogs || []).filter((b) => b.slug !== slug).slice(0, 4);
+  const readingTime = calculateReadingTime(blog.content);
+
   const articleSchema = {
     "@context": "https://schema.org",
     "@type": "Article",
@@ -92,17 +100,59 @@ export default async function BlogDetailPage({ params }) {
   return (
     <SiteShell>
       <main className="blog-page">
-        <article className="blog-detail">
+        <div className="blog-container">
           <script
             type="application/ld+json"
             dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
           />
-          <a href="/blogs" className="blog-back">Back to blogs</a>
-          <p className="ads-eyebrow">{formatDate(blog.created_at)}</p>
-          <h1>{blog.title}</h1>
-          <BlogVisual blog={blog} variant="detail" />
-          <BlogContent content={blog.content} />
-        </article>
+
+          <nav className="blog-nav-header">
+            <a href="/blogs" className="blog-back-btn">
+              <FaArrowLeft /> Back to all blogs
+            </a>
+            <span className="blog-category-badge">Google Ads Insights</span>
+          </nav>
+
+          <header className="blog-header">
+            <h1>{blog.title}</h1>
+            <div className="blog-meta-row">
+              <div className="blog-meta-item">
+                <FaUserEdit />
+                <span>Yash Deliwala</span>
+              </div>
+              <div className="blog-meta-item">
+                <FaCalendarAlt />
+                <span>{formatDate(blog.created_at)}</span>
+              </div>
+              <div className="blog-meta-item">
+                <FaClock />
+                <span>{readingTime}</span>
+              </div>
+            </div>
+          </header>
+
+          <div className="blog-layout">
+            <article className="blog-main-content">
+              <div className="blog-cover-wrapper">
+                <BlogVisual blog={blog} variant="detail" />
+              </div>
+
+              <BlogContent content={blog.content} />
+
+              <BlogAuthorBio />
+
+              <div className="blog-bottom-cta">
+                <h3>Want to Scale Your Business with Google Ads?</h3>
+                <p>Get direct campaign planning, Search ad setup, and lead optimization with Yash Deliwala.</p>
+                <a href={WHATSAPP_LINK} target="_blank" rel="noreferrer" className="ads-button ads-button--primary">
+                  <FaWhatsapp /> Chat with Yash on WhatsApp
+                </a>
+              </div>
+            </article>
+
+            <BlogSidebar suggestedBlogs={suggestedBlogs} />
+          </div>
+        </div>
       </main>
     </SiteShell>
   );
