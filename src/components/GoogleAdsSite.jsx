@@ -8,6 +8,7 @@ import {
 } from "react-icons/fa";
 import AdsHeader from "./AdsHeader";
 import FloatingContactButtons from "./FloatingContactButtons";
+import GoogleAdsDashboards from "./GoogleAdsDashboards";
 import { locationPages } from "../lib/location-pages";
 import { isSupabaseConfigured } from "../lib/supabase";
 import { PHONE_NUMBER, WHATSAPP_LINK } from "../lib/site-config";
@@ -45,7 +46,7 @@ const services = [
   },
 ];
 
-const clients = [
+export const clients = [
   {
     name: "Dr. Aditya",
     image: "/clients/Dr.-Aditya-Logo-04-Red.png",
@@ -61,6 +62,22 @@ const clients = [
   {
     name: "Ved",
     image: "/clients/logo-ved.webp",
+  },
+  {
+    name: "Elevate",
+    image: "/clients/client-logo-elevate.jpeg",
+  },
+  {
+    name: "Hospital Client",
+    image: "/clients/hospital-client-logo.jpeg",
+  },
+  {
+    name: "Salon Client",
+    image: "/clients/salon-client-logo.jpeg",
+  },
+  {
+    name: "Skin Clinic Client",
+    image: "/clients/skin-clinic-client-logo.jpeg",
   },
 ];
 
@@ -464,6 +481,8 @@ export function GoogleAdsLanding({ blogs = [] }) {
           </div>
         </section>
 
+        <GoogleAdsDashboards />
+
         <section id="services" className="ads-section">
           <div className="ads-section__heading">
             <p className="ads-eyebrow">
@@ -704,6 +723,8 @@ export function LocationSeoPage({ page }) {
             </div>
           </div>
         </section>
+
+        <GoogleAdsDashboards />
 
         <section className="ads-section location-section location-section--soft">
           <div className="location-content">

@@ -20,6 +20,12 @@ export default async function sitemap() {
       changeFrequency: "weekly",
       priority: 0.8,
     },
+    {
+      url: `${baseUrl}/google-ads-agency-india`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
     ...locationPages.map((page) => ({
       url: `${baseUrl}/${page.slug}`,
       lastModified: new Date(),

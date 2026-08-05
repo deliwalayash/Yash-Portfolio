@@ -6,6 +6,7 @@ import { locationPages } from "../lib/location-pages";
 import { PHONE_NUMBER } from "../lib/site-config";
 
 const homeLinks = [
+  { href: "#results", label: "Real Results" },
   { href: "#services", label: "Services" },
   { href: "#video", label: "Video" },
   { href: "#pricing", label: "Pricing" },
@@ -24,6 +25,7 @@ const innerLinks = [
 
 const pageLinks = [
   { href: "/", label: "Google Ads Expert in India" },
+  { href: "/google-ads-agency-india", label: "Google Ads Agency in India" },
   { href: "/blogs", label: "Google Ads Blog" },
   ...locationPages.map((page) => ({
     href: `/${page.slug}`,
