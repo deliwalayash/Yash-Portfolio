@@ -17,7 +17,8 @@ import {
   FaWhatsapp,
 } from "react-icons/fa";
 import { clients } from "./GoogleAdsSite";
-import { PHONE_NUMBER, WHATSAPP_LINK } from "../lib/site-config";
+import GoogleAdsDashboards from "./GoogleAdsDashboards";
+import { PHONE_NUMBER, WHATSAPP_LINK, LP_WHATSAPP_LINK } from "../lib/site-config";
 
 // Helper function to track GA4 / Google Ads conversion events cleanly
 function trackConversionEvent(eventName, eventParams = {}) {
@@ -85,9 +86,9 @@ export default function GoogleAdsLp() {
 
   const whatYouGet = [
     {
-      title: "Free Google Ads Audit",
+      title: "Google Ads Setup & Strategy",
       description:
-        "In-depth analysis of your current account to eliminate wasted ad spend, negative keyword leaks, and bad targeting.",
+        "Custom campaign setup and strategy engineered to drive phone calls, WhatsApp leads, and sales enquiries for your business.",
       icon: <FaSearchDollar className="text-blue-500" />,
     },
     {
@@ -113,9 +114,9 @@ export default function GoogleAdsLp() {
   const processSteps = [
     {
       step: "01",
-      title: "Audit & Opportunity",
+      title: "Strategy & Setup",
       description:
-        "Review your website, existing campaigns, competitor keywords, and conversion tracking setup.",
+        "Review your website, business goals, competitor keywords, and set up conversion-focused Google Ads.",
     },
     {
       step: "02",
@@ -203,15 +204,12 @@ export default function GoogleAdsLp() {
 
               <ul className="lp-hero-badges">
                 <li>
-                  <FaCheckCircle className="text-emerald-500" />
                   <span>₹50L+ Ad Budget Managed Across India</span>
                 </li>
                 <li>
-                  <FaCheckCircle className="text-emerald-500" />
                   <span>100% Transparent Account Ownership & Reports</span>
                 </li>
                 <li>
-                  <FaCheckCircle className="text-emerald-500" />
                   <span>Direct Specialist Support — No Account Managers</span>
                 </li>
               </ul>
@@ -220,13 +218,13 @@ export default function GoogleAdsLp() {
             {/* Right Form */}
             <div className="lp-hero-right">
               <div className="lp-form-card">
-                <h3>Get a Free Google Ads Audit</h3>
-                <p>Receive a custom campaign review & strategy roadmap within 2 hours.</p>
+                <h3>Start Google Ads for Your Business</h3>
+                <p>Get a custom campaign strategy and start getting qualified leads from Google Ads.</p>
 
                 {formSubmitted ? (
                   <div className="lp-form-success">
                     <FaCheckCircle className="text-4xl text-emerald-500 mx-auto mb-3" />
-                    <h4>Audit Request Received!</h4>
+                    <h4>Request Received!</h4>
                     <p>Yash will review your details and connect with you on WhatsApp / phone shortly.</p>
                   </div>
                 ) : (
@@ -239,7 +237,12 @@ export default function GoogleAdsLp() {
                     <input
                       type="hidden"
                       name="subject"
-                      value="New Google Ads LP Audit Lead"
+                      value="New Google Ads Campaign Request"
+                    />
+                    <input
+                      type="hidden"
+                      name="lead_source"
+                      value="Google Ads Landing Page (/lp)"
                     />
 
                     <div className="lp-form-group">
@@ -290,7 +293,7 @@ export default function GoogleAdsLp() {
                     </div>
 
                     <button type="submit" disabled={loading} className="lp-form-submit">
-                      {loading ? "Submitting..." : "Get Free Audit Now"}
+                      {loading ? "Submitting..." : "Start Google Ads Now"}
                     </button>
 
                     <div className="lp-form-trust">
@@ -344,6 +347,9 @@ export default function GoogleAdsLp() {
             </div>
           </div>
         </section>
+
+        {/* Section: Google Ads Account Dashboards (Proof of Campaign Results) */}
+        <GoogleAdsDashboards isLp={true} />
 
         {/* Section 2: What You Get */}
         <section className="lp-section lp-benefits">
@@ -425,8 +431,7 @@ export default function GoogleAdsLp() {
           <div className="lp-cta-card">
             <h2>Ready to Get Qualified Leads from Google Ads?</h2>
             <p>
-              Stop wasting budget on clicks that don't convert. Get your free campaign audit or chat
-              with Yash directly.
+              Stop wasting budget on clicks that don't convert. Get high-intent Search & Performance Max campaigns or chat with Yash directly.
             </p>
 
             <div className="lp-cta-actions">
@@ -434,11 +439,11 @@ export default function GoogleAdsLp() {
                 href="#hero"
                 className="lp-button lp-button--primary"
               >
-                Get Free Audit Now
+                Start Google Ads Now
               </a>
 
               <a
-                href={WHATSAPP_LINK}
+                href={LP_WHATSAPP_LINK}
                 target="_blank"
                 rel="noreferrer"
                 onClick={handleWhatsAppClick}
@@ -470,7 +475,7 @@ export default function GoogleAdsLp() {
       {/* Sticky / Floating Conversion Elements */}
       {/* Desktop & Mobile Floating WhatsApp */}
       <a
-        href={WHATSAPP_LINK}
+        href={LP_WHATSAPP_LINK}
         target="_blank"
         rel="noreferrer"
         onClick={handleWhatsAppClick}
@@ -490,7 +495,7 @@ export default function GoogleAdsLp() {
           <FaPhoneAlt /> Call Now
         </a>
         <a
-          href={WHATSAPP_LINK}
+          href={LP_WHATSAPP_LINK}
           target="_blank"
           rel="noreferrer"
           onClick={handleWhatsAppClick}

@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import {
   FaBuilding,
   FaCheckCircle,
-  FaCut,
   FaExpand,
   FaGavel,
   FaGoogle,
@@ -13,7 +12,7 @@ import {
   FaTimes,
   FaWhatsapp,
 } from "react-icons/fa";
-import { WHATSAPP_LINK } from "../lib/site-config";
+import { WHATSAPP_LINK, LP_WHATSAPP_LINK } from "../lib/site-config";
 
 export const dashboardResults = [
   {
@@ -148,28 +147,6 @@ export const dashboardResults = [
     description:
       "Lead generation campaign for residential & commercial real estate projects, driving site visits and direct buyer inquiries.",
   },
-  {
-    id: "salon",
-    title: "Salon & Beauty Studio Campaign",
-    client: "Luxury Salon & Beauty Studio",
-    industry: "Salon & Beauty",
-    category: "salon",
-    image: "/google-ads-dashboard/Salon-Google-ads.png",
-    badge: "Salon & Beauty",
-    icon: FaCut,
-    stats: [
-      { label: "Campaign Target", value: "Salon Appointments & Calls" },
-      { label: "Ad Type", value: "Hyper-Local Search Ads" },
-      { label: "Target Area", value: "5km Local Radius" },
-    ],
-    highlights: [
-      "Bridal package & hair service bookings",
-      "Direct WhatsApp chat integration from ads",
-      "High local search impression share",
-    ],
-    description:
-      "Local Google Ads campaign driving footfall, appointment bookings, and immediate WhatsApp enquiries for a salon & wellness studio.",
-  },
 ];
 
 const categories = [
@@ -178,10 +155,9 @@ const categories = [
   { id: "legal", label: "Legal Services" },
   { id: "manufacturing", label: "Manufacturing & B2B" },
   { id: "real-estate", label: "Real Estate" },
-  { id: "salon", label: "Salon & Beauty" },
 ];
 
-export default function GoogleAdsDashboards() {
+export default function GoogleAdsDashboards({ isLp = false }) {
   const [activeCategory, setActiveCategory] = useState("all");
   const [selectedDashboard, setSelectedDashboard] = useState(null);
 
@@ -371,7 +347,7 @@ export default function GoogleAdsDashboards() {
 
                 <div className="ads-modal-actions">
                   <a
-                    href={WHATSAPP_LINK}
+                    href={isLp ? LP_WHATSAPP_LINK : WHATSAPP_LINK}
                     target="_blank"
                     rel="noreferrer"
                     className="ads-button ads-button--primary"
@@ -379,11 +355,11 @@ export default function GoogleAdsDashboards() {
                     <FaWhatsapp /> Get Similar Results on WhatsApp
                   </a>
                   <a
-                    href="#contact"
+                    href={isLp ? "#hero" : "#contact"}
                     className="ads-button ads-button--secondary"
                     onClick={() => setSelectedDashboard(null)}
                   >
-                    Book Rs. 1000 Consultation
+                    {isLp ? "Start Google Ads Now" : "Book Rs. 1000 Consultation"}
                   </a>
                 </div>
               </div>

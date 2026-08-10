@@ -3738,5 +3738,18 @@
   }
 }
 
+/* Hide Next.js Dev Indicator Overlay Icon */
+nextjs-portal,
+#next-logo,
+[data-nextjs-toast],
+[data-nextjs-dev-tools-button],
+[data-nextjs-toast-wrapper],
+div[class*="nextjs-portal"] {
+  display: none !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  visibility: hidden !important;
+}
+
 
 
