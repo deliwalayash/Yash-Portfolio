@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 import ProjectWork from "../components/ProjectWork";
 import SectionHeading from "../components/SectionHeading";

@@ -1,3 +1,5 @@
+"use client";
+
 import { FaPhoneAlt, FaWhatsapp } from "react-icons/fa";
 import { PHONE_NUMBER, WHATSAPP_LINK } from "../lib/site-config";
 import { handleCallClick, handleWhatsAppClick } from "../lib/tracking";
