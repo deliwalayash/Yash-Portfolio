@@ -4,6 +4,7 @@ import { useState } from "react";
 import { FaBars, FaChevronDown, FaPhoneAlt, FaTimes } from "react-icons/fa";
 import { locationPages } from "../lib/location-pages";
 import { PHONE_NUMBER } from "../lib/site-config";
+import { handleCallClick } from "../lib/tracking";
 
 const homeLinks = [
   { href: "#results", label: "Real Results" },
@@ -67,7 +68,11 @@ export default function AdsHeader({ variant = "home" }) {
         </div>
       </nav>
 
-      <a className="ads-header-call" href={`tel:${PHONE_NUMBER}`}>
+      <a
+        className="ads-header-call"
+        href={`tel:${PHONE_NUMBER}`}
+        onClick={() => handleCallClick("Header Call Click")}
+      >
         <FaPhoneAlt />
         <span>Call Now</span>
       </a>
@@ -103,7 +108,14 @@ export default function AdsHeader({ variant = "home" }) {
               ))}
             </nav>
 
-            <a className="ads-mobile-menu__call" href={`tel:${PHONE_NUMBER}`}>
+            <a
+              className="ads-mobile-menu__call"
+              href={`tel:${PHONE_NUMBER}`}
+              onClick={() => {
+                handleCallClick("Mobile Menu Call Click");
+                closeMenu();
+              }}
+            >
               <FaPhoneAlt />
               Call Now
             </a>

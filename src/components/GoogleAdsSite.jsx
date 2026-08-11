@@ -9,9 +9,11 @@ import {
 import AdsHeader from "./AdsHeader";
 import FloatingContactButtons from "./FloatingContactButtons";
 import GoogleAdsDashboards from "./GoogleAdsDashboards";
+import ContactForm from "./HomeContactForm";
 import { locationPages } from "../lib/location-pages";
 import { isSupabaseConfigured } from "../lib/supabase";
 import { PHONE_NUMBER, WHATSAPP_LINK } from "../lib/site-config";
+import { TrackedWhatsAppLink, TrackedCallLink } from "./TrackedLinks";
 
 const services = [
   {
@@ -420,10 +422,14 @@ export function GoogleAdsLanding({ blogs = [] }) {
             </div>
 
             <div className="ads-actions">
-              <a className="ads-button ads-button--primary" href={WHATSAPP_LINK} target="_blank" rel="noreferrer">
+              <TrackedWhatsAppLink
+                className="ads-button ads-button--primary"
+                href={WHATSAPP_LINK}
+                label="Home Hero WhatsApp Click"
+              >
                 <FaWhatsapp />
                 WhatsApp Yash
-              </a>
+              </TrackedWhatsAppLink>
               <a className="ads-button ads-button--secondary" href="#contact">
                 Book Rs. 1000 Consultation
               </a>
@@ -628,19 +634,14 @@ export function GoogleAdsLanding({ blogs = [] }) {
               <strong>Rs. 1000</strong>
             </div>
             <div className="ads-contact__quick">
-              <a href={`tel:${PHONE_NUMBER}`}>{PHONE_NUMBER}</a>
+              <TrackedCallLink href={`tel:${PHONE_NUMBER}`} label="Home Contact Quick Call">
+                {PHONE_NUMBER}
+              </TrackedCallLink>
               <a href="mailto:yashdeliwala10@gmail.com">yashdeliwala10@gmail.com</a>
             </div>
           </div>
 
-          <form className="ads-form" action="https://api.web3forms.com/submit" method="POST">
-            <input type="hidden" name="access_key" value="2c6efe99-dc5c-4acc-b523-656523121182" />
-            <input type="text" name="name" required placeholder="Your name" />
-            <input type="email" name="email" required placeholder="Email address" />
-            <input type="tel" name="phone" placeholder="Phone or WhatsApp number" />
-            <textarea name="message" required rows={5} placeholder="Tell me about your business and Google Ads goal" />
-            <button type="submit">Send Enquiry</button>
-          </form>
+          <ContactForm />
         </section>
       </main>
 
@@ -671,10 +672,14 @@ export function LocationSeoPage({ page }) {
               conversion tracking, and weekly optimization for better enquiries.
             </p>
             <div className="ads-actions">
-              <a className="ads-button ads-button--primary" href={WHATSAPP_LINK} target="_blank" rel="noreferrer">
+              <TrackedWhatsAppLink
+                className="ads-button ads-button--primary"
+                href={WHATSAPP_LINK}
+                label="Location Hero WhatsApp Click"
+              >
                 <FaWhatsapp />
                 WhatsApp Yash
-              </a>
+              </TrackedWhatsAppLink>
               <a className="ads-button ads-button--secondary" href="#contact">
                 Book Rs. 1000 Consultation
               </a>
@@ -799,14 +804,7 @@ export function LocationSeoPage({ page }) {
             </div>
           </div>
 
-          <form className="ads-form" action="https://api.web3forms.com/submit" method="POST">
-            <input type="hidden" name="access_key" value="2c6efe99-dc5c-4acc-b523-656523121182" />
-            <input type="text" name="name" required placeholder="Your name" />
-            <input type="email" name="email" required placeholder="Email address" />
-            <input type="tel" name="phone" placeholder="Phone or WhatsApp number" />
-            <textarea name="message" required rows={5} placeholder={`Tell me about your ${page.city} Google Ads goal`} />
-            <button type="submit">Send Enquiry</button>
-          </form>
+          <ContactForm placeholderMessage={`Tell me about your ${page.city} Google Ads goal`} />
         </section>
       </main>
 

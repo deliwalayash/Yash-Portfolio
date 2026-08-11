@@ -19,32 +19,20 @@ import {
 import { clients } from "./GoogleAdsSite";
 import GoogleAdsDashboards from "./GoogleAdsDashboards";
 import { PHONE_NUMBER, WHATSAPP_LINK, LP_WHATSAPP_LINK } from "../lib/site-config";
-
-// Helper function to track GA4 / Google Ads conversion events cleanly
-function trackConversionEvent(eventName, eventParams = {}) {
-  if (typeof window !== "undefined") {
-    // 1. GA4 / Google Ads gtag push
-    if (typeof window.gtag === "function") {
-      window.gtag("event", eventName, eventParams);
-    }
-    // 2. GTM / Custom dataLayer push
-    if (Array.isArray(window.dataLayer)) {
-      window.dataLayer.push({
-        event: eventName,
-        ...eventParams,
-      });
-    }
-    console.log(`[Conversion Event Tracked]: ${eventName}`, eventParams);
-  }
-}
+import {
+  trackConversionEvent,
+  handleWhatsAppClick as onWhatsAppClick,
+  handleCallClick as onCallClick,
+} from "../lib/tracking";
 
 export default function GoogleAdsLp() {
-  const [formSubmitted, setFormSubmitted] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setErrorMessage("");
 
     // Fire conversion event
     trackConversionEvent("lp_form_submit", {
@@ -61,27 +49,24 @@ export default function GoogleAdsLp() {
       });
 
       if (response.ok) {
-        setFormSubmitted(true);
+        window.location.href = "/thank-you";
+      } else {
+        setErrorMessage("Submission failed. Please try again or connect via WhatsApp.");
+        setLoading(false);
       }
     } catch (err) {
       console.error("Form submit error:", err);
-    } finally {
+      setErrorMessage("Something went wrong. Please try again or connect via WhatsApp.");
       setLoading(false);
     }
   };
 
   const handleWhatsAppClick = () => {
-    trackConversionEvent("lp_whatsapp_click", {
-      event_category: "Lead Generation",
-      event_label: "Google Ads LP WhatsApp Click",
-    });
+    onWhatsAppClick("Google Ads LP WhatsApp Click");
   };
 
   const handleCallClick = () => {
-    trackConversionEvent("lp_call_click", {
-      event_category: "Lead Generation",
-      event_label: "Google Ads LP Phone Call Click",
-    });
+    onCallClick("Google Ads LP Phone Call Click");
   };
 
   const whatYouGet = [
@@ -221,87 +206,85 @@ export default function GoogleAdsLp() {
                 <h3>Start Google Ads for Your Business</h3>
                 <p>Get a custom campaign strategy and start getting qualified leads from Google Ads.</p>
 
-                {formSubmitted ? (
-                  <div className="lp-form-success">
-                    <FaCheckCircle className="text-4xl text-emerald-500 mx-auto mb-3" />
-                    <h4>Request Received!</h4>
-                    <p>Yash will review your details and connect with you on WhatsApp / phone shortly.</p>
+                {errorMessage && (
+                  <div className="lp-form-error text-red-500 text-sm mb-3 text-center">
+                    {errorMessage}
                   </div>
-                ) : (
-                  <form onSubmit={handleFormSubmit} className="lp-form">
-                    <input
-                      type="hidden"
-                      name="access_key"
-                      value="2c6efe99-dc5c-4acc-b523-656523121182"
-                    />
-                    <input
-                      type="hidden"
-                      name="subject"
-                      value="New Google Ads Campaign Request"
-                    />
-                    <input
-                      type="hidden"
-                      name="lead_source"
-                      value="Google Ads Landing Page (/lp)"
-                    />
-
-                    <div className="lp-form-group">
-                      <label htmlFor="lp-name">Your Name *</label>
-                      <input
-                        id="lp-name"
-                        type="text"
-                        name="name"
-                        required
-                        placeholder="e.g. Rahul Sharma"
-                      />
-                    </div>
-
-                    <div className="lp-form-group">
-                      <label htmlFor="lp-phone">Phone / WhatsApp Number *</label>
-                      <input
-                        id="lp-phone"
-                        type="tel"
-                        name="phone"
-                        required
-                        placeholder="e.g. +91 98765 43210"
-                      />
-                    </div>
-
-                    <div className="lp-form-group">
-                      <label htmlFor="lp-business">Business Type / Industry *</label>
-                      <select id="lp-business" name="business_type" required defaultValue="">
-                        <option value="" disabled>
-                          Select your industry
-                        </option>
-                        <option value="Healthcare / Clinic / Doctor">Doctor / Clinic / Hospital</option>
-                        <option value="B2B Manufacturing / Industrial">B2B Manufacturing / Equipment</option>
-                        <option value="Real Estate / Architecture / Interiors">Real Estate / Architect / Interiors</option>
-                        <option value="Local Service Business">Local Service Business</option>
-                        <option value="E-commerce Store">E-commerce Store</option>
-                        <option value="Other">Other Service</option>
-                      </select>
-                    </div>
-
-                    <div className="lp-form-group">
-                      <label htmlFor="lp-budget">Monthly Ad Budget</label>
-                      <select id="lp-budget" name="monthly_budget" defaultValue="₹15,000 - ₹35,000">
-                        <option value="Under ₹15,000">Under ₹15,000/mo</option>
-                        <option value="₹15,000 - ₹35,000">₹15,000 - ₹35,000/mo</option>
-                        <option value="₹35,000 - ₹1,00,000">₹35,000 - ₹1,00,000/mo</option>
-                        <option value="₹1,00,000+">₹1,00,000+/mo</option>
-                      </select>
-                    </div>
-
-                    <button type="submit" disabled={loading} className="lp-form-submit">
-                      {loading ? "Submitting..." : "Start Google Ads Now"}
-                    </button>
-
-                    <div className="lp-form-trust">
-                      <FaLock className="text-slate-400" />
-                      <span>We respond within 2 hours • No spam, ever</span>
-                    </div>
-                  </form>
                 )}
+
+                <form onSubmit={handleFormSubmit} className="lp-form">
+                  <input
+                    type="hidden"
+                    name="access_key"
+                    value="2c6efe99-dc5c-4acc-b523-656523121182"
+                  />
+                  <input
+                    type="hidden"
+                    name="subject"
+                    value="New Google Ads Campaign Request"
+                  />
+                  <input
+                    type="hidden"
+                    name="lead_source"
+                    value="Google Ads Landing Page (/lp)"
+                  />
+
+                  <div className="lp-form-group">
+                    <label htmlFor="lp-name">Your Name *</label>
+                    <input
+                      id="lp-name"
+                      type="text"
+                      name="name"
+                      required
+                      placeholder="e.g. Rahul Sharma"
+                    />
+                  </div>
+
+                  <div className="lp-form-group">
+                    <label htmlFor="lp-phone">Phone / WhatsApp Number *</label>
+                    <input
+                      id="lp-phone"
+                      type="tel"
+                      name="phone"
+                      required
+                      placeholder="e.g. +91 98765 43210"
+                    />
+                  </div>
+
+                  <div className="lp-form-group">
+                    <label htmlFor="lp-business">Business Type / Industry *</label>
+                    <select id="lp-business" name="business_type" required defaultValue="">
+                      <option value="" disabled>
+                        Select your industry
+                      </option>
+                      <option value="Healthcare / Clinic / Doctor">Doctor / Clinic / Hospital</option>
+                      <option value="B2B Manufacturing / Industrial">B2B Manufacturing / Equipment</option>
+                      <option value="Real Estate / Architecture / Interiors">Real Estate / Architect / Interiors</option>
+                      <option value="Local Service Business">Local Service Business</option>
+                      <option value="E-commerce Store">E-commerce Store</option>
+                      <option value="Other">Other Service</option>
+                    </select>
+                  </div>
+
+                  <div className="lp-form-group">
+                    <label htmlFor="lp-budget">Monthly Ad Budget</label>
+                    <select id="lp-budget" name="monthly_budget" defaultValue="₹15,000 - ₹35,000">
+                      <option value="Under ₹15,000">Under ₹15,000/mo</option>
+                      <option value="₹15,000 - ₹35,000">₹15,000 - ₹35,000/mo</option>
+                      <option value="₹35,000 - ₹1,00,000">₹35,000 - ₹1,00,000/mo</option>
+                      <option value="₹1,00,000+">₹1,00,000+/mo</option>
+                    </select>
+                  </div>
+
+                  <button type="submit" disabled={loading} className="lp-form-submit">
+                    {loading ? "Submitting..." : "Start Google Ads Now"}
+                  </button>
+
+                  <div className="lp-form-trust">
+                    <FaLock className="text-slate-400" />
+                    <span>We respond within 2 hours • No spam, ever</span>
+                  </div>
+                </form>
               </div>
             </div>
           </div>

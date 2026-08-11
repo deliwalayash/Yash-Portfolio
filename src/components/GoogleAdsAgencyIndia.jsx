@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import {
   FaArrowRight,
   FaBookOpen,
@@ -23,6 +24,7 @@ import {
   FaStore,
   FaTools,
   FaUserCheck,
+  FaUserShield,
   FaWhatsapp,
 } from "react-icons/fa";
 import AdsHeader from "./AdsHeader";
@@ -30,9 +32,39 @@ import { AdsFooter, BlogCard, clients } from "./GoogleAdsSite";
 import FloatingContactButtons from "./FloatingContactButtons";
 import GoogleAdsDashboards from "./GoogleAdsDashboards";
 import { PHONE_NUMBER, WHATSAPP_LINK } from "../lib/site-config";
+import { TrackedWhatsAppLink, TrackedCallLink } from "./TrackedLinks";
 import { isSupabaseConfigured } from "../lib/supabase";
 
 export default function GoogleAdsAgencyIndia({ blogs = [] }) {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+
+    const formData = new FormData(e.target);
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (response.ok) {
+        window.location.href = "/thank-you";
+      } else {
+        setError("Submission failed. Please try again or connect via WhatsApp.");
+        setLoading(false);
+      }
+    } catch (err) {
+      console.error("Form submit error:", err);
+      setError("Something went wrong. Please try again or connect via WhatsApp.");
+      setLoading(false);
+    }
+  };
+
   const painPoints = [
     {
       title: "Wasted Budget on Broad Keywords",
@@ -296,15 +328,14 @@ export default function GoogleAdsAgencyIndia({ blogs = [] }) {
                 <FaCheckCircle />
                 Get a Free Google Ads Audit
               </a>
-              <a
+              <TrackedWhatsAppLink
                 className="ads-button ads-button--secondary"
                 href={WHATSAPP_LINK}
-                target="_blank"
-                rel="noreferrer"
+                label="Agency India Hero WhatsApp Click"
               >
                 <FaWhatsapp className="text-emerald-600" />
                 Book a Call / WhatsApp
-              </a>
+              </TrackedWhatsAppLink>
             </div>
 
             <div className="ads-hero__proof">
@@ -683,22 +714,21 @@ export default function GoogleAdsAgencyIndia({ blogs = [] }) {
             </div>
 
             <div className="ads-contact__quick">
-              <a href={`tel:${PHONE_NUMBER}`}>
+              <TrackedCallLink href={`tel:${PHONE_NUMBER}`} label="Agency India Contact Quick Call">
                 <FaPhoneAlt className="inline mr-2" /> {PHONE_NUMBER}
-              </a>
+              </TrackedCallLink>
               <a href="mailto:yashdeliwala10@gmail.com">yashdeliwala10@gmail.com</a>
-              <a
+              <TrackedWhatsAppLink
                 href={WHATSAPP_LINK}
-                target="_blank"
-                rel="noreferrer"
+                label="Agency India Quick WhatsApp Click"
                 className="text-emerald-600 font-bold flex items-center gap-2 mt-2"
               >
                 <FaWhatsapp className="text-xl" /> Chat on WhatsApp Directly
-              </a>
+              </TrackedWhatsAppLink>
             </div>
           </div>
 
-          <form className="ads-form" action="https://api.web3forms.com/submit" method="POST">
+          <form className="ads-form" onSubmit={handleFormSubmit}>
             <input type="hidden" name="access_key" value="2c6efe99-dc5c-4acc-b523-656523121182" />
             <input type="text" name="name" required placeholder="Your Full Name" />
             <input type="email" name="email" required placeholder="Email Address" />
@@ -709,8 +739,9 @@ export default function GoogleAdsAgencyIndia({ blogs = [] }) {
               rows={5}
               placeholder="Tell me about your business, target locations (Surat or India-wide), and Google Ads goal"
             />
-            <button type="submit" className="ads-button ads-button--primary w-full">
-              Get a Free Google Ads Audit
+            {error && <p style={{ color: "#ef4444", fontSize: "14px", margin: "0" }}>{error}</p>}
+            <button type="submit" disabled={loading} className="ads-button ads-button--primary w-full">
+              {loading ? "Submitting..." : "Get a Free Google Ads Audit"}
             </button>
           </form>
         </section>

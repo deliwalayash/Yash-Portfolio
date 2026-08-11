@@ -13,6 +13,7 @@ import {
   FaWhatsapp,
 } from "react-icons/fa";
 import { WHATSAPP_LINK, LP_WHATSAPP_LINK } from "../lib/site-config";
+import { handleWhatsAppClick } from "../lib/tracking";
 
 export const dashboardResults = [
   {
@@ -350,6 +351,7 @@ export default function GoogleAdsDashboards({ isLp = false }) {
                     href={isLp ? LP_WHATSAPP_LINK : WHATSAPP_LINK}
                     target="_blank"
                     rel="noreferrer"
+                    onClick={() => handleWhatsAppClick("Dashboard Modal WhatsApp Click")}
                     className="ads-button ads-button--primary"
                   >
                     <FaWhatsapp /> Get Similar Results on WhatsApp
