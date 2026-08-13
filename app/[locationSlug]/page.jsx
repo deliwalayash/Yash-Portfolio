@@ -45,13 +45,13 @@ export async function generateMetadata({ params }) {
       description,
       url: `${SITE_URL}/${page.slug}`,
       type: "website",
-      images: ["/yash-google-ads-photo.png"],
+      images: ["/clients/yash-deliwala.jpeg"],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: ["/yash-google-ads-photo.png"],
+      images: ["/clients/yash-deliwala.jpeg"],
     },
   };
 }
@@ -120,6 +120,25 @@ export default async function LocationPage({ params }) {
     ],
   };
 
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Google Ads Expert in India",
+        item: SITE_URL,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: `Google Ads Expert in ${page.city}`,
+        item: `${SITE_URL}/${page.slug}`,
+      },
+    ],
+  };
+
   return (
     <>
       <script
@@ -129,6 +148,10 @@ export default async function LocationPage({ params }) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       <LocationSeoPage page={page} />
     </>

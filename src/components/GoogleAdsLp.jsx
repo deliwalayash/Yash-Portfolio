@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   FaCheckCircle,
   FaGoogle,
@@ -18,21 +18,117 @@ import {
 } from "react-icons/fa";
 import { clients } from "./GoogleAdsSite";
 import GoogleAdsDashboards from "./GoogleAdsDashboards";
-import { PHONE_NUMBER, WHATSAPP_LINK, LP_WHATSAPP_LINK } from "../lib/site-config";
-import {
-  trackConversionEvent,
-  handleWhatsAppClick as onWhatsAppClick,
-  handleCallClick as onCallClick,
-} from "../lib/tracking";
+import { PHONE_NUMBER, WHATSAPP_LINK } from "../lib/site-config";
+
+// ─── Static Data: module scope so these objects are NEVER recreated on re-render ───
+const LP_WHAT_YOU_GET = [
+  {
+    title: "1-on-1 Paid Consultation (₹1000)",
+    description:
+      "Direct consultation & strategy session to eliminate wasted ad spend, negative keyword leaks, and bad targeting.",
+    icon: <FaSearchDollar className="text-blue-500" />,
+  },
+  {
+    title: "100% Transparent Reporting",
+    description:
+      "Complete ownership of your ad account and live dashboards. Know exactly where every single rupee is spent.",
+    icon: <FaShieldAlt className="text-emerald-500" />,
+  },
+  {
+    title: "Direct Communication",
+    description:
+      "Work directly with Yash Deliwala. No junior account managers, no middle-men, and fast execution on WhatsApp.",
+    icon: <FaUserCheck className="text-indigo-500" />,
+  },
+  {
+    title: "Budget-Friendly for SMBs",
+    description:
+      "PPC structures built specifically for small & medium Indian businesses to deliver high ROI without bloated retainers.",
+    icon: <FaTools className="text-amber-500" />,
+  },
+];
+
+const LP_PROCESS_STEPS = [
+  {
+    step: "01",
+    title: "Audit & Opportunity",
+    description:
+      "Review your website, existing campaigns, competitor keywords, and conversion tracking setup.",
+  },
+  {
+    step: "02",
+    title: "Strategy & Setup",
+    description:
+      "Build high-intent Search & PMax campaigns with negative keyword lists, ad copies, and call tracking.",
+  },
+  {
+    step: "03",
+    title: "Launch & Scale",
+    description:
+      "Deploy targeted ads in your city or pan-India and optimize weekly for maximum lead conversions.",
+  },
+];
+
+const LP_TESTIMONIALS = [
+  {
+    quote:
+      "Yash turned around our Google Ads performance in 3 weeks. Direct updates, zero fluff, and 120+ qualified patient calls monthly.",
+    name: "Dr. Aditya",
+    role: "Clinic Director, Surat",
+  },
+  {
+    quote:
+      "Our lead quality doubled while reducing cost per lead by 35%. Complete transparency and sharp keyword targeting.",
+    name: "Rajesh Patel",
+    role: "B2B Manufacturing Director",
+  },
+];
+
+const LP_FAQS = [
+  {
+    q: "How much does Google Ads management cost?",
+    a: "Management starts from ₹15,000 per month with zero hidden agency fees. Your ad spend is paid directly to Google.",
+  },
+  {
+    q: "How fast can I see leads and results?",
+    a: "Search Ads start generating phone calls, form enquiries, and WhatsApp leads within 24 to 72 hours of launching.",
+  },
+  {
+    q: "Do I need a large budget to start?",
+    a: "No. You can start with a modest budget of ₹15,000 - ₹30,000/month (paid to Google) and scale as your leads grow.",
+  },
+];
+
+// Helper function to track GA4 / Google Ads conversion events cleanly
+function trackConversionEvent(eventName, eventParams = {}) {
+  if (typeof window !== "undefined") {
+    // 1. GA4 / Google Ads gtag push
+    if (typeof window.gtag === "function") {
+      window.gtag("event", eventName, eventParams);
+    }
+    // 2. GTM / Custom dataLayer push
+    if (Array.isArray(window.dataLayer)) {
+      window.dataLayer.push({
+        event: eventName,
+        ...eventParams,
+      });
+    }
+    console.log(`[Conversion Event Tracked]: ${eventName}`, eventParams);
+  }
+}
 
 export default function GoogleAdsLp() {
-  const [errorMessage, setErrorMessage] = useState("");
+  const [mounted, setMounted] = useState(false);
+  const [formSubmitted, setFormSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const handleFormSubmit = async (e) => {
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const handleFormSubmit = useCallback(async (e) => {
     e.preventDefault();
     setLoading(true);
-    setErrorMessage("");
 
     // Fire conversion event
     trackConversionEvent("lp_form_submit", {
@@ -49,103 +145,36 @@ export default function GoogleAdsLp() {
       });
 
       if (response.ok) {
-        window.location.href = "/thank-you";
-      } else {
-        setErrorMessage("Submission failed. Please try again or connect via WhatsApp.");
-        setLoading(false);
+        setFormSubmitted(true);
       }
     } catch (err) {
       console.error("Form submit error:", err);
-      setErrorMessage("Something went wrong. Please try again or connect via WhatsApp.");
+    } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
-  const handleWhatsAppClick = () => {
-    onWhatsAppClick("Google Ads LP WhatsApp Click");
-  };
+  const handleWhatsAppClick = useCallback(() => {
+    trackConversionEvent("lp_whatsapp_click", {
+      event_category: "Lead Generation",
+      event_label: "Google Ads LP WhatsApp Click",
+    });
+  }, []);
 
-  const handleCallClick = () => {
-    onCallClick("Google Ads LP Phone Call Click");
-  };
+  const handleCallClick = useCallback(() => {
+    trackConversionEvent("lp_call_click", {
+      event_category: "Lead Generation",
+      event_label: "Google Ads LP Phone Call Click",
+    });
+  }, []);
 
-  const whatYouGet = [
-    {
-      title: "Google Ads Setup & Strategy",
-      description:
-        "Custom campaign setup and strategy engineered to drive phone calls, WhatsApp leads, and sales enquiries for your business.",
-      icon: <FaSearchDollar className="text-blue-500" />,
-    },
-    {
-      title: "100% Transparent Reporting",
-      description:
-        "Complete ownership of your ad account and live dashboards. Know exactly where every single rupee is spent.",
-      icon: <FaShieldAlt className="text-emerald-500" />,
-    },
-    {
-      title: "Direct Communication",
-      description:
-        "Work directly with Yash Deliwala. No junior account managers, no middle-men, and fast execution on WhatsApp.",
-      icon: <FaUserCheck className="text-indigo-500" />,
-    },
-    {
-      title: "Budget-Friendly for SMBs",
-      description:
-        "PPC structures built specifically for small & medium Indian businesses to deliver high ROI without bloated retainers.",
-      icon: <FaTools className="text-amber-500" />,
-    },
-  ];
+  // Use module-level constants — no new arrays created on re-render
+  const whatYouGet = LP_WHAT_YOU_GET;
+  const processSteps = LP_PROCESS_STEPS;
+  const testimonials = LP_TESTIMONIALS;
+  const faqs = LP_FAQS;
 
-  const processSteps = [
-    {
-      step: "01",
-      title: "Strategy & Setup",
-      description:
-        "Review your website, business goals, competitor keywords, and set up conversion-focused Google Ads.",
-    },
-    {
-      step: "02",
-      title: "Strategy & Setup",
-      description:
-        "Build high-intent Search & PMax campaigns with negative keyword lists, ad copies, and call tracking.",
-    },
-    {
-      step: "03",
-      title: "Launch & Scale",
-      description:
-        "Deploy targeted ads in your city or pan-India and optimize weekly for maximum lead conversions.",
-    },
-  ];
-
-  const testimonials = [
-    {
-      quote:
-        "Yash turned around our Google Ads performance in 3 weeks. Direct updates, zero fluff, and 120+ qualified patient calls monthly.",
-      name: "Dr. Aditya",
-      role: "Clinic Director, Surat",
-    },
-    {
-      quote:
-        "Our lead quality doubled while reducing cost per lead by 35%. Complete transparency and sharp keyword targeting.",
-      name: "Rajesh Patel",
-      role: "B2B Manufacturing Director",
-    },
-  ];
-
-  const faqs = [
-    {
-      q: "How much does Google Ads management cost?",
-      a: "Management starts from ₹15,000 per month with zero hidden agency fees. Your ad spend is paid directly to Google.",
-    },
-    {
-      q: "How fast can I see leads and results?",
-      a: "Search Ads start generating phone calls, form enquiries, and WhatsApp leads within 24 to 72 hours of launching.",
-    },
-    {
-      q: "Do I need a large budget to start?",
-      a: "No. You can start with a modest budget of ₹15,000 - ₹30,000/month (paid to Google) and scale as your leads grow.",
-    },
-  ];
+  if (!mounted) return null;
 
   return (
     <div className="lp-site">
@@ -153,19 +182,15 @@ export default function GoogleAdsLp() {
       <header className="lp-header">
         <div className="lp-header-container">
           <div className="lp-brand">
-            <img src="/clients/logo.png" alt="Yash Deliwala Google Ads Expert Logo" />
+            <img
+              src="/clients/logo (2).jpeg"
+              alt="Yash Deliwala Google Ads Expert Logo"
+              decoding="async"
+              width="40"
+              height="40"
+            />
             <span>Yash Google Ads Expert</span>
           </div>
-
-          <a
-            href={`tel:${PHONE_NUMBER}`}
-            onClick={handleCallClick}
-            className="lp-header-call"
-            aria-label="Call Yash Deliwala Now"
-          >
-            <FaPhoneAlt />
-            <span>Call Now</span>
-          </a>
         </div>
       </header>
 
@@ -189,12 +214,15 @@ export default function GoogleAdsLp() {
 
               <ul className="lp-hero-badges">
                 <li>
+                  <FaCheckCircle className="text-emerald-500" />
                   <span>₹50L+ Ad Budget Managed Across India</span>
                 </li>
                 <li>
+                  <FaCheckCircle className="text-emerald-500" />
                   <span>100% Transparent Account Ownership & Reports</span>
                 </li>
                 <li>
+                  <FaCheckCircle className="text-emerald-500" />
                   <span>Direct Specialist Support — No Account Managers</span>
                 </li>
               </ul>
@@ -203,88 +231,85 @@ export default function GoogleAdsLp() {
             {/* Right Form */}
             <div className="lp-hero-right">
               <div className="lp-form-card">
-                <h3>Start Google Ads for Your Business</h3>
-                <p>Get a custom campaign strategy and start getting qualified leads from Google Ads.</p>
+                <h3>Book 1-on-1 Consultation (₹1000)</h3>
+                <p>Book a dedicated 1-on-1 strategy session to review &amp; fix your Google Ads campaigns.</p>
 
-                {errorMessage && (
-                  <div className="lp-form-error text-red-500 text-sm mb-3 text-center">
-                    {errorMessage}
+                {formSubmitted ? (
+                  <div className="lp-form-success">
+                    <FaCheckCircle className="text-4xl text-emerald-500 mx-auto mb-3" />
+                    <h4>Consultation Request Received!</h4>
+                    <p>Yash will review your details and connect with you on WhatsApp / phone shortly.</p>
                   </div>
+                ) : (
+                  <form onSubmit={handleFormSubmit} className="lp-form">
+                    <input
+                      type="hidden"
+                      name="access_key"
+                      value="2c6efe99-dc5c-4acc-b523-656523121182"
+                    />
+                    <input
+                      type="hidden"
+                      name="subject"
+                      value="New Google Ads Consultation Lead"
+                    />
+
+                    <div className="lp-form-group">
+                      <label htmlFor="lp-name">Your Name *</label>
+                      <input
+                        id="lp-name"
+                        type="text"
+                        name="name"
+                        required
+                        placeholder="e.g. Rahul Sharma"
+                      />
+                    </div>
+
+                    <div className="lp-form-group">
+                      <label htmlFor="lp-phone">Phone / WhatsApp Number *</label>
+                      <input
+                        id="lp-phone"
+                        type="tel"
+                        name="phone"
+                        required
+                        placeholder="e.g. +91 98765 43210"
+                      />
+                    </div>
+
+                    <div className="lp-form-group">
+                      <label htmlFor="lp-business">Business Type / Industry *</label>
+                      <select id="lp-business" name="business_type" required defaultValue="">
+                        <option value="" disabled>
+                          Select your industry
+                        </option>
+                        <option value="Healthcare / Clinic / Doctor">Doctor / Clinic / Hospital</option>
+                        <option value="B2B Manufacturing / Industrial">B2B Manufacturing / Equipment</option>
+                        <option value="Real Estate / Architecture / Interiors">Real Estate / Architect / Interiors</option>
+                        <option value="Local Service Business">Local Service Business</option>
+                        <option value="E-commerce Store">E-commerce Store</option>
+                        <option value="Other">Other Service</option>
+                      </select>
+                    </div>
+
+                    <div className="lp-form-group">
+                      <label htmlFor="lp-budget">Monthly Ad Budget</label>
+                      <select id="lp-budget" name="monthly_budget" defaultValue="₹15,000 - ₹35,000">
+                        <option value="Under ₹15,000">Under ₹15,000/mo</option>
+                        <option value="₹15,000 - ₹35,000">₹15,000 - ₹35,000/mo</option>
+                        <option value="₹35,000 - ₹1,00,000">₹35,000 - ₹1,00,000/mo</option>
+                        <option value="₹1,00,000+">₹1,00,000+/mo</option>
+                      </select>
+                    </div>
+
+                    <button type="submit" disabled={loading} className="lp-form-submit">
+                      {loading ? "Submitting..." : "Book Consultation (₹1000)"}
+                    </button>
+
+                    <div className="lp-form-trust">
+                      <FaLock className="text-slate-400" />
+                      <span>We respond within 2 hours • No spam, ever</span>
+                    </div>
+                  </form>
                 )}
-
-                <form onSubmit={handleFormSubmit} className="lp-form">
-                  <input
-                    type="hidden"
-                    name="access_key"
-                    value="2c6efe99-dc5c-4acc-b523-656523121182"
-                  />
-                  <input
-                    type="hidden"
-                    name="subject"
-                    value="New Google Ads Campaign Request"
-                  />
-                  <input
-                    type="hidden"
-                    name="lead_source"
-                    value="Google Ads Landing Page (/lp)"
-                  />
-
-                  <div className="lp-form-group">
-                    <label htmlFor="lp-name">Your Name *</label>
-                    <input
-                      id="lp-name"
-                      type="text"
-                      name="name"
-                      required
-                      placeholder="e.g. Rahul Sharma"
-                    />
-                  </div>
-
-                  <div className="lp-form-group">
-                    <label htmlFor="lp-phone">Phone / WhatsApp Number *</label>
-                    <input
-                      id="lp-phone"
-                      type="tel"
-                      name="phone"
-                      required
-                      placeholder="e.g. +91 98765 43210"
-                    />
-                  </div>
-
-                  <div className="lp-form-group">
-                    <label htmlFor="lp-business">Business Type / Industry *</label>
-                    <select id="lp-business" name="business_type" required defaultValue="">
-                      <option value="" disabled>
-                        Select your industry
-                      </option>
-                      <option value="Healthcare / Clinic / Doctor">Doctor / Clinic / Hospital</option>
-                      <option value="B2B Manufacturing / Industrial">B2B Manufacturing / Equipment</option>
-                      <option value="Real Estate / Architecture / Interiors">Real Estate / Architect / Interiors</option>
-                      <option value="Local Service Business">Local Service Business</option>
-                      <option value="E-commerce Store">E-commerce Store</option>
-                      <option value="Other">Other Service</option>
-                    </select>
-                  </div>
-
-                  <div className="lp-form-group">
-                    <label htmlFor="lp-budget">Monthly Ad Budget</label>
-                    <select id="lp-budget" name="monthly_budget" defaultValue="₹15,000 - ₹35,000">
-                      <option value="Under ₹15,000">Under ₹15,000/mo</option>
-                      <option value="₹15,000 - ₹35,000">₹15,000 - ₹35,000/mo</option>
-                      <option value="₹35,000 - ₹1,00,000">₹35,000 - ₹1,00,000/mo</option>
-                      <option value="₹1,00,000+">₹1,00,000+/mo</option>
-                    </select>
-                  </div>
-
-                  <button type="submit" disabled={loading} className="lp-form-submit">
-                    {loading ? "Submitting..." : "Start Google Ads Now"}
-                  </button>
-
-                  <div className="lp-form-trust">
-                    <FaLock className="text-slate-400" />
-                    <span>We respond within 2 hours • No spam, ever</span>
-                  </div>
-                </form>
               </div>
             </div>
           </div>
@@ -292,8 +317,12 @@ export default function GoogleAdsLp() {
           {/* Centered Credibility Line Below Hero */}
           <div className="lp-hero-credibility">
             <img
-              src="/yash-google-ads-photo.png"
+              src="/clients/yash-deliwala.jpeg"
               alt="Yash Deliwala - Google Ads Agency Specialist"
+              fetchPriority="high"
+              decoding="async"
+              width="70"
+              height="70"
             />
             <div>
               <strong>Managed personally by Yash Deliwala</strong>
@@ -331,8 +360,8 @@ export default function GoogleAdsLp() {
           </div>
         </section>
 
-        {/* Section: Google Ads Account Dashboards (Proof of Campaign Results) */}
-        <GoogleAdsDashboards isLp={true} />
+        {/* Real Campaign Performance Results */}
+        <GoogleAdsDashboards />
 
         {/* Section 2: What You Get */}
         <section className="lp-section lp-benefits">
@@ -349,6 +378,45 @@ export default function GoogleAdsLp() {
                 <p>{b.description}</p>
               </div>
             ))}
+          </div>
+        </section>
+
+        {/* Dedicated Profile & Personal Credibility Section */}
+        <section className="lp-section lp-specialist-card" style={{ background: "#ffffff", border: "1px solid #dbe8fa", borderRadius: "24px", padding: "40px 32px", margin: "40px 0", boxShadow: "0 12px 36px rgba(15, 78, 163, 0.06)" }}>
+          <div className="lp-specialist-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "32px", alignItems: "center" }}>
+            <div style={{ textAlign: "center" }}>
+              <img
+                src="/clients/yash-deliwala.jpeg"
+                alt="Yash Deliwala - Google Ads Expert in India"
+                width="190"
+                height="190"
+                decoding="async"
+                style={{ borderRadius: "50%", border: "4px solid var(--ads-blue)", objectFit: "cover", margin: "0 auto 14px", boxShadow: "0 10px 30px rgba(47,140,255,0.22)" }}
+              />
+              <span style={{ display: "inline-block", background: "#e0f2fe", color: "var(--ads-blue)", fontSize: "12.5px", fontWeight: "700", padding: "5px 14px", borderRadius: "20px" }}>
+                <FaCheckCircle style={{ display: "inline", marginRight: "5px" }} /> Google Ads Certified
+              </span>
+            </div>
+            <div>
+              <p style={{ color: "var(--ads-blue)", fontSize: "13px", fontWeight: "800", textTransform: "uppercase", letterSpacing: "0.08em", margin: "0 0 6px" }}>
+                Direct 1-on-1 Support
+              </p>
+              <h2 style={{ fontSize: "28px", fontWeight: "850", color: "#0f172a", margin: "0 0 12px", lineHeight: "1.2" }}>
+                Work Directly with Yash Deliwala
+              </h2>
+              <p style={{ color: "#475569", fontSize: "15px", lineHeight: "1.7", margin: "0 0 20px" }}>
+                My website and services carry my name, <strong>yashdeliwala.com</strong>, because I stand 100% behind every campaign. 
+                I personally review your business goals, set up high-intent search campaigns, structure conversion tracking, and optimize weekly — giving you complete transparency and direct WhatsApp access.
+              </p>
+              <div style={{ display: "flex", gap: "14px", flexWrap: "wrap", alignItems: "center" }}>
+                <a href={WHATSAPP_LINK} target="_blank" rel="noreferrer" onClick={handleWhatsAppClick} className="lp-button lp-button--whatsapp">
+                  <FaWhatsapp /> Chat Directly with Yash
+                </a>
+                <a href={`tel:${PHONE_NUMBER}`} onClick={handleCallClick} className="lp-button lp-button--secondary">
+                  <FaPhoneAlt /> Call {PHONE_NUMBER}
+                </a>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -414,7 +482,8 @@ export default function GoogleAdsLp() {
           <div className="lp-cta-card">
             <h2>Ready to Get Qualified Leads from Google Ads?</h2>
             <p>
-              Stop wasting budget on clicks that don't convert. Get high-intent Search & Performance Max campaigns or chat with Yash directly.
+              Stop wasting budget on clicks that don't convert. Book a 1-on-1 consultation session or chat
+              with Yash directly.
             </p>
 
             <div className="lp-cta-actions">
@@ -422,11 +491,11 @@ export default function GoogleAdsLp() {
                 href="#hero"
                 className="lp-button lp-button--primary"
               >
-                Start Google Ads Now
+                Book Consultation (₹1000)
               </a>
 
               <a
-                href={LP_WHATSAPP_LINK}
+                href={WHATSAPP_LINK}
                 target="_blank"
                 rel="noreferrer"
                 onClick={handleWhatsAppClick}
@@ -458,7 +527,7 @@ export default function GoogleAdsLp() {
       {/* Sticky / Floating Conversion Elements */}
       {/* Desktop & Mobile Floating WhatsApp */}
       <a
-        href={LP_WHATSAPP_LINK}
+        href={WHATSAPP_LINK}
         target="_blank"
         rel="noreferrer"
         onClick={handleWhatsAppClick}
@@ -469,22 +538,22 @@ export default function GoogleAdsLp() {
       </a>
 
       {/* Mobile Sticky Bottom Action Bar */}
-      <div className="lp-mobile-bottom-bar">
+      <div className="lp-mobile-bottom-bar mobile-bottom-action-bar">
         <a
           href={`tel:${PHONE_NUMBER}`}
           onClick={handleCallClick}
-          className="lp-mobile-bar-btn lp-mobile-bar-btn--call"
+          className="lp-mobile-bar-btn lp-mobile-bar-btn--call mobile-action-btn mobile-action-btn--call"
         >
-          <FaPhoneAlt /> Call Now
+          <FaPhoneAlt className="mobile-action-btn__icon" /> <span>Call Now</span>
         </a>
         <a
-          href={LP_WHATSAPP_LINK}
+          href={WHATSAPP_LINK}
           target="_blank"
           rel="noreferrer"
           onClick={handleWhatsAppClick}
-          className="lp-mobile-bar-btn lp-mobile-bar-btn--whatsapp"
+          className="lp-mobile-bar-btn lp-mobile-bar-btn--whatsapp mobile-action-btn mobile-action-btn--whatsapp"
         >
-          <FaWhatsapp /> WhatsApp Yash
+          <FaWhatsapp className="mobile-action-btn__icon" /> <span>WhatsApp</span>
         </a>
       </div>
     </div>

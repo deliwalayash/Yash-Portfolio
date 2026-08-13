@@ -1,4 +1,5 @@
 "use client";
+// Updated navigation header - Admin link removed
 
 import { useState } from "react";
 import { FaBars, FaChevronDown, FaPhoneAlt, FaTimes } from "react-icons/fa";
@@ -9,18 +10,16 @@ import { handleCallClick } from "../lib/tracking";
 const homeLinks = [
   { href: "#results", label: "Real Results" },
   { href: "#services", label: "Services" },
-  { href: "#video", label: "Video" },
-  { href: "#pricing", label: "Pricing" },
+  { href: "/google-ads-agency-india", label: "Agency India" },
   { href: "/blogs", label: "Blogs" },
+  { href: "/contact", label: "Contact" },
+  { href: "#pricing", label: "Pricing" },
   { href: "#clients", label: "Clients" },
-  { href: "#process", label: "Process" },
-  { href: "#contact", label: "Contact" },
 ];
 
 const innerLinks = [
   { href: "/", label: "Home" },
   { href: "/blogs", label: "Blogs" },
-  { href: "/admin", label: "Admin" },
   { href: "/#contact", label: "Contact" },
 ];
 
@@ -43,7 +42,7 @@ export default function AdsHeader({ variant = "home" }) {
   return (
     <header className="ads-header">
       <a className="ads-brand" href={variant === "inner" ? "/" : "#home"} aria-label="Yash Google Ads Expert">
-        <img src="/clients/logo.png" alt="Yash Deliwala Google Ads Expert logo" />
+        <img src="/clients/logo (2).jpeg" alt="Yash Deliwala Google Ads Expert logo" decoding="async" width="40" height="40" />
         <span>Yash Google Ads Expert</span>
       </a>
 
@@ -55,13 +54,12 @@ export default function AdsHeader({ variant = "home" }) {
         ))}
         <div className="ads-nav-dropdown">
           <button type="button" aria-haspopup="true">
-            Pages
-            <FaChevronDown />
+            Pages <FaChevronDown />
           </button>
           <div className="ads-nav-dropdown__menu">
-            {pageLinks.map((link) => (
-              <a href={link.href} key={link.href}>
-                {link.label}
+            {pageLinks.map((item) => (
+              <a href={item.href} key={item.href}>
+                {item.label}
               </a>
             ))}
           </div>
@@ -78,11 +76,10 @@ export default function AdsHeader({ variant = "home" }) {
       </a>
 
       <button
-        className="ads-menu-button"
         type="button"
-        aria-label="Open menu"
-        aria-expanded={menuOpen}
-        onClick={() => setMenuOpen(true)}
+        className="ads-menu-button"
+        aria-label="Toggle navigation menu"
+        onClick={() => setMenuOpen(!menuOpen)}
       >
         <FaBars />
       </button>
@@ -92,7 +89,7 @@ export default function AdsHeader({ variant = "home" }) {
           <aside className="ads-mobile-menu" aria-label="Mobile navigation" onClick={(event) => event.stopPropagation()}>
             <div className="ads-mobile-menu__top">
               <a className="ads-brand" href={variant === "inner" ? "/" : "#home"} onClick={closeMenu}>
-                <img src="/clients/logo.png" alt="Yash Deliwala Google Ads Expert logo" />
+                <img src="/clients/logo (2).jpeg" alt="Yash Deliwala Google Ads Expert logo" decoding="async" width="40" height="40" />
                 <span>Yash Google Ads Expert</span>
               </a>
               <button type="button" aria-label="Close menu" onClick={closeMenu}>

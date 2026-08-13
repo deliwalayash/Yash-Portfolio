@@ -1,9 +1,21 @@
+import { memo } from "react";
 import {
+  FaBullseye,
+  FaChartBar,
   FaChartLine,
+  FaCheckCircle,
+  FaChevronRight,
+  FaEnvelope,
   FaGoogle,
+  FaHeadset,
+  FaHeart,
+  FaInstagram,
+  FaLinkedin,
   FaMapMarkerAlt,
   FaPhoneAlt,
   FaSearchDollar,
+  FaShieldAlt,
+  FaUsers,
   FaWhatsapp,
 } from "react-icons/fa";
 import AdsHeader from "./AdsHeader";
@@ -139,8 +151,8 @@ export function calculateReadingTime(text) {
   return `${minutes} min read`;
 }
 
-export function BlogVisual({ blog, variant = "card" }) {
-  const imgSrc = blog?.image_url || "/yash-google-ads-photo.png";
+export const BlogVisual = memo(function BlogVisual({ blog, variant = "card" }) {
+  const imgSrc = blog?.image_url || "/clients/yash-deliwala.jpeg";
   const className = variant === "thumb" ? "blog-thumb-img" : "blog-card-img";
 
   return (
@@ -148,9 +160,13 @@ export function BlogVisual({ blog, variant = "card" }) {
       src={imgSrc}
       alt={blog?.title || "Yash Deliwala Google Ads Expert"}
       className={className}
+      loading="lazy"
+      decoding="async"
+      width="400"
+      height="225"
     />
   );
-}
+});
 
 export function BlogContent({ content = "" }) {
   if (!content) return null;
@@ -271,7 +287,7 @@ export function BlogContent({ content = "" }) {
 export function BlogAuthorBio() {
   return (
     <div className="blog-author-bio">
-      <img src="/yash-google-ads-photo.png" alt="Yash Deliwala Google Ads Expert" />
+      <img src="/clients/yash-deliwala.jpeg" alt="Yash Deliwala Google Ads Expert" loading="lazy" decoding="async" width="80" height="80" />
       <div>
         <span>WRITTEN BY</span>
         <h3>Yash Deliwala</h3>
@@ -288,7 +304,7 @@ export function BlogSidebar({ suggestedBlogs = [] }) {
     <aside className="blog-sidebar">
       <div className="blog-sidebar__widget blog-author-widget">
         <div className="blog-author-widget__avatar">
-          <img src="/yash-google-ads-photo.png" alt="Yash Deliwala" />
+          <img src="/clients/yash-deliwala.jpeg" alt="Yash Deliwala" loading="lazy" decoding="async" width="60" height="60" />
         </div>
         <div className="blog-author-widget__info">
           <h3>Yash Deliwala</h3>
@@ -330,7 +346,7 @@ export function BlogSidebar({ suggestedBlogs = [] }) {
   );
 }
 
-export function BlogCard({ blog }) {
+export const BlogCard = memo(function BlogCard({ blog }) {
   return (
     <a className="blog-card" href={`/blog/${blog.slug}`}>
       <BlogVisual blog={blog} />
@@ -342,7 +358,7 @@ export function BlogCard({ blog }) {
       </div>
     </a>
   );
-}
+});
 
 export function SiteShell({ children }) {
   return (
@@ -355,22 +371,215 @@ export function SiteShell({ children }) {
 }
 
 export function AdsFooter({ locationLabel = "Surat, Gujarat" }) {
+  const year = new Date().getFullYear();
   return (
-    <footer className="ads-footer">
-      <div className="ads-footer__brand">
-        <strong>Yash Deliwala - Google Ads Expert</strong>
-        <span>{locationLabel}</span>
-      </div>
+    <footer className="site-footer" style={{ background: "#f4f8fd", borderTop: "1px solid #e2e8f0", padding: "56px 20px 28px", color: "#334155", fontFamily: "Sora, sans-serif" }}>
+      <div className="site-footer__container" style={{ maxWidth: "1240px", margin: "0 auto" }}>
+        
+        {/* ── Top Main Footer Grid ── */}
+        <div className="site-footer__grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "40px", alignItems: "start" }}>
+          
+          {/* Column 1: Brand & Contact Info */}
+          <div className="site-footer__col site-footer__col--brand" style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+            <div className="site-footer__logo-wrap" style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+              <img
+                src="/clients/logo (2).jpeg"
+                alt="Yash Deliwala Google Ads Expert"
+                width="52"
+                height="52"
+                decoding="async"
+                style={{ borderRadius: "50%", border: "2px solid var(--ads-blue)", objectFit: "cover" }}
+              />
+              <div className="site-footer__logo-text">
+                <strong style={{ display: "block", color: "#0f172a", fontSize: "18px", fontWeight: "800", lineHeight: "1.3" }}>Yash Deliwala</strong>
+                <span style={{ display: "block", color: "var(--ads-blue)", fontSize: "13px", fontWeight: "700", marginTop: "1px" }}>Google Ads Expert in India</span>
+              </div>
+            </div>
 
-      <nav className="ads-footer__links" aria-label="Footer SEO links">
-        <a href="/">Google Ads Expert in India</a>
-        <a href="/blogs">Google Ads Blog</a>
-        {locationPages.map((page) => (
-          <a href={`/${page.slug}`} key={page.slug}>
-            Google Ads Expert in {page.city}
-          </a>
-        ))}
-      </nav>
+            <p className="site-footer__bio" style={{ color: "#475569", fontSize: "13.5px", lineHeight: "1.6", margin: "0" }}>
+              Helping businesses across India grow with result-driven Google Ads campaigns, real leads, and measurable ROI.
+            </p>
+
+            <div className="site-footer__contact-list" style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+              <a href={`tel:${PHONE_NUMBER}`} className="site-footer__contact-item" style={{ display: "flex", alignItems: "center", gap: "12px", color: "#334155", fontSize: "13.5px", fontWeight: "600", textDecoration: "none" }}>
+                <span className="site-footer__icon-badge" style={{ width: "34px", height: "34px", borderRadius: "50%", background: "var(--ads-blue)", color: "#ffffff", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "13px", flexShrink: 0 }}>
+                  <FaPhoneAlt />
+                </span>
+                <span>{PHONE_NUMBER}</span>
+              </a>
+              <a href="mailto:yashdeliwala10@gmail.com" className="site-footer__contact-item" style={{ display: "flex", alignItems: "center", gap: "12px", color: "#334155", fontSize: "13.5px", fontWeight: "600", textDecoration: "none" }}>
+                <span className="site-footer__icon-badge" style={{ width: "34px", height: "34px", borderRadius: "50%", background: "var(--ads-blue)", color: "#ffffff", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "13px", flexShrink: 0 }}>
+                  <FaEnvelope />
+                </span>
+                <span>yashdeliwala10@gmail.com</span>
+              </a>
+              <div className="site-footer__contact-item" style={{ display: "flex", alignItems: "center", gap: "12px", color: "#334155", fontSize: "13.5px", fontWeight: "600" }}>
+                <span className="site-footer__icon-badge" style={{ width: "34px", height: "34px", borderRadius: "50%", background: "var(--ads-blue)", color: "#ffffff", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "13px", flexShrink: 0 }}>
+                  <FaMapMarkerAlt />
+                </span>
+                <span>Surat, Gujarat, India</span>
+              </div>
+            </div>
+
+            <div className="site-footer__socials" style={{ display: "flex", gap: "10px", marginTop: "4px" }}>
+              <a href={WHATSAPP_LINK} target="_blank" rel="noreferrer" aria-label="WhatsApp" className="site-footer__social-btn" style={{ width: "36px", height: "36px", borderRadius: "50%", background: "#e2e8f0", color: "var(--ads-blue)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "15px", textDecoration: "none" }}>
+                <FaWhatsapp />
+              </a>
+              <a href="https://www.linkedin.com/in/yash-deliwala/" target="_blank" rel="noreferrer" aria-label="LinkedIn" className="site-footer__social-btn" style={{ width: "36px", height: "36px", borderRadius: "50%", background: "#e2e8f0", color: "var(--ads-blue)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "15px", textDecoration: "none" }}>
+                <FaLinkedin />
+              </a>
+              <a href="https://instagram.com" target="_blank" rel="noreferrer" aria-label="Instagram" className="site-footer__social-btn" style={{ width: "36px", height: "36px", borderRadius: "50%", background: "#e2e8f0", color: "var(--ads-blue)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "15px", textDecoration: "none" }}>
+                <FaInstagram />
+              </a>
+            </div>
+          </div>
+
+          {/* Column 2: Services */}
+          <div className="site-footer__col" style={{ display: "flex", flexDirection: "column" }}>
+            <h3 className="site-footer__col-title" style={{ color: "#1e3a8a", fontSize: "15px", fontWeight: "800", margin: "0 0 16px 0", display: "block" }}>Services</h3>
+            <ul className="site-footer__link-list" style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "10px" }}>
+              <li>
+                <a href="/" style={{ display: "flex", alignItems: "center", gap: "8px", color: "#475569", fontSize: "13.5px", fontWeight: "600", textDecoration: "none" }}><FaChevronRight style={{ color: "var(--ads-blue)", fontSize: "11px", flexShrink: 0 }} /> Google Ads Management</a>
+              </li>
+              <li>
+                <a href="/#services" style={{ display: "flex", alignItems: "center", gap: "8px", color: "#475569", fontSize: "13.5px", fontWeight: "600", textDecoration: "none" }}><FaChevronRight style={{ color: "var(--ads-blue)", fontSize: "11px", flexShrink: 0 }} /> Search Ads (PPC)</a>
+              </li>
+              <li>
+                <a href="/#services" style={{ display: "flex", alignItems: "center", gap: "8px", color: "#475569", fontSize: "13.5px", fontWeight: "600", textDecoration: "none" }}><FaChevronRight style={{ color: "var(--ads-blue)", fontSize: "11px", flexShrink: 0 }} /> Performance Max Campaigns</a>
+              </li>
+              <li>
+                <a href="/#services" style={{ display: "flex", alignItems: "center", gap: "8px", color: "#475569", fontSize: "13.5px", fontWeight: "600", textDecoration: "none" }}><FaChevronRight style={{ color: "var(--ads-blue)", fontSize: "11px", flexShrink: 0 }} /> Lead Generation</a>
+              </li>
+              <li>
+                <a href="/#services" style={{ display: "flex", alignItems: "center", gap: "8px", color: "#475569", fontSize: "13.5px", fontWeight: "600", textDecoration: "none" }}><FaChevronRight style={{ color: "var(--ads-blue)", fontSize: "11px", flexShrink: 0 }} /> Conversion Tracking</a>
+              </li>
+              <li>
+                <a href="/lp" style={{ display: "flex", alignItems: "center", gap: "8px", color: "#475569", fontSize: "13.5px", fontWeight: "600", textDecoration: "none" }}><FaChevronRight style={{ color: "var(--ads-blue)", fontSize: "11px", flexShrink: 0 }} /> Google Ads Audit</a>
+              </li>
+              <li>
+                <a href="/#contact" style={{ display: "flex", alignItems: "center", gap: "8px", color: "#475569", fontSize: "13.5px", fontWeight: "600", textDecoration: "none" }}><FaChevronRight style={{ color: "var(--ads-blue)", fontSize: "11px", flexShrink: 0 }} /> Consultation</a>
+              </li>
+            </ul>
+          </div>
+
+          {/* Column 3: Quick Links */}
+          <div className="site-footer__col" style={{ display: "flex", flexDirection: "column" }}>
+            <h3 className="site-footer__col-title" style={{ color: "#1e3a8a", fontSize: "15px", fontWeight: "800", margin: "0 0 16px 0", display: "block" }}>Quick Links</h3>
+            <ul className="site-footer__link-list" style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "10px" }}>
+              <li>
+                <a href="/#results" style={{ display: "flex", alignItems: "center", gap: "8px", color: "#475569", fontSize: "13.5px", fontWeight: "600", textDecoration: "none" }}><FaChevronRight style={{ color: "var(--ads-blue)", fontSize: "11px", flexShrink: 0 }} /> Real Campaign Results</a>
+              </li>
+              <li>
+                <a href="/#pricing" style={{ display: "flex", alignItems: "center", gap: "8px", color: "#475569", fontSize: "13.5px", fontWeight: "600", textDecoration: "none" }}><FaChevronRight style={{ color: "var(--ads-blue)", fontSize: "11px", flexShrink: 0 }} /> Pricing &amp; Plans</a>
+              </li>
+              <li>
+                <a href="/" style={{ display: "flex", alignItems: "center", gap: "8px", color: "#475569", fontSize: "13.5px", fontWeight: "600", textDecoration: "none" }}><FaChevronRight style={{ color: "var(--ads-blue)", fontSize: "11px", flexShrink: 0 }} /> About Me</a>
+              </li>
+              <li>
+                <a href="/blogs" style={{ display: "flex", alignItems: "center", gap: "8px", color: "#475569", fontSize: "13.5px", fontWeight: "600", textDecoration: "none" }}><FaChevronRight style={{ color: "var(--ads-blue)", fontSize: "11px", flexShrink: 0 }} /> Blog</a>
+              </li>
+              <li>
+                <a href="/contact" style={{ display: "flex", alignItems: "center", gap: "8px", color: "#475569", fontSize: "13.5px", fontWeight: "600", textDecoration: "none" }}><FaChevronRight style={{ color: "var(--ads-blue)", fontSize: "11px", flexShrink: 0 }} /> Contact</a>
+              </li>
+              <li>
+                <a href="/#contact" style={{ display: "flex", alignItems: "center", gap: "8px", color: "#475569", fontSize: "13.5px", fontWeight: "600", textDecoration: "none" }}><FaChevronRight style={{ color: "var(--ads-blue)", fontSize: "11px", flexShrink: 0 }} /> Free Consultation</a>
+              </li>
+              <li>
+                <a href="/lp" style={{ display: "flex", alignItems: "center", gap: "8px", color: "#475569", fontSize: "13.5px", fontWeight: "600", textDecoration: "none" }}><FaChevronRight style={{ color: "var(--ads-blue)", fontSize: "11px", flexShrink: 0 }} /> Get Free Audit</a>
+              </li>
+            </ul>
+          </div>
+
+          {/* Column 4: Cities We Serve & Need Help Box */}
+          <div className="site-footer__col site-footer__col--cities" style={{ display: "flex", flexDirection: "column" }}>
+            <h3 className="site-footer__col-title" style={{ color: "#1e3a8a", fontSize: "15px", fontWeight: "800", margin: "0 0 16px 0", display: "block" }}>Cities We Serve</h3>
+            <ul className="site-footer__link-list" style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "10px" }}>
+              {locationPages.map((page) => (
+                <li key={page.slug}>
+                  <a href={`/${page.slug}`} style={{ color: "#475569", fontSize: "13.5px", fontWeight: "600", textDecoration: "none" }}>Google Ads in {page.city}</a>
+                </li>
+              ))}
+              <li>
+                <a href="/google-ads-agency-india" style={{ color: "#475569", fontSize: "13.5px", fontWeight: "600", textDecoration: "none" }}>Google Ads in India</a>
+              </li>
+            </ul>
+
+            {/* Need Help Box */}
+            <a href="/#contact" className="site-footer__help-box" style={{ marginTop: "24px", background: "#e0f2fe", border: "1px solid #bae6fd", borderRadius: "16px", padding: "16px 18px", display: "flex", alignItems: "center", gap: "14px", textDecoration: "none" }}>
+              <div className="site-footer__help-icon" style={{ width: "44px", height: "44px", borderRadius: "50%", background: "var(--ads-blue)", color: "#ffffff", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "17px", flexShrink: 0 }}>
+                <FaPhoneAlt />
+              </div>
+              <div className="site-footer__help-content">
+                <strong style={{ display: "block", color: "#0f172a", fontSize: "14.5px", fontWeight: "800" }}>Need Help?</strong>
+                <p style={{ margin: "3px 0 0", color: "#334155", fontSize: "12px", lineHeight: "1.4" }}>Book a ₹1000 Consultation and grow your business faster.</p>
+              </div>
+            </a>
+          </div>
+
+        </div>
+
+        {/* ── Middle Trust / Stat Bar ── */}
+        <div className="site-footer__trust-bar" style={{ marginTop: "48px", background: "#ffffff", border: "1px solid #e2e8f0", borderRadius: "16px", padding: "20px 28px", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "20px", boxShadow: "0 4px 20px rgba(0, 0, 0, 0.03)" }}>
+          <div className="site-footer__trust-item" style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+            <div className="site-footer__trust-icon" style={{ width: "38px", height: "38px", borderRadius: "50%", background: "#eff6ff", color: "var(--ads-blue)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "17px", flexShrink: 0 }}><FaShieldAlt /></div>
+            <div>
+              <strong style={{ display: "block", color: "#0f172a", fontSize: "14px", fontWeight: "800", lineHeight: "1.2" }}>Google Ads</strong>
+              <span style={{ display: "block", color: "#64748b", fontSize: "12px", fontWeight: "600" }}>Certified Expert</span>
+            </div>
+          </div>
+          <div className="site-footer__trust-item" style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+            <div className="site-footer__trust-icon" style={{ width: "38px", height: "38px", borderRadius: "50%", background: "#eff6ff", color: "var(--ads-blue)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "17px", flexShrink: 0 }}><FaChartBar /></div>
+            <div>
+              <strong style={{ display: "block", color: "#0f172a", fontSize: "14px", fontWeight: "800", lineHeight: "1.2" }}>50+</strong>
+              <span style={{ display: "block", color: "#64748b", fontSize: "12px", fontWeight: "600" }}>Successful Campaigns</span>
+            </div>
+          </div>
+          <div className="site-footer__trust-item" style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+            <div className="site-footer__trust-icon" style={{ width: "38px", height: "38px", borderRadius: "50%", background: "#eff6ff", color: "var(--ads-blue)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "17px", flexShrink: 0 }}><FaUsers /></div>
+            <div>
+              <strong style={{ display: "block", color: "#0f172a", fontSize: "14px", fontWeight: "800", lineHeight: "1.2" }}>20+</strong>
+              <span style={{ display: "block", color: "#64748b", fontSize: "12px", fontWeight: "600" }}>Industries Served</span>
+            </div>
+          </div>
+          <div className="site-footer__trust-item" style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+            <div className="site-footer__trust-icon" style={{ width: "38px", height: "38px", borderRadius: "50%", background: "#eff6ff", color: "var(--ads-blue)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "17px", flexShrink: 0 }}><FaBullseye /></div>
+            <div>
+              <strong style={{ display: "block", color: "#0f172a", fontSize: "14px", fontWeight: "800", lineHeight: "1.2" }}>100%</strong>
+              <span style={{ display: "block", color: "#64748b", fontSize: "12px", fontWeight: "600" }}>ROI Focused</span>
+            </div>
+          </div>
+          <div className="site-footer__trust-item" style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+            <div className="site-footer__trust-icon" style={{ width: "38px", height: "38px", borderRadius: "50%", background: "#eff6ff", color: "var(--ads-blue)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "17px", flexShrink: 0 }}><FaHeadset /></div>
+            <div>
+              <strong style={{ display: "block", color: "#0f172a", fontSize: "14px", fontWeight: "800", lineHeight: "1.2" }}>Dedicated</strong>
+              <span style={{ display: "block", color: "#64748b", fontSize: "12px", fontWeight: "600" }}>Support</span>
+            </div>
+          </div>
+        </div>
+
+        {/* ── Bottom Legal & Copyright Bar ── */}
+        <div className="site-footer__bottom-section" style={{ marginTop: "36px", paddingTop: "24px", borderTop: "1px solid #e2e8f0" }}>
+          <div className="site-footer__legal-links" style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "12px", flexWrap: "wrap", color: "#94a3b8", fontSize: "13px" }}>
+            <a href="/contact" style={{ color: "#64748b", fontSize: "13px", fontWeight: "600", textDecoration: "none" }}>Privacy Policy</a>
+            <span>·</span>
+            <a href="/contact" style={{ color: "#64748b", fontSize: "13px", fontWeight: "600", textDecoration: "none" }}>Terms &amp; Conditions</a>
+            <span>·</span>
+            <a href="/contact" style={{ color: "#64748b", fontSize: "13px", fontWeight: "600", textDecoration: "none" }}>Refund Policy</a>
+            <span>·</span>
+            <a href="/contact" style={{ color: "#64748b", fontSize: "13px", fontWeight: "600", textDecoration: "none" }}>Disclaimer</a>
+            <span>·</span>
+            <a href="/sitemap.xml" style={{ color: "#64748b", fontSize: "13px", fontWeight: "600", textDecoration: "none" }}>Sitemap</a>
+          </div>
+
+          <div className="site-footer__copyright-row" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "12px", color: "#64748b", fontSize: "13px", fontWeight: "500" }}>
+            <p style={{ margin: 0 }}>© {year} Yash Deliwala — Google Ads Expert in India. All rights reserved.</p>
+            <p className="site-footer__made-with" style={{ margin: 0, display: "flex", alignItems: "center", gap: "5px" }}>
+              Made with <FaHeart className="site-footer__heart-icon" style={{ color: "var(--ads-blue)" }} /> for Indian Businesses
+            </p>
+          </div>
+        </div>
+
+      </div>
     </footer>
   );
 }
@@ -414,7 +623,7 @@ export function GoogleAdsLanding({ blogs = [] }) {
             </p>
 
             <div className="ads-logo-panel">
-              <img src="/clients/logo.png" alt="Yash Deliwala Google Ads Expert logo" />
+              <img src="/clients/logo (2).jpeg" alt="Yash Deliwala Google Ads Expert logo" decoding="async" width="50" height="50" />
               <div>
                 <strong>Yash Deliwala</strong>
                 <span>Google Ads Freelancer & PPC Consultant</span>
@@ -446,7 +655,14 @@ export function GoogleAdsLanding({ blogs = [] }) {
           </div>
 
           <div className="ads-hero__media" aria-label="Yash Deliwala Google Ads Expert">
-            <img src="/yash-google-ads-photo.png" alt="Yash Deliwala, Google Ads expert in India" />
+            <img
+              src="/clients/yash-deliwala.jpeg"
+              alt="Yash Deliwala, Google Ads expert in India"
+              fetchPriority="high"
+              decoding="async"
+              width="540"
+              height="540"
+            />
           </div>
         </section>
 
@@ -454,26 +670,40 @@ export function GoogleAdsLanding({ blogs = [] }) {
           <div className="ads-section__heading">
             <p className="ads-eyebrow">
               <FaGoogle />
-              Google Ads Freelancer & Agency Services
+              Google Ads Freelancer &amp; Agency Services
             </p>
             <h2>India-focused Google Ads management for businesses that need real enquiries.</h2>
           </div>
 
           <div className="ads-seo-copy__grid">
             <div>
-              <h3>Google Ads Freelancer in India</h3>
+              <h3>
+                <a href="/google-ads-expert-surat" className="ads-internal-link">
+                  Google Ads Freelancer in India
+                </a>
+              </h3>
               <p>
                 Work directly with a Google Ads freelancer who manages keyword
                 research, campaign setup, ad copy, budget control, and ongoing
-                optimization without confusing layers.
+                optimization without confusing layers.{" "}
+                <a href="/google-ads-expert-surat" className="ads-inline-link">
+                  See campaign results from Surat →
+                </a>
               </p>
             </div>
             <div>
-              <h3>Google Ads Agency Style Process</h3>
+              <h3>
+                <a href="/google-ads-agency-india" className="ads-internal-link">
+                  Google Ads Agency Style Process
+                </a>
+              </h3>
               <p>
                 Get a structured agency-style workflow with account audit,
-                conversion tracking, search campaign planning, Performance Max
-                management, and clear reporting.
+                conversion tracking, search campaign planning,{" "}
+                <a href="/google-ads-agency-india" className="ads-inline-link">
+                  Performance Max management
+                </a>
+                , and clear reporting.
               </p>
             </div>
             <div>
@@ -481,7 +711,10 @@ export function GoogleAdsLanding({ blogs = [] }) {
               <p>
                 Target people searching for your service on Google and convert
                 that traffic into calls, forms, WhatsApp enquiries, and sales
-                conversations.
+                conversations. We serve businesses across{" "}
+                <a href="/google-ads-expert-mumbai" className="ads-inline-link">Mumbai</a>,{" "}
+                <a href="/google-ads-expert-delhi" className="ads-inline-link">Delhi</a>, and{" "}
+                <a href="/google-ads-expert-ahmedabad" className="ads-inline-link">Ahmedabad</a>.
               </p>
             </div>
           </div>
@@ -687,7 +920,7 @@ export function LocationSeoPage({ page }) {
           </div>
 
           <div className="location-hero__card">
-            <img src="/clients/logo.png" alt={`Yash Deliwala Google Ads expert in ${page.city}`} />
+            <img src="/clients/logo (2).jpeg" alt={`Yash Deliwala Google Ads expert in ${page.city}`} decoding="async" width="80" height="80" />
             <strong>Yash Deliwala</strong>
             <span>Google Ads Freelancer & PPC Consultant</span>
           </div>
@@ -780,6 +1013,35 @@ export function LocationSeoPage({ page }) {
                 directly to Google.
               </p>
             </details>
+          </div>
+        </section>
+
+        {/* ── Internal Link Hub: Also Serving ── */}
+        <section className="ads-section ads-also-serving">
+          <div className="ads-section__heading">
+            <p className="ads-eyebrow">
+              <FaMapMarkerAlt />
+              Also Serving Across India
+            </p>
+            <h2>Google Ads expert available in major Indian cities.</h2>
+          </div>
+          <div className="ads-also-serving__grid">
+            <a href="/" className="ads-also-serving__card">
+              <strong>Google Ads Expert in India</strong>
+              <span>India-wide Search Ads &amp; PPC management</span>
+            </a>
+            <a href="/google-ads-agency-india" className="ads-also-serving__card">
+              <strong>Google Ads Agency in India</strong>
+              <span>Agency-style process, transparent reporting</span>
+            </a>
+            {locationPages
+              .filter((p) => p.slug !== page.slug)
+              .map((p) => (
+                <a href={`/${p.slug}`} key={p.slug} className="ads-also-serving__card">
+                  <strong>Google Ads Expert in {p.city}</strong>
+                  <span>{p.state} — Search Ads &amp; Lead Generation</span>
+                </a>
+              ))}
           </div>
         </section>
 

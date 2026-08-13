@@ -1,7 +1,9 @@
 import { GoogleAdsLanding, faqItems } from "../src/components/GoogleAdsSite";
 import { getPublishedBlogs } from "../src/lib/blog-data";
 
-export const dynamic = "force-dynamic";
+// ISR: Serve cached page from Vercel Edge CDN, revalidate blog posts every hour.
+// This is critical for Google Ads Quality Score — cached pages load near-instantly.
+export const revalidate = 3600;
 
 const localBusinessSchema = {
   "@context": "https://schema.org",
@@ -14,8 +16,8 @@ const localBusinessSchema = {
   ],
   description:
     "Google Ads expert in India offering Search Ads, PPC campaign management, lead generation campaigns, Performance Max, conversion tracking, and Google Ads consultation.",
-  image: "https://yashdeliwala.com/yash-google-ads-photo.png",
-  logo: "https://yashdeliwala.com/clients/logo.png",
+  image: "https://yashdeliwala.com/clients/yash-deliwala.jpeg",
+  logo: "https://yashdeliwala.com/clients/logo (2).jpeg",
   url: "https://yashdeliwala.com",
   telephone: "+919712952456",
   email: "yashdeliwala10@gmail.com",

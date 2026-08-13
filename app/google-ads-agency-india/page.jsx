@@ -2,7 +2,8 @@ import GoogleAdsAgencyIndia from "../../src/components/GoogleAdsAgencyIndia";
 import { getPublishedBlogs } from "../../src/lib/blog-data";
 import { SITE_URL } from "../../src/lib/site-config";
 
-export const dynamic = "force-dynamic";
+// ISR: Serve from Vercel Edge CDN, revalidate every hour
+export const revalidate = 3600;
 
 export const metadata = {
   title: "Google Ads Agency in India | Yash Deliwala — PPC Expert Surat",
@@ -28,7 +29,7 @@ export const metadata = {
       "Hire Yash Deliwala, top Google Ads agency in India & PPC expert in Surat. Get high ROI Search & Performance Max campaigns for local Indian businesses.",
     url: `${SITE_URL}/google-ads-agency-india`,
     siteName: "Yash Google Ads Expert",
-    images: ["/yash-google-ads-photo.png"],
+    images: ["/clients/yash-deliwala.jpeg"],
     locale: "en_IN",
     type: "website",
   },
@@ -37,7 +38,7 @@ export const metadata = {
     title: "Google Ads Agency in India | Yash Deliwala — PPC Expert Surat",
     description:
       "Hire Yash Deliwala, top Google Ads agency in India & PPC expert in Surat. Get high ROI Search & Performance Max campaigns for local Indian businesses.",
-    images: ["/yash-google-ads-photo.png"],
+    images: ["/clients/yash-deliwala.jpeg"],
   },
 };
 
@@ -53,8 +54,8 @@ const localBusinessSchema = {
   ],
   description:
     "Google Ads agency in India providing high-intent Search Ads, Performance Max, local lead generation, conversion tracking, and PPC management for Indian SMBs.",
-  image: `${SITE_URL}/yash-google-ads-photo.png`,
-  logo: `${SITE_URL}/clients/logo.png`,
+  image: `${SITE_URL}/clients/yash-deliwala.jpeg`,
+  logo: `${SITE_URL}/clients/logo (2).jpeg`,
   url: `${SITE_URL}/google-ads-agency-india`,
   telephone: "+919712952456",
   email: "yashdeliwala10@gmail.com",
@@ -158,6 +159,25 @@ const faqSchema = {
   ],
 };
 
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Google Ads Expert in India",
+      item: SITE_URL,
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Google Ads Agency in India",
+      item: `${SITE_URL}/google-ads-agency-india`,
+    },
+  ],
+};
+
 export default async function GoogleAdsAgencyIndiaPage() {
   const { data: blogs } = await getPublishedBlogs(3);
 
@@ -174,6 +194,10 @@ export default async function GoogleAdsAgencyIndiaPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       <GoogleAdsAgencyIndia blogs={blogs} />
     </>

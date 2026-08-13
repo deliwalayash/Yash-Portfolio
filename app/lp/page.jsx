@@ -1,8 +1,6 @@
 import GoogleAdsLp from "../../src/components/GoogleAdsLp";
 import { SITE_URL } from "../../src/lib/site-config";
 
-export const dynamic = "force-dynamic";
-
 export const metadata = {
   title: "Google Ads Agency in India | Get More Leads & Sales",
   description:
@@ -23,7 +21,7 @@ export const metadata = {
       "Hire Yash Deliwala - Google Ads Agency in India. Get high ROI Search & Performance Max campaigns with direct expert support & transparent reporting.",
     url: `${SITE_URL}/lp`,
     siteName: "Yash Google Ads Expert",
-    images: ["/yash-google-ads-photo.png"],
+    images: ["/clients/yash-deliwala.jpeg"],
     locale: "en_IN",
     type: "website",
   },
@@ -32,7 +30,7 @@ export const metadata = {
     title: "Google Ads Agency in India | Get More Leads & Sales",
     description:
       "Hire Yash Deliwala - Google Ads Agency in India. Get high ROI Search & Performance Max campaigns with direct expert support & transparent reporting.",
-    images: ["/yash-google-ads-photo.png"],
+    images: ["/clients/yash-deliwala.jpeg"],
   },
   robots: {
     index: true,

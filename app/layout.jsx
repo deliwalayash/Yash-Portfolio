@@ -1,6 +1,13 @@
+import { Sora } from "next/font/google";
 import "../src/index.css";
 import "../src/App.css";
 import GoogleAnalytics from "../src/components/GoogleAnalytics";
+
+const sora = Sora({
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["300", "400", "500", "600", "700", "800"],
+});
 
 export const metadata = {
   metadataBase: new URL("https://yashdeliwala.com"),
@@ -27,9 +34,9 @@ export const metadata = {
   creator: "Yash Deliwala",
   publisher: "Yash Google Ads Expert",
   icons: {
-    icon: "/clients/logo.png",
-    shortcut: "/clients/logo.png",
-    apple: "/clients/logo.png",
+    icon: "/clients/logo (2).jpeg",
+    shortcut: "/clients/logo (2).jpeg",
+    apple: "/clients/logo (2).jpeg",
   },
   openGraph: {
     title: "Google Ads Expert in India | Freelancer & PPC Consultant",
@@ -37,7 +44,7 @@ export const metadata = {
       "Google Ads management, Search Ads, PPC campaigns, and lead generation services for businesses across India.",
     url: "https://yashdeliwala.com",
     siteName: "Yash Google Ads Expert",
-    images: ["/yash-google-ads-photo.png"],
+    images: ["/clients/yash-deliwala.jpeg"],
     locale: "en_IN",
     type: "website",
   },
@@ -46,7 +53,7 @@ export const metadata = {
     title: "Google Ads Expert in India | Freelancer & PPC Consultant",
     description:
       "Hire a Google Ads expert in India for Search Ads, PPC management, lead generation, and Performance Max campaigns.",
-    images: ["/yash-google-ads-photo.png"],
+    images: ["/clients/yash-deliwala.jpeg"],
   },
   alternates: {
     canonical: "/",
@@ -67,11 +74,87 @@ export const metadata = {
   },
 };
 
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "Yash Deliwala - Google Ads Expert",
+  alternateName: ["Yash Deliwala", "Yash Google Ads Expert", "Google Ads Freelancer in India"],
+  url: "https://yashdeliwala.com",
+  author: {
+    "@type": "Person",
+    name: "Yash Deliwala",
+    jobTitle: "Google Ads Expert & PPC Consultant",
+    url: "https://yashdeliwala.com",
+    sameAs: [
+      "https://www.linkedin.com/in/yash-deliwala",
+      "https://x.com/YDeliwala94759",
+      "https://github.com/deliwalayash",
+    ],
+  },
+};
+
+const siteNavigationSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  itemListElement: [
+    {
+      "@type": "SiteNavigationElement",
+      position: 1,
+      name: "Google Ads Agency India",
+      description: "Full-service Google Ads campaign management and agency services in India.",
+      url: "https://yashdeliwala.com/google-ads-agency-india",
+    },
+    {
+      "@type": "SiteNavigationElement",
+      position: 2,
+      name: "Google Ads Blog",
+      description: "Google Ads tips, PPC strategies, and lead generation guides.",
+      url: "https://yashdeliwala.com/blogs",
+    },
+    {
+      "@type": "SiteNavigationElement",
+      position: 3,
+      name: "Contact Yash Deliwala",
+      description: "Book a consultation or reach out to Yash Deliwala.",
+      url: "https://yashdeliwala.com/contact",
+    },
+    {
+      "@type": "SiteNavigationElement",
+      position: 4,
+      name: "Google Ads Expert Surat",
+      description: "PPC campaign management and Search Ads support in Surat.",
+      url: "https://yashdeliwala.com/google-ads-expert-surat",
+    },
+    {
+      "@type": "SiteNavigationElement",
+      position: 5,
+      name: "Google Ads Expert Ahmedabad",
+      description: "Google Ads management and PPC consultation in Ahmedabad.",
+      url: "https://yashdeliwala.com/google-ads-expert-ahmedabad",
+    },
+    {
+      "@type": "SiteNavigationElement",
+      position: 6,
+      name: "Google Ads Expert Mumbai",
+      description: "Google Search Ads and lead generation campaigns in Mumbai.",
+      url: "https://yashdeliwala.com/google-ads-expert-mumbai",
+    },
+  ],
+};
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>
+      <body className={sora.className}>
         <GoogleAnalytics />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(siteNavigationSchema) }}
+        />
         {children}
       </body>
     </html>

@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import {
   FaArrowRight,
   FaBookOpen,
@@ -24,7 +23,6 @@ import {
   FaStore,
   FaTools,
   FaUserCheck,
-  FaUserShield,
   FaWhatsapp,
 } from "react-icons/fa";
 import AdsHeader from "./AdsHeader";
@@ -32,257 +30,237 @@ import { AdsFooter, BlogCard, clients } from "./GoogleAdsSite";
 import FloatingContactButtons from "./FloatingContactButtons";
 import GoogleAdsDashboards from "./GoogleAdsDashboards";
 import { PHONE_NUMBER, WHATSAPP_LINK } from "../lib/site-config";
-import { TrackedWhatsAppLink, TrackedCallLink } from "./TrackedLinks";
 import { isSupabaseConfigured } from "../lib/supabase";
 
+// ─── Static Data: Module scope — allocated ONCE, never recreated on re-render ───
+const AGENCY_PAIN_POINTS = [
+  {
+    title: "Wasted Budget on Broad Keywords",
+    description:
+      "Paying for clicks from casual browsers searching for free info instead of high-intent buyers ready to purchase your service.",
+    icon: <FaExclamationTriangle className="text-amber-500" />,
+  },
+  {
+    title: "Zero Qualified Leads & Low ROI",
+    description:
+      "Receiving phone calls for services you don't offer or fake form leads because conversion tracking and negative keywords are missing.",
+    icon: <FaPercent className="text-red-500" />,
+  },
+  {
+    title: "No Transparency from Agencies",
+    description:
+      "Getting passed around junior account managers, receiving confusing PDFs, and having zero ownership of your own Google Ads account.",
+    icon: <FaShieldAlt className="text-blue-500" />,
+  },
+];
+
+const AGENCY_SERVICES = [
+  {
+    title: "Google Search Campaigns",
+    description:
+      "High-intent keyword targeting that connects your business with buyers searching for your exact service on Google in Surat & across India.",
+    badge: "High Intent",
+  },
+  {
+    title: "Performance Max (PMax)",
+    description:
+      "Leverage Google's AI across Search, YouTube, Display, Gmail, Maps, and Discover with high-converting creative assets and signal controls.",
+    badge: "AI Powered",
+  },
+  {
+    title: "Google Shopping Ads",
+    description:
+      "High-converting product catalog ads for Indian E-commerce stores, complete with Merchant Center setup, feed optimization & bid tuning.",
+    badge: "E-Commerce",
+  },
+  {
+    title: "Local Service Ads & Maps",
+    description:
+      "Dominating local search results in Surat and target cities across India to drive phone calls, map directions, and direct walk-ins.",
+    badge: "Local Business",
+  },
+  {
+    title: "Landing Page & Conversion Tracking",
+    description:
+      "Custom high-converting landing page structure with GTM, GA4, call tracking, and WhatsApp click tracking so every ad rupee is accounted for.",
+    badge: "Full Setup",
+  },
+];
+
+const AGENCY_WHY_WORK_WITH_ME = [
+  {
+    title: "Direct Communication (No Account Managers)",
+    description:
+      "Speak directly with the expert managing your ads. Enjoy fast execution, 1-on-1 strategy updates, and zero agency bureaucratic delays.",
+  },
+  {
+    title: "Hinglish & Regional Friendly",
+    description:
+      "Seamless communication in Gujarati, Hindi, or English. Built specifically for local business owners in Surat, Gujarat, and across India.",
+  },
+  {
+    title: "Transparent Reporting & Account Ownership",
+    description:
+      "You retain 100% ownership of your Google Ads account, data, and live reporting dashboards. Complete visibility into where every rupee goes.",
+  },
+  {
+    title: "Budget-Conscious for SMBs",
+    description:
+      "Practical PPC strategies tailored for Indian small and medium businesses. No bloated retainer fees or hidden extra management charges.",
+  },
+];
+
+const AGENCY_PROCESS_STEPS = [
+  {
+    step: "01",
+    title: "Audit & Opportunity Analysis",
+    description:
+      "In-depth review of your business goals, existing Google Ads account, competitor keywords, landing pages, and conversion tracking.",
+    icon: <FaSearchDollar />,
+  },
+  {
+    step: "02",
+    title: "Strategy & Campaign Build",
+    description:
+      "Crafting high-intent Search & PMax campaign structures, negative keyword vaults, compelling ad copy variations, and GTM call/WhatsApp tracking.",
+    icon: <FaTools />,
+  },
+  {
+    step: "03",
+    title: "Launch & Targeted Bidding",
+    description:
+      "Deploying your campaign with exact geo-targeting (Surat or pan-India), smart budget allocation, and click fraud protection.",
+    icon: <FaRocket />,
+  },
+  {
+    step: "04",
+    title: "Optimize & Weekly Reporting",
+    description:
+      "Continuous bid management, search term pruning, ad copy split-testing, and transparent weekly updates to lower your Cost Per Lead (CPL).",
+    icon: <FaChartLine />,
+  },
+];
+
+const AGENCY_CASE_STUDIES = [
+  {
+    industry: "Healthcare & Dental Clinic",
+    location: "Surat, Gujarat",
+    spend: "₹45,000 / mo",
+    results: "120+ Qualified Patient Calls",
+    cpcImprovement: "42% Reduction in CPL",
+    description:
+      "Restructured search campaigns around high-intent dental implant and cosmetic dentistry keywords in Surat, driving direct appointment calls.",
+  },
+  {
+    industry: "B2B Industrial Machinery",
+    location: "India-Wide (Gujarat Hub)",
+    spend: "₹80,000 / mo",
+    results: "85+ High-Intent RFQ Enquiries",
+    cpcImprovement: "3.8x ROI / ROAS",
+    description:
+      "Targeted nationwide buyers searching for industrial manufacturing equipment with tight negative keyword lists to filter out retail browsers.",
+  },
+  {
+    industry: "Real Estate & Architecture Firm",
+    location: "Surat & Ahmedabad",
+    spend: "₹60,000 / mo",
+    results: "65+ Site Visit Bookings",
+    cpcImprovement: "35% Lower Acquisition Cost",
+    description:
+      "Combined local Search Ads with location extensions and WhatsApp click tracking to capture premium commercial & residential project leads.",
+  },
+];
+
+const AGENCY_TESTIMONIALS = [
+  {
+    quote:
+      "Yash turned around our Google Ads performance within 3 weeks. Direct communication, clean conversion tracking, and genuine patient enquiries instead of random calls. Highly recommended for local healthcare in Surat!",
+    name: "Dr. Aditya",
+    role: "Clinic Director",
+    city: "Surat, Gujarat",
+  },
+  {
+    quote:
+      "Unlike big digital marketing agencies where you get passed around junior account managers, Yash handles everything personally with total transparency and sharp keyword focus. Our B2B inquiries have doubled.",
+    name: "Rajesh Patel",
+    role: "B2B Manufacturing Director",
+    city: "Gujarat, India",
+  },
+  {
+    quote:
+      "Our lead quality improved dramatically while reducing our cost per lead by 35%. His Hinglish reporting and direct WhatsApp updates keep us in the loop without complex jargon.",
+    name: "Sneha Shah",
+    role: "Founder & Interior Consultant",
+    city: "India",
+  },
+];
+
+const AGENCY_PRICING_TIERS = [
+  {
+    name: "Starter Plan",
+    subtitle: "For Local SMBs & Surat Businesses",
+    price: "₹15,000",
+    period: "per month",
+    budget: "Recommended Ad Spend: ₹15,000 - ₹35,000/mo",
+    highlight: false,
+    features: [
+      "1 Google Search Campaign",
+      "Keyword Research & Competitor Analysis",
+      "Negative Keyword List Setup",
+      "Basic Call & Form Conversion Tracking",
+      "Bi-weekly Campaign Optimization",
+      "Monthly PDF Performance Report",
+    ],
+    ctaText: "Get Started",
+    ctaLink: "#contact",
+  },
+  {
+    name: "Growth Plan",
+    subtitle: "For Expanding Businesses in India",
+    price: "₹25,000",
+    period: "per month",
+    budget: "Recommended Ad Spend: ₹35,000 - ₹1.5L/mo",
+    highlight: true,
+    features: [
+      "Search + Performance Max Campaigns",
+      "Advanced GTM & WhatsApp Click Tracking",
+      "Landing Page Conversion UX Audit",
+      "Negative Keyword Pruning & Ad Testing",
+      "Weekly Optimization & Strategy Tweaks",
+      "Live Dashboard Access & WhatsApp Support",
+    ],
+    ctaText: "Choose Growth Plan",
+    ctaLink: "#contact",
+  },
+  {
+    name: "Scale Plan",
+    subtitle: "For Multi-City & E-Commerce Brands",
+    price: "Custom",
+    period: "quote",
+    budget: "Recommended Ad Spend: ₹1.5L+/mo",
+    highlight: false,
+    features: [
+      "Search, PMax, Shopping & Local Ads",
+      "Competitor Conquesting & Remarketing",
+      "Dedicated High-Converting Landing Page",
+      "Omnichannel Conversion Analytics",
+      "Priority 1-on-1 Weekly Strategy Calls",
+      "100% Dedicated PPC Support",
+    ],
+    ctaText: "Request Custom Quote",
+    ctaLink: "#contact",
+  },
+];
+
 export default function GoogleAdsAgencyIndia({ blogs = [] }) {
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-
-  const handleFormSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setError("");
-
-    const formData = new FormData(e.target);
-
-    try {
-      const response = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        body: formData,
-      });
-
-      if (response.ok) {
-        window.location.href = "/thank-you";
-      } else {
-        setError("Submission failed. Please try again or connect via WhatsApp.");
-        setLoading(false);
-      }
-    } catch (err) {
-      console.error("Form submit error:", err);
-      setError("Something went wrong. Please try again or connect via WhatsApp.");
-      setLoading(false);
-    }
-  };
-
-  const painPoints = [
-    {
-      title: "Wasted Budget on Broad Keywords",
-      description:
-        "Paying for clicks from casual browsers searching for free info instead of high-intent buyers ready to purchase your service.",
-      icon: <FaExclamationTriangle className="text-amber-500" />,
-    },
-    {
-      title: "Zero Qualified Leads & Low ROI",
-      description:
-        "Receiving phone calls for services you don't offer or fake form leads because conversion tracking and negative keywords are missing.",
-      icon: <FaPercent className="text-red-500" />,
-    },
-    {
-      title: "No Transparency from Agencies",
-      description:
-        "Getting passed around junior account managers, receiving confusing PDFs, and having zero ownership of your own Google Ads account.",
-      icon: <FaShieldAlt className="text-blue-500" />,
-    },
-  ];
-
-  const services = [
-    {
-      title: "Google Search Campaigns",
-      description:
-        "High-intent keyword targeting that connects your business with buyers searching for your exact service on Google in Surat & across India.",
-      badge: "High Intent",
-    },
-    {
-      title: "Performance Max (PMax)",
-      description:
-        "Leverage Google's AI across Search, YouTube, Display, Gmail, Maps, and Discover with high-converting creative assets and signal controls.",
-      badge: "AI Powered",
-    },
-    {
-      title: "Google Shopping Ads",
-      description:
-        "High-converting product catalog ads for Indian E-commerce stores, complete with Merchant Center setup, feed optimization & bid tuning.",
-      badge: "E-Commerce",
-    },
-    {
-      title: "Local Service Ads & Maps",
-      description:
-        "Dominating local search results in Surat and target cities across India to drive phone calls, map directions, and direct walk-ins.",
-      badge: "Local Business",
-    },
-    {
-      title: "Landing Page & Conversion Tracking",
-      description:
-        "Custom high-converting landing page structure with GTM, GA4, call tracking, and WhatsApp click tracking so every ad rupee is accounted for.",
-      badge: "Full Setup",
-    },
-  ];
-
-  const whyWorkWithMe = [
-    {
-      title: "Direct Communication (No Account Managers)",
-      description:
-        "Speak directly with the expert managing your ads. Enjoy fast execution, 1-on-1 strategy updates, and zero agency bureaucratic delays.",
-    },
-    {
-      title: "Hinglish & Regional Friendly",
-      description:
-        "Seamless communication in Gujarati, Hindi, or English. Built specifically for local business owners in Surat, Gujarat, and across India.",
-    },
-    {
-      title: "Transparent Reporting & Account Ownership",
-      description:
-        "You retain 100% ownership of your Google Ads account, data, and live reporting dashboards. Complete visibility into where every rupee goes.",
-    },
-    {
-      title: "Budget-Conscious for SMBs",
-      description:
-        "Practical PPC strategies tailored for Indian small and medium businesses. No bloated retainer fees or hidden extra management charges.",
-    },
-  ];
-
-  const processSteps = [
-    {
-      step: "01",
-      title: "Audit & Opportunity Analysis",
-      description:
-        "In-depth review of your business goals, existing Google Ads account, competitor keywords, landing pages, and conversion tracking.",
-      icon: <FaSearchDollar />,
-    },
-    {
-      step: "02",
-      title: "Strategy & Campaign Build",
-      description:
-        "Crafting high-intent Search & PMax campaign structures, negative keyword vaults, compelling ad copy variations, and GTM call/WhatsApp tracking.",
-      icon: <FaTools />,
-    },
-    {
-      step: "03",
-      title: "Launch & Targeted Bidding",
-      description:
-        "Deploying your campaign with exact geo-targeting (Surat or pan-India), smart budget allocation, and click fraud protection.",
-      icon: <FaRocket />,
-    },
-    {
-      step: "04",
-      title: "Optimize & Weekly Reporting",
-      description:
-        "Continuous bid management, search term pruning, ad copy split-testing, and transparent weekly updates to lower your Cost Per Lead (CPL).",
-      icon: <FaChartLine />,
-    },
-  ];
-
-  const caseStudies = [
-    {
-      industry: "Healthcare & Dental Clinic",
-      location: "Surat, Gujarat",
-      spend: "₹45,000 / mo",
-      results: "120+ Qualified Patient Calls",
-      cpcImprovement: "42% Reduction in CPL",
-      description:
-        "Restructured search campaigns around high-intent dental implant and cosmetic dentistry keywords in Surat, driving direct appointment calls.",
-    },
-    {
-      industry: "B2B Industrial Machinery",
-      location: "India-Wide (Gujarat Hub)",
-      spend: "₹80,000 / mo",
-      results: "85+ High-Intent RFQ Enquiries",
-      cpcImprovement: "3.8x ROI / ROAS",
-      description:
-        "Targeted nationwide buyers searching for industrial manufacturing equipment with tight negative keyword lists to filter out retail browsers.",
-    },
-    {
-      industry: "Real Estate & Architecture Firm",
-      location: "Surat & Ahmedabad",
-      spend: "₹60,000 / mo",
-      results: "65+ Site Visit Bookings",
-      cpcImprovement: "35% Lower Acquisition Cost",
-      description:
-        "Combined local Search Ads with location extensions and WhatsApp click tracking to capture premium commercial & residential project leads.",
-    },
-  ];
-
-  const testimonials = [
-    {
-      quote:
-        "Yash turned around our Google Ads performance within 3 weeks. Direct communication, clean conversion tracking, and genuine patient enquiries instead of random calls. Highly recommended for local healthcare in Surat!",
-      name: "Dr. Aditya",
-      role: "Clinic Director",
-      city: "Surat, Gujarat",
-    },
-    {
-      quote:
-        "Unlike big digital marketing agencies where you get passed around junior account managers, Yash handles everything personally with total transparency and sharp keyword focus. Our B2B inquiries have doubled.",
-      name: "Rajesh Patel",
-      role: "B2B Manufacturing Director",
-      city: "Gujarat, India",
-    },
-    {
-      quote:
-        "Our lead quality improved dramatically while reducing our cost per lead by 35%. His Hinglish reporting and direct WhatsApp updates keep us in the loop without complex jargon.",
-      name: "Sneha Shah",
-      role: "Founder & Interior Consultant",
-      city: "India",
-    },
-  ];
-
-  const pricingTiers = [
-    {
-      name: "Starter Plan",
-      subtitle: "For Local SMBs & Surat Businesses",
-      price: "₹15,000",
-      period: "per month",
-      budget: "Recommended Ad Spend: ₹15,000 - ₹35,000/mo",
-      highlight: false,
-      features: [
-        "1 Google Search Campaign",
-        "Keyword Research & Competitor Analysis",
-        "Negative Keyword List Setup",
-        "Basic Call & Form Conversion Tracking",
-        "Bi-weekly Campaign Optimization",
-        "Monthly PDF Performance Report",
-      ],
-      ctaText: "Get Started",
-      ctaLink: "#contact",
-    },
-    {
-      name: "Growth Plan",
-      subtitle: "For Expanding Businesses in India",
-      price: "₹25,000",
-      period: "per month",
-      budget: "Recommended Ad Spend: ₹35,000 - ₹1.5L/mo",
-      highlight: true,
-      features: [
-        "Search + Performance Max Campaigns",
-        "Advanced GTM & WhatsApp Click Tracking",
-        "Landing Page Conversion UX Audit",
-        "Negative Keyword Pruning & Ad Testing",
-        "Weekly Optimization & Strategy Tweaks",
-        "Live Dashboard Access & WhatsApp Support",
-      ],
-      ctaText: "Choose Growth Plan",
-      ctaLink: "#contact",
-    },
-    {
-      name: "Scale Plan",
-      subtitle: "For Multi-City & E-Commerce Brands",
-      price: "Custom",
-      period: "quote",
-      budget: "Recommended Ad Spend: ₹1.5L+/mo",
-      highlight: false,
-      features: [
-        "Search, PMax, Shopping & Local Ads",
-        "Competitor Conquesting & Remarketing",
-        "Dedicated High-Converting Landing Page",
-        "Omnichannel Conversion Analytics",
-        "Priority 1-on-1 Weekly Strategy Calls",
-        "100% Dedicated PPC Support",
-      ],
-      ctaText: "Request Custom Quote",
-      ctaLink: "#contact",
-    },
-  ];
+  // Use module-level constants — no new arrays created on re-render
+  const painPoints = AGENCY_PAIN_POINTS;
+  const services = AGENCY_SERVICES;
+  const whyWorkWithMe = AGENCY_WHY_WORK_WITH_ME;
+  const processSteps = AGENCY_PROCESS_STEPS;
+  const caseStudies = AGENCY_CASE_STUDIES;
+  const testimonials = AGENCY_TESTIMONIALS;
+  const pricingTiers = AGENCY_PRICING_TIERS;
 
   return (
     <div className="ads-site">
@@ -314,8 +292,11 @@ export default function GoogleAdsAgencyIndia({ blogs = [] }) {
 
             <div className="ads-logo-panel">
               <img
-                src="/clients/logo.png"
+                src="/clients/logo (2).jpeg"
                 alt="Yash Deliwala - Google Ads Agency in India and PPC Expert in Surat"
+                decoding="async"
+                width="50"
+                height="50"
               />
               <div>
                 <strong>Yash Deliwala</strong>
@@ -326,16 +307,17 @@ export default function GoogleAdsAgencyIndia({ blogs = [] }) {
             <div className="ads-actions">
               <a className="ads-button ads-button--primary" href="#contact">
                 <FaCheckCircle />
-                Get a Free Google Ads Audit
+                Book Consultation (Rs. 1000)
               </a>
-              <TrackedWhatsAppLink
+              <a
                 className="ads-button ads-button--secondary"
                 href={WHATSAPP_LINK}
-                label="Agency India Hero WhatsApp Click"
+                target="_blank"
+                rel="noreferrer"
               >
                 <FaWhatsapp className="text-emerald-600" />
                 Book a Call / WhatsApp
-              </TrackedWhatsAppLink>
+              </a>
             </div>
 
             <div className="ads-hero__proof">
@@ -356,9 +338,12 @@ export default function GoogleAdsAgencyIndia({ blogs = [] }) {
 
           <div className="ads-hero__media" aria-label="Yash Deliwala - Google Ads Agency Expert in Surat, India">
             <img
-              src="/yash-google-ads-photo.png"
+              src="/clients/yash-deliwala.jpeg"
               alt="Yash Deliwala, Google Ads Agency Expert in India and PPC Consultant in Surat"
-              loading="eager"
+              fetchPriority="high"
+              decoding="async"
+              width="540"
+              height="540"
             />
           </div>
         </section>
@@ -700,7 +685,7 @@ export default function GoogleAdsAgencyIndia({ blogs = [] }) {
           <div className="ads-contact__copy">
             <p className="ads-eyebrow">
               <FaPhoneAlt />
-              Free Google Ads Audit & Call
+              Google Ads Consultation
             </p>
             <h2>Ready to Scale Your Business with a Top Google Ads Agency in India?</h2>
             <p>
@@ -709,26 +694,27 @@ export default function GoogleAdsAgencyIndia({ blogs = [] }) {
             </p>
 
             <div className="ads-consultation-price">
-              <span>Audit & Consultation</span>
-              <strong>FREE / Rs. 1000 Consultation</strong>
+              <span>1-on-1 Consultation</span>
+              <strong>Rs. 1000 Consultation Charge</strong>
             </div>
 
             <div className="ads-contact__quick">
-              <TrackedCallLink href={`tel:${PHONE_NUMBER}`} label="Agency India Contact Quick Call">
+              <a href={`tel:${PHONE_NUMBER}`}>
                 <FaPhoneAlt className="inline mr-2" /> {PHONE_NUMBER}
-              </TrackedCallLink>
+              </a>
               <a href="mailto:yashdeliwala10@gmail.com">yashdeliwala10@gmail.com</a>
-              <TrackedWhatsAppLink
+              <a
                 href={WHATSAPP_LINK}
-                label="Agency India Quick WhatsApp Click"
+                target="_blank"
+                rel="noreferrer"
                 className="text-emerald-600 font-bold flex items-center gap-2 mt-2"
               >
                 <FaWhatsapp className="text-xl" /> Chat on WhatsApp Directly
-              </TrackedWhatsAppLink>
+              </a>
             </div>
           </div>
 
-          <form className="ads-form" onSubmit={handleFormSubmit}>
+          <form className="ads-form" action="https://api.web3forms.com/submit" method="POST">
             <input type="hidden" name="access_key" value="2c6efe99-dc5c-4acc-b523-656523121182" />
             <input type="text" name="name" required placeholder="Your Full Name" />
             <input type="email" name="email" required placeholder="Email Address" />
@@ -739,9 +725,8 @@ export default function GoogleAdsAgencyIndia({ blogs = [] }) {
               rows={5}
               placeholder="Tell me about your business, target locations (Surat or India-wide), and Google Ads goal"
             />
-            {error && <p style={{ color: "#ef4444", fontSize: "14px", margin: "0" }}>{error}</p>}
-            <button type="submit" disabled={loading} className="ads-button ads-button--primary w-full">
-              {loading ? "Submitting..." : "Get a Free Google Ads Audit"}
+            <button type="submit" className="ads-button ads-button--primary w-full">
+              Book Consultation (Rs. 1000)
             </button>
           </form>
         </section>

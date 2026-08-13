@@ -1,173 +1,185 @@
 import Image from "next/image";
-import { FaPhone, FaWhatsapp, FaGlobe, FaUserPlus } from "react-icons/fa";
+import {
+  FaCheckCircle,
+  FaEnvelope,
+  FaGoogle,
+  FaMapMarkerAlt,
+  FaPhoneAlt,
+  FaUserPlus,
+  FaWhatsapp,
+} from "react-icons/fa";
+import { SiteShell } from "../../src/components/GoogleAdsSite";
+import { PHONE_NUMBER, WHATSAPP_LINK } from "../../src/lib/site-config";
 
 export const metadata = {
-  title: "Yash Deliwala | Digital Business Card",
+  title: "Contact Yash Deliwala | Google Ads Expert in India",
   description:
-    "Connect with Yash Deliwala, Digital Marketing Consultant at Sure Marketing. Specializing in Google Ads, Social Media Marketing, Website Design, and Mobile App Development.",
+    "Book a 1-on-1 Google Ads consultation (Rs. 1000) or contact Yash Deliwala directly via phone, email, or WhatsApp for Search Ads and PPC campaigns.",
+  alternates: {
+    canonical: "/contact",
+  },
   openGraph: {
-    title: "Yash Deliwala | Digital Business Card",
+    title: "Contact Yash Deliwala | Google Ads Expert in India",
     description:
-      "Connect with Yash Deliwala, Digital Marketing Consultant at Sure Marketing. Services: Google Ads, SMM, Website Design, App Development.",
-    url: "https://suremarketing.in",
-    siteName: "Yash Deliwala",
-    images: ["/yash-google-ads-photo.png"],
+      "Connect directly with Yash Deliwala for Google Search Ads, lead generation, conversion tracking, and PPC campaign management.",
+    url: "https://yashdeliwala.com/contact",
+    siteName: "Yash Google Ads Expert",
+    images: ["/clients/yash-deliwala.jpeg"],
     locale: "en_IN",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Yash Deliwala | Digital Business Card",
+    title: "Contact Yash Deliwala | Google Ads Expert in India",
     description:
-      "Digital Marketing Consultant. Tap to save contact and learn about Google Ads, SMM, Website Design, and App Development.",
-    images: ["/yash-google-ads-photo.png"],
+      "Connect directly with Yash Deliwala for Google Search Ads, lead generation, and PPC campaign management.",
+    images: ["/clients/yash-deliwala.jpeg"],
   },
 };
 
 export default function ContactPage() {
-  const services = [
-    { name: "Google Ads", tag: "PPC & Lead Gen" },
-    { name: "Social Media Marketing", tag: "Brand Growth" },
-    { name: "Website Design", tag: "UI/UX & Web" },
-    { name: "Mobile App Development", tag: "iOS & Android" },
+  const highlights = [
+    "Direct Support — No junior account managers or outsourcing",
+    "100% Transparent Lead, Call & Conversion Tracking",
+    "Customized Strategies for Local & Pan-India Campaigns",
   ];
 
   return (
-    <div className="bg-slate-950 text-slate-100 min-h-screen flex flex-col items-center justify-center p-4 relative overflow-hidden font-sans">
-      {/* Background Decorative Ambient Glows */}
-      <div className="absolute top-[-10%] left-[-10%] w-[350px] h-[350px] rounded-full bg-violet-600/15 blur-[120px] pointer-events-none"></div>
-      <div className="absolute bottom-[-10%] right-[-10%] w-[350px] h-[350px] rounded-full bg-blue-600/15 blur-[120px] pointer-events-none"></div>
-      <div className="absolute top-[40%] left-[50%] -translate-x-1/2 w-[400px] h-[400px] rounded-full bg-indigo-500/5 blur-[150px] pointer-events-none"></div>
-
-      {/* Main Glassmorphic Card Container */}
-      <div className="w-full max-w-md bg-white/5 backdrop-blur-xl border border-white/10 rounded-[2.5rem] shadow-2xl overflow-hidden relative z-10 transition-all duration-300 hover:shadow-violet-500/5">
-        {/* Cover Accent Banner */}
-        <div className="h-32 bg-gradient-to-r from-violet-600 via-indigo-600 to-blue-600 relative overflow-hidden">
-          <div className="absolute inset-0 bg-black/10"></div>
-          {/* Subtle grid pattern overlay */}
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:14px_24px]"></div>
-        </div>
-
-        {/* Profile Avatar overlapping cover */}
-        <div className="relative w-32 h-32 mx-auto -mt-16 rounded-full p-[3px] bg-gradient-to-tr from-violet-500 via-indigo-500 to-cyan-400 shadow-xl shadow-slate-950/50">
-          <div className="w-full h-full rounded-full overflow-hidden bg-slate-900 relative">
-            <Image
-              src="/yash-google-ads-photo.png"
-              alt="Yash Deliwala"
-              width={128}
-              height={128}
-              className="object-cover w-full h-full"
-              priority
-            />
-          </div>
-        </div>
-
-        {/* Name and Organization Details */}
-        <div className="px-6 pt-4 pb-6 text-center">
-          <h1 className="text-2xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-100 to-slate-300">
-            Yash Deliwala
-          </h1>
-          <p className="text-indigo-400 text-sm font-medium mt-1">
-            Digital Marketing Consultant
+    <SiteShell>
+      {/* Hero Section */}
+      <section className="ads-hero">
+        <div className="ads-hero__content">
+          <p className="ads-eyebrow">
+            <FaGoogle />
+            Google Ads Expert &amp; PPC Consultant
           </p>
-          <p className="text-slate-400 text-xs mt-0.5">Sure Marketing</p>
-        </div>
+          <h1>Get in Touch with Yash Deliwala</h1>
+          <p className="ads-hero__text">
+            Looking to start a high-ROI Google Ads campaign or optimize your existing account? Book a 1-on-1 consultation (Rs. 1000) or message directly on WhatsApp.
+          </p>
 
-        {/* Contact Quick Details Info Box */}
-        <div className="px-6 py-3 mx-6 rounded-2xl bg-white/[0.02] border border-white/5 text-center text-xs text-slate-400 flex justify-around items-center gap-4">
-          <div>
-            <div className="text-slate-500 text-[10px] uppercase font-semibold tracking-wider">Phone</div>
-            <a href="tel:+919712952456" className="text-slate-300 hover:text-violet-400 transition-colors mt-0.5 inline-block font-medium">
-              +91 97129 52456
-            </a>
-          </div>
-          <div className="w-[1px] h-6 bg-white/10"></div>
-          <div>
-            <div className="text-slate-500 text-[10px] uppercase font-semibold tracking-wider">Website</div>
-            <a href="https://suremarketing.in" target="_blank" rel="noopener noreferrer" className="text-slate-300 hover:text-violet-400 transition-colors mt-0.5 inline-block font-medium">
-              suremarketing.in
-            </a>
-          </div>
-        </div>
-
-        {/* Services & Expertise Section */}
-        <div className="px-6 py-6">
-          <h2 className="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-3">
-            Services &amp; Expertise
-          </h2>
-          <div className="grid grid-cols-2 gap-3">
-            {services.map((service, index) => (
-              <div
-                key={index}
-                className="bg-white/5 border border-white/5 rounded-2xl p-3 flex flex-col justify-between hover:bg-white/10 hover:border-white/10 transition-all duration-300 hover:-translate-y-0.5 group"
-              >
-                <span className="text-[10px] text-slate-500 group-hover:text-indigo-400 transition-colors font-medium">
-                  {service.tag}
-                </span>
-                <span className="text-xs font-semibold text-slate-200 mt-1.5 leading-tight">
-                  {service.name}
-                </span>
+          <div style={{ margin: "20px 0", display: "flex", flexDirection: "column", gap: "10px" }}>
+            {highlights.map((item) => (
+              <div key={item} style={{ display: "flex", alignItems: "center", gap: "10px", fontSize: "14px", fontWeight: "600", color: "#334155" }}>
+                <FaCheckCircle style={{ color: "var(--ads-blue)", flexShrink: 0 }} />
+                <span>{item}</span>
               </div>
             ))}
           </div>
-        </div>
 
-        {/* Action Buttons Grid */}
-        <div className="px-6 pb-6 space-y-4">
-          <div className="grid grid-cols-3 gap-3">
-            {/* Call Button */}
+          <div className="ads-actions">
             <a
-              href="tel:+919712952456"
-              className="flex flex-col items-center justify-center p-3.5 rounded-2xl bg-white/5 border border-white/5 hover:bg-violet-600/20 hover:border-violet-500/30 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 group shadow-md"
-            >
-              <FaPhone className="text-lg text-violet-400 group-hover:text-violet-300 group-hover:scale-110 transition-all mb-1.5" />
-              <span className="text-[11px] font-semibold text-slate-300 group-hover:text-white transition-colors">
-                Call
-              </span>
-            </a>
-
-            {/* WhatsApp Button */}
-            <a
-              href="https://wa.me/919712952456"
+              className="ads-button ads-button--primary"
+              href={WHATSAPP_LINK}
               target="_blank"
-              rel="noopener noreferrer"
-              className="flex flex-col items-center justify-center p-3.5 rounded-2xl bg-white/5 border border-white/5 hover:bg-emerald-600/20 hover:border-emerald-500/30 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 group shadow-md"
+              rel="noreferrer"
             >
-              <FaWhatsapp className="text-lg text-emerald-400 group-hover:text-emerald-300 group-hover:scale-110 transition-all mb-1.5" />
-              <span className="text-[11px] font-semibold text-slate-300 group-hover:text-white transition-colors">
-                WhatsApp
-              </span>
+              <FaWhatsapp /> Chat on WhatsApp
             </a>
-
-            {/* Website Button */}
-            <a
-              href="https://suremarketing.in"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex flex-col items-center justify-center p-3.5 rounded-2xl bg-white/5 border border-white/5 hover:bg-blue-600/20 hover:border-blue-500/30 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 group shadow-md"
-            >
-              <FaGlobe className="text-lg text-blue-400 group-hover:text-blue-300 group-hover:scale-110 transition-all mb-1.5" />
-              <span className="text-[11px] font-semibold text-slate-300 group-hover:text-white transition-colors">
-                Website
-              </span>
+            <a className="ads-button ads-button--secondary" href={`tel:${PHONE_NUMBER}`}>
+              <FaPhoneAlt /> Call {PHONE_NUMBER}
             </a>
           </div>
+        </div>
 
-          {/* Primary Save Contact CTA */}
-          <a
-            href="/vcf"
-            className="w-full flex items-center justify-center gap-2 py-4 px-6 rounded-2xl bg-gradient-to-r from-violet-600 via-indigo-600 to-blue-600 hover:from-violet-500 hover:via-indigo-500 hover:to-blue-500 text-white font-bold text-xs uppercase tracking-wider shadow-lg shadow-violet-500/20 hover:shadow-violet-500/30 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 group"
-          >
-            <FaUserPlus className="text-sm text-violet-100 group-hover:scale-110 transition-transform" />
-            Save Contact
+        {/* Profile Card */}
+        <div className="ads-hero__media">
+          <div className="ads-profile-card">
+            <div className="ads-profile-card__avatar-wrap">
+              <Image
+                src="/clients/yash-deliwala.jpeg"
+                alt="Yash Deliwala - Google Ads Expert in India"
+                width={160}
+                height={160}
+                className="ads-profile-card__avatar"
+                priority
+              />
+            </div>
+            <h2>Yash Deliwala</h2>
+            <p className="ads-profile-card__title">Google Ads Expert &amp; PPC Consultant</p>
+            <p className="ads-profile-card__meta">
+              <FaMapMarkerAlt /> Surat, Gujarat &amp; Pan-India
+            </p>
+
+            <a href="/vcf" className="ads-button ads-button--primary" style={{ width: "100%", justifyContent: "center", marginTop: "16px" }}>
+              <FaUserPlus /> Save VCF Contact Card
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Direct Contact Cards */}
+      <section className="ads-section">
+        <div className="ads-section__heading">
+          <p className="ads-eyebrow">
+            <FaPhoneAlt />
+            Direct Channels
+          </p>
+          <h2>Connect via your preferred channel</h2>
+        </div>
+
+        <div className="ads-service-grid" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))" }}>
+          <a href={`tel:${PHONE_NUMBER}`} className="ads-card contact-channel-card" style={{ textDecoration: "none" }}>
+            <div className="contact-icon-badge contact-icon-badge--phone">
+              <FaPhoneAlt />
+            </div>
+            <h3>Direct Call</h3>
+            <p style={{ fontWeight: "700", color: "#0f172a", fontSize: "16px", marginTop: "4px" }}>{PHONE_NUMBER}</p>
+            <span style={{ fontSize: "13px", color: "var(--ads-blue)", fontWeight: "600", marginTop: "8px", display: "inline-block" }}>Tap to call now &rarr;</span>
+          </a>
+
+          <a href={WHATSAPP_LINK} target="_blank" rel="noreferrer" className="ads-card contact-channel-card" style={{ textDecoration: "none" }}>
+            <div className="contact-icon-badge contact-icon-badge--whatsapp">
+              <FaWhatsapp />
+            </div>
+            <h3>WhatsApp</h3>
+            <p style={{ fontWeight: "700", color: "#0f172a", fontSize: "16px", marginTop: "4px" }}>Instant Chat</p>
+            <span style={{ fontSize: "13px", color: "#25d366", fontWeight: "600", marginTop: "8px", display: "inline-block" }}>Message on WhatsApp &rarr;</span>
+          </a>
+
+          <a href="mailto:yashdeliwala10@gmail.com" className="ads-card contact-channel-card" style={{ textDecoration: "none" }}>
+            <div className="contact-icon-badge contact-icon-badge--email">
+              <FaEnvelope />
+            </div>
+            <h3>Email</h3>
+            <p style={{ fontWeight: "700", color: "#0f172a", fontSize: "15px", marginTop: "4px" }}>yashdeliwala10@gmail.com</p>
+            <span style={{ fontSize: "13px", color: "var(--ads-blue)", fontWeight: "600", marginTop: "8px", display: "inline-block" }}>Send an email &rarr;</span>
           </a>
         </div>
-      </div>
+      </section>
 
-      {/* NFC Disclaimer Footer */}
-      <p className="text-[10px] text-slate-600 mt-8 relative z-10 tracking-wide">
-        Yash Deliwala &bull; NFC Digital Business Card &bull; Sure Marketing
-      </p>
-    </div>
+      {/* Inquiry Form Section */}
+      <section className="ads-section ads-contact" id="contact-form">
+        <div className="ads-contact__copy">
+          <p className="ads-eyebrow">
+            <FaGoogle />
+            Google Ads Consultation
+          </p>
+          <h2>Need better Google Ads results in India?</h2>
+          <p>
+            Share your business, target location, monthly budget, and current ad goal. I will help you understand what to fix first and how to run your Google Ads more cleanly.
+          </p>
+          <div className="ads-consultation-price">
+            <span>Consultation charge</span>
+            <strong>Rs. 1000</strong>
+          </div>
+          <div className="ads-contact__quick">
+            <a href={`tel:${PHONE_NUMBER}`}>{PHONE_NUMBER}</a>
+            <a href="mailto:yashdeliwala10@gmail.com">yashdeliwala10@gmail.com</a>
+          </div>
+        </div>
+
+        <form className="ads-form" action="https://api.web3forms.com/submit" method="POST">
+          <input type="hidden" name="access_key" value="2c6efe99-dc5c-4acc-b523-656523121182" />
+          <input type="text" name="name" required placeholder="Your name" />
+          <input type="email" name="email" required placeholder="Email address" />
+          <input type="tel" name="phone" placeholder="Phone or WhatsApp number" />
+          <textarea name="message" required rows={5} placeholder="Tell me about your business and Google Ads goal" />
+          <button className="ads-button ads-button--primary" type="submit" style={{ width: "100%", justifyContent: "center" }}>
+            Submit Inquiry
+          </button>
+        </form>
+      </section>
+    </SiteShell>
   );
 }
