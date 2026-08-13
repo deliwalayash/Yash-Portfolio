@@ -1,11 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import {
   FaBuilding,
   FaCheckCircle,
   FaCut,
-  FaExpand,
   FaGavel,
   FaGoogle,
   FaIndustry,
@@ -17,195 +16,192 @@ import { WHATSAPP_LINK } from "../lib/site-config";
 
 export const dashboardResults = [
   {
+    id: "skin-clinic",
+    title: "Dermatology Clinic – Gurgaon",
+    client: "Skin & Hair Aesthetics Clinic",
+    industry: "Healthcare & Doctors",
+    category: "healthcare",
+    budget: "₹1,000/day Budget",
+    badge: "Healthcare",
+    icon: FaStethoscope,
+    highlights: [
+      "Focused keyword selection",
+      "Improved ad relevance",
+      "Conversion-oriented landing experience",
+    ],
+    resultMetric: "2–3 New Patients Per Day",
+    description:
+      "Operating in one of India's most competitive healthcare advertising markets, the objective was to attract genuine prospective patients rather than simply generate website traffic.",
+  },
+  {
+    id: "courier",
+    title: "Courier Company – Hyderabad",
+    client: "International Courier Service Provider",
+    industry: "Logistics & Shipping",
+    category: "courier",
+    budget: "₹500/day Budget",
+    badge: "International Courier",
+    icon: FaIndustry,
+    highlights: [
+      "Clearer messaging",
+      "Trust-building content",
+      "Prominent contact options",
+    ],
+    resultMetric: "2–3 Genuine Responses Daily",
+    description:
+      "The campaign was receiving traffic but very few enquiries. A completely redesigned AI-assisted landing page transformed performance.",
+  },
+  {
+    id: "furniture",
+    title: "Premium Office Furniture Manufacturer – Mumbai",
+    client: "Office Furniture Manufacturer",
+    industry: "Furniture & Interior",
+    category: "manufacturing",
+    budget: "₹400/day Budget",
+    badge: "Furniture",
+    icon: FaBuilding,
+    highlights: [
+      "Better visitor qualification",
+      "Improved landing page design",
+      "Conversion-focused messaging",
+    ],
+    resultMetric: "2–3 High Quality Enquiries Daily",
+    description:
+      "A premium product category requiring higher trust and longer buying cycles.",
+  },
+  {
     id: "gynechologist",
-    title: "Gynecologist & Women's Healthcare Campaign",
+    title: "Gynecologist & Women's Care Clinic – Surat",
     client: "Gynecologist Specialist Doctor",
     industry: "Healthcare & Doctors",
     category: "healthcare",
-    image: "/google-ads-dashboard/gynechologist-doctor.png",
-    badge: "Healthcare & Medical",
+    budget: "₹800/day Budget",
+    badge: "Healthcare",
     icon: FaStethoscope,
-    stats: [
-      { label: "Campaign Target", value: "Patient Call Enquiries" },
-      { label: "Ad Type", value: "Google Search Ads" },
-      { label: "Target Area", value: "Local City & Surroundings" },
-    ],
     highlights: [
       "High-intent patient appointment calls",
       "Negative keyword filtration for non-relevant queries",
       "Direct call extension & WhatsApp integration",
     ],
+    resultMetric: "3–5 Direct OPD Appointments Daily",
     description:
       "Targeted local Google Search Ads campaign for a Gynecologist specialist doctor. Designed to capture high-intent searches for female health consultations, maternity care, and OPD appointments.",
   },
   {
     id: "orthopedic",
-    title: "Orthopedic & Joint Specialist Campaign",
+    title: "Orthopedic & Joint Specialist – Metro",
     client: "Orthopedic Surgeon & Specialist",
     industry: "Healthcare & Doctors",
     category: "healthcare",
-    image: "/google-ads-dashboard/orthopedic-doctor.png",
-    badge: "Healthcare & Medical",
+    budget: "₹1,000/day Budget",
+    badge: "Healthcare",
     icon: FaStethoscope,
-    stats: [
-      { label: "Campaign Target", value: "OPD Consultations" },
-      { label: "Ad Type", value: "Search & Local Call Ads" },
-      { label: "Target Area", value: "Metropolitan Region" },
-    ],
     highlights: [
       "Focused on knee, joint & spine treatment searches",
       "High call-through conversion rate",
       "Weekly bid optimization based on lead quality",
     ],
+    resultMetric: "3–4 High Intent Knee & Joint Enquiries Daily",
     description:
       "Dedicated Search campaign for an Orthopedic surgeon. Formatted around search intent for joint pain, knee replacement, and specialized bone & joint treatments.",
   },
   {
-    id: "skin-clinic",
-    title: "Dermatology & Skin Clinic Campaign",
-    client: "Skin & Hair Aesthetics Clinic",
-    industry: "Healthcare & Doctors",
-    category: "healthcare",
-    image: "/google-ads-dashboard/Skin-clinic-dashboard.png",
-    badge: "Healthcare & Medical",
-    icon: FaStethoscope,
-    stats: [
-      { label: "Campaign Target", value: "Clinical Consultations" },
-      { label: "Ad Type", value: "Search & Performance Max" },
-      { label: "Target Area", value: "Targeted Metro Zone" },
-    ],
-    highlights: [
-      "Laser treatment & skin care lead generation",
-      "Consistent low CPC with maximum impression share",
-      "Conversion tracking on form submissions & calls",
-    ],
-    description:
-      "Comprehensive PPC campaign for a dermatology clinic delivering steady daily consultation requests for aesthetic skin treatments and hair care.",
-  },
-  {
     id: "lawyer",
-    title: "Legal Practitioner & Advocate Campaign",
+    title: "Legal Advocate & Law Firm – Delhi NCR",
     client: "Advocate & Legal Law Firm",
     industry: "Legal Services",
     category: "legal",
-    image: "/google-ads-dashboard/Lawyer-google-ads.png",
+    budget: "₹600/day Budget",
     badge: "Legal Services",
     icon: FaGavel,
-    stats: [
-      { label: "Campaign Target", value: "Direct Legal Calls" },
-      { label: "Ad Type", value: "High-CTR Search Ads" },
-      { label: "Target Area", value: "Statewide & City Level" },
-    ],
     highlights: [
       "Targeting corporate & individual legal enquiries",
       "Ad extensions highlighting expertise & fast response",
       "Optimized for urgent consultation phone calls",
     ],
+    resultMetric: "3–5 Urgent Legal Consultations Daily",
     description:
       "High-intent legal Search Ads engineered to capture people seeking immediate legal counsel, documentation, and court advocacy services.",
   },
   {
-    id: "manufacturing",
-    title: "Industrial Manufacturing B2B Campaign",
-    client: "B2B Manufacturing Unit",
-    industry: "Manufacturing & B2B",
-    category: "manufacturing",
-    image: "/google-ads-dashboard/Manufacturing-unit-google-ads.png",
-    badge: "Manufacturing & B2B",
-    icon: FaIndustry,
-    stats: [
-      { label: "Campaign Target", value: "Bulk Buyer RFQs" },
-      { label: "Ad Type", value: "Pan-India Search Ads" },
-      { label: "Target Area", value: "Pan-India B2B Buyers" },
-    ],
-    highlights: [
-      "Commercial & industrial wholesale queries",
-      "High order-value lead pipeline generation",
-      "Strict keyword match type control to eliminate B2C traffic",
-    ],
-    description:
-      "B2B Google Ads strategy for an industrial manufacturing unit, bringing in high-value bulk buyer RFQs, distributor queries, and industrial contracts.",
-  },
-  {
     id: "real-estate",
-    title: "Real Estate & Property Lead Generation",
+    title: "Real Estate Property Developer – Pune",
     client: "Real Estate Property Developer",
     industry: "Real Estate",
     category: "real-estate",
-    image: "/google-ads-dashboard/Real-estate-dashboard.png",
-    badge: "Real Estate & Property",
+    budget: "₹1,000/day Budget",
+    badge: "Real Estate",
     icon: FaBuilding,
-    stats: [
-      { label: "Campaign Target", value: "Property Site Visits" },
-      { label: "Ad Type", value: "PMax & Search Campaigns" },
-      { label: "Target Area", value: "Investors & Homebuyers" },
-    ],
     highlights: [
       "Qualified home buyer form submissions",
       "Location-radius targeting around new projects",
       "Regular negative audience pruning for budget safety",
     ],
+    resultMetric: "4–6 Qualified Site Visit Leads Weekly",
     description:
       "Lead generation campaign for residential & commercial real estate projects, driving site visits and direct buyer inquiries.",
   },
   {
     id: "salon",
-    title: "Salon & Beauty Studio Campaign",
+    title: "Salon & Luxury Beauty Studio – Bangalore",
     client: "Luxury Salon & Beauty Studio",
     industry: "Salon & Beauty",
     category: "salon",
-    image: "/google-ads-dashboard/Salon-Google-ads.png",
+    budget: "₹500/day Budget",
     badge: "Salon & Beauty",
     icon: FaCut,
-    stats: [
-      { label: "Campaign Target", value: "Salon Appointments & Calls" },
-      { label: "Ad Type", value: "Hyper-Local Search Ads" },
-      { label: "Target Area", value: "5km Local Radius" },
-    ],
     highlights: [
       "Bridal package & hair service bookings",
       "Direct WhatsApp chat integration from ads",
       "High local search impression share",
     ],
+    resultMetric: "4–7 Direct Salon Bookings Daily",
     description:
       "Local Google Ads campaign driving footfall, appointment bookings, and immediate WhatsApp enquiries for a salon & wellness studio.",
+  },
+  {
+    id: "solar-energy",
+    title: "Rooftop Solar & Clean Energy – Jaipur",
+    client: "Rooftop Solar & Renewable Energy Provider",
+    industry: "Solar & Clean Energy",
+    category: "solar",
+    budget: "₹900/day Budget",
+    badge: "Solar & Clean Energy",
+    icon: FaIndustry,
+    highlights: [
+      "Residential & commercial solar inquiry leads",
+      "High solar subsidy search intent targeting",
+      "GTM lead form conversion tracking",
+    ],
+    resultMetric: "3–5 Qualified Solar Survey Leads Daily",
+    description:
+      "High-intent local Search Ads campaign engineered for rooftop solar installation, driving home and factory owner site inspection enquiries.",
   },
 ];
 
 const categories = [
   { id: "all", label: "All Industries" },
   { id: "healthcare", label: "Healthcare & Clinics" },
-  { id: "legal", label: "Legal Services" },
+  { id: "courier", label: "Courier & Shipping" },
   { id: "manufacturing", label: "Manufacturing & B2B" },
+  { id: "legal", label: "Legal Services" },
   { id: "real-estate", label: "Real Estate" },
   { id: "salon", label: "Salon & Beauty" },
+  { id: "solar", label: "Solar & Clean Energy" },
 ];
 
 export default function GoogleAdsDashboards() {
   const [activeCategory, setActiveCategory] = useState("all");
-  const [selectedDashboard, setSelectedDashboard] = useState(null);
 
-  const filteredDashboards =
-    activeCategory === "all"
-      ? dashboardResults
-      : dashboardResults.filter((item) => item.category === activeCategory);
+  const filteredDashboards = useMemo(
+    () =>
+      activeCategory === "all"
+        ? dashboardResults
+        : dashboardResults.filter((item) => item.category === activeCategory),
+    [activeCategory]
+  );
 
-  // Keyboard escape listener to close modal
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (e.key === "Escape") {
-        setSelectedDashboard(null);
-      }
-    };
-    if (selectedDashboard) {
-      window.addEventListener("keydown", handleKeyDown);
-      document.body.style.overflow = "hidden";
-    }
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-      document.body.style.overflow = "unset";
-    };
-  }, [selectedDashboard]);
+  const handleCategoryChange = useCallback((id) => setActiveCategory(id), []);
 
   return (
     <section id="results" className="ads-section ads-dashboards-section">
@@ -214,9 +210,9 @@ export default function GoogleAdsDashboards() {
           <FaGoogle />
           Proven Campaign Results
         </p>
-        <h2>Real Google Ads Account Dashboards Industry-Wise.</h2>
+        <h2>Real Google Ads Performance & Daily Budgets.</h2>
         <p className="ads-section__subtext">
-          Explore actual performance dashboards from campaigns managed across healthcare, legal, manufacturing, real estate, and salon industries. Click any dashboard screenshot for a detailed view.
+          Explore real Google Ads campaigns across healthcare, courier, furniture, legal, manufacturing, real estate, salon, and solar energy industries with daily budgets ranging from ₹400 to ₹1,000/day.
         </p>
       </div>
 
@@ -234,7 +230,7 @@ export default function GoogleAdsDashboards() {
               role="tab"
               aria-selected={activeCategory === cat.id}
               className={`ads-dashboard-tab ${activeCategory === cat.id ? "ads-dashboard-tab--active" : ""}`}
-              onClick={() => setActiveCategory(cat.id)}
+              onClick={() => handleCategoryChange(cat.id)}
             >
               <span>{cat.label}</span>
               <span className="ads-dashboard-tab__count">{count}</span>
@@ -243,154 +239,43 @@ export default function GoogleAdsDashboards() {
         })}
       </div>
 
-      {/* Dashboards Grid */}
+      {/* Campaign Cards Grid (9 Clients - 3 Complete Rows of 3) */}
       <div className="ads-dashboard-grid">
         {filteredDashboards.map((item) => {
-          const IconComp = item.icon;
           return (
-            <div
-              key={item.id}
-              className="ads-dashboard-card"
-              onClick={() => setSelectedDashboard(item)}
-            >
-              <div className="ads-dashboard-card__header-bar">
-                <span className="ads-dashboard-card__badge">
-                  {IconComp && <IconComp />}
-                  {item.badge}
-                </span>
-                <span className="ads-dashboard-card__client">{item.client}</span>
+            <div key={item.id} className="ads-dashboard-card">
+              {/* Category Pill Badge */}
+              <div className="ads-dashboard-card__badge-row">
+                <span className="ads-dashboard-card__pill">{item.badge}</span>
               </div>
 
-              <div className="ads-dashboard-card__preview">
-                <img
-                  src={item.image}
-                  alt={`${item.title} - Google Ads performance dashboard screenshot`}
-                  loading="lazy"
-                />
-                <div className="ads-dashboard-card__overlay">
-                  <span className="ads-dashboard-card__zoom-btn">
-                    <FaExpand /> View Full Dashboard
-                  </span>
-                </div>
-              </div>
+              {/* Title */}
+              <h3 className="ads-dashboard-card__title">{item.title}</h3>
 
-              <div className="ads-dashboard-card__content">
-                <h3 className="ads-dashboard-card__title">{item.title}</h3>
-                <p className="ads-dashboard-card__desc">{item.description}</p>
+              {/* Budget in Gold */}
+              <div className="ads-dashboard-card__budget">{item.budget}</div>
 
-                <div className="ads-dashboard-card__stats-list">
-                  {item.stats.slice(0, 2).map((stat) => (
-                    <div key={stat.label} className="ads-dashboard-card__stat-item">
-                      <span className="ads-dashboard-card__stat-label">{stat.label}</span>
-                      <strong className="ads-dashboard-card__stat-value">{stat.value}</strong>
-                    </div>
-                  ))}
-                </div>
+              {/* Description */}
+              <p className="ads-dashboard-card__desc">{item.description}</p>
 
-                <div className="ads-dashboard-card__footer">
-                  <button
-                    type="button"
-                    className="ads-dashboard-card__action-btn"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setSelectedDashboard(item);
-                    }}
-                  >
-                    Inspect Full Dashboard <FaExpand />
-                  </button>
-                </div>
+              {/* Bullet Points */}
+              <ul className="ads-dashboard-card__bullets">
+                {item.highlights.map((point, idx) => (
+                  <li key={idx}>
+                    <span className="ads-dashboard-card__dot">•</span>
+                    <span>{point}</span>
+                  </li>
+                ))}
+              </ul>
+
+              {/* Gold Left Border Highlight Metric Box */}
+              <div className="ads-dashboard-card__metric-box">
+                <span>{item.resultMetric}</span>
               </div>
             </div>
           );
         })}
       </div>
-
-      {/* Fullscreen Lightbox / Detail Modal */}
-      {selectedDashboard && (
-        <div
-          className="ads-modal-overlay"
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="ads-modal-title"
-          onClick={() => setSelectedDashboard(null)}
-        >
-          <div className="ads-modal-content" onClick={(e) => e.stopPropagation()}>
-            <button
-              type="button"
-              className="ads-modal-close"
-              aria-label="Close modal"
-              onClick={() => setSelectedDashboard(null)}
-            >
-              <FaTimes />
-            </button>
-
-            <div className="ads-modal-header">
-              <span className="ads-dashboard-card__badge ads-dashboard-card__badge--modal">
-                {selectedDashboard.icon && <selectedDashboard.icon />}
-                {selectedDashboard.badge}
-              </span>
-              <h2 id="ads-modal-title">{selectedDashboard.title}</h2>
-              <p className="ads-modal-subtitle">
-                Industry: <strong>{selectedDashboard.industry}</strong> &bull; Client: <strong>{selectedDashboard.client}</strong>
-              </p>
-            </div>
-
-            <div className="ads-modal-body">
-              <div className="ads-modal-image-wrapper">
-                <img
-                  src={selectedDashboard.image}
-                  alt={`${selectedDashboard.title} full Google Ads dashboard`}
-                />
-                <p className="ads-modal-caption">
-                  📷 Actual Google Ads Manager account dashboard screenshot for {selectedDashboard.client}
-                </p>
-              </div>
-
-              <div className="ads-modal-details">
-                <h3>Campaign Highlights & Overview</h3>
-                <p className="ads-modal-description">{selectedDashboard.description}</p>
-
-                <div className="ads-modal-stats-grid">
-                  {selectedDashboard.stats.map((stat) => (
-                    <div key={stat.label} className="ads-modal-stat-box">
-                      <span>{stat.label}</span>
-                      <strong>{stat.value}</strong>
-                    </div>
-                  ))}
-                </div>
-
-                <h4 className="ads-modal-key-title">Key Campaign Features:</h4>
-                <ul className="ads-modal-highlights">
-                  {selectedDashboard.highlights.map((point) => (
-                    <li key={point}>
-                      <FaCheckCircle />
-                      <span>{point}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                <div className="ads-modal-actions">
-                  <a
-                    href={WHATSAPP_LINK}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="ads-button ads-button--primary"
-                  >
-                    <FaWhatsapp /> Get Similar Results on WhatsApp
-                  </a>
-                  <a
-                    href="#contact"
-                    className="ads-button ads-button--secondary"
-                    onClick={() => setSelectedDashboard(null)}
-                  >
-                    Book Rs. 1000 Consultation
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
     </section>
   );
 }

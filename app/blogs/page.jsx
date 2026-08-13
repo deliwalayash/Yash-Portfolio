@@ -24,7 +24,7 @@ export const metadata = {
       "Read practical Google Ads tips and local lead generation ideas from Yash Deliwala.",
     url: "https://yashdeliwala.com/blogs",
     type: "website",
-    images: ["/yash-google-ads-photo.png"],
+    images: ["/clients/yash-deliwala.jpeg"],
   },
 };
 

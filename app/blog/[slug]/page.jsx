@@ -28,7 +28,7 @@ export async function generateMetadata({ params }) {
 
   const title = blog.seo_title || blog.title;
   const description = blog.seo_description || blog.excerpt;
-  const image = blog.image_url || "/yash-google-ads-photo.png";
+  const image = blog.image_url || "/clients/yash-deliwala.jpeg";
 
   return {
     title: `${title} | Yash Google Ads Expert`,
@@ -79,7 +79,7 @@ export default async function BlogDetailPage({ params }) {
     "@type": "Article",
     headline: blog.title,
     description: blog.seo_description || blog.excerpt,
-    image: blog.image_url || `${SITE_URL}/yash-google-ads-photo.png`,
+    image: blog.image_url || `${SITE_URL}/clients/yash-deliwala.jpeg`,
     datePublished: blog.created_at,
     dateModified: blog.updated_at || blog.created_at,
     author: {
@@ -91,7 +91,7 @@ export default async function BlogDetailPage({ params }) {
       name: "Yash Google Ads Expert",
       logo: {
         "@type": "ImageObject",
-        url: `${SITE_URL}/clients/logo.png`,
+        url: `${SITE_URL}/clients/logo (2).jpeg`,
       },
     },
     mainEntityOfPage: `${SITE_URL}/blog/${blog.slug}`,

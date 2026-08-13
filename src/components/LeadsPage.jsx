@@ -255,7 +255,7 @@ export default function LeadsPage() {
     return (
       <main className="leads-page leads-page--center">
         <section className="leads-auth">
-          <img src="/clients/logo.png" alt="Yash Deliwala" />
+          <img src="/clients/logo (2).jpeg" alt="Yash Deliwala" decoding="async" width="60" height="60" />
           <p className="ads-eyebrow">Private Lead Capture</p>
           <h1>Login to save leads</h1>
           <form onSubmit={handleLogin}>
