@@ -1,15 +1,15 @@
 import Image from "next/image";
 import {
   FaCheckCircle,
-  FaEnvelope,
   FaGoogle,
   FaMapMarkerAlt,
   FaPhoneAlt,
   FaUserPlus,
-  FaWhatsapp,
 } from "react-icons/fa";
 import { SiteShell } from "../../src/components/GoogleAdsSite";
-import { PHONE_NUMBER, WHATSAPP_LINK } from "../../src/lib/site-config";
+import { PHONE_NUMBER } from "../../src/lib/site-config";
+import ContactForm from "../../src/components/ContactForm";
+import { ContactHeroActions, ContactChannelCards } from "../../src/components/ContactChannels";
 
 export const metadata = {
   title: "Contact Yash Deliwala | Google Ads Expert in India",
@@ -67,19 +67,7 @@ export default function ContactPage() {
             ))}
           </div>
 
-          <div className="ads-actions">
-            <a
-              className="ads-button ads-button--primary"
-              href={WHATSAPP_LINK}
-              target="_blank"
-              rel="noreferrer"
-            >
-              <FaWhatsapp /> Chat on WhatsApp
-            </a>
-            <a className="ads-button ads-button--secondary" href={`tel:${PHONE_NUMBER}`}>
-              <FaPhoneAlt /> Call {PHONE_NUMBER}
-            </a>
-          </div>
+          <ContactHeroActions />
         </div>
 
         {/* Profile Card */}
@@ -118,34 +106,7 @@ export default function ContactPage() {
           <h2>Connect via your preferred channel</h2>
         </div>
 
-        <div className="ads-service-grid" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))" }}>
-          <a href={`tel:${PHONE_NUMBER}`} className="ads-card contact-channel-card" style={{ textDecoration: "none" }}>
-            <div className="contact-icon-badge contact-icon-badge--phone">
-              <FaPhoneAlt />
-            </div>
-            <h3>Direct Call</h3>
-            <p style={{ fontWeight: "700", color: "#0f172a", fontSize: "16px", marginTop: "4px" }}>{PHONE_NUMBER}</p>
-            <span style={{ fontSize: "13px", color: "var(--ads-blue)", fontWeight: "600", marginTop: "8px", display: "inline-block" }}>Tap to call now &rarr;</span>
-          </a>
-
-          <a href={WHATSAPP_LINK} target="_blank" rel="noreferrer" className="ads-card contact-channel-card" style={{ textDecoration: "none" }}>
-            <div className="contact-icon-badge contact-icon-badge--whatsapp">
-              <FaWhatsapp />
-            </div>
-            <h3>WhatsApp</h3>
-            <p style={{ fontWeight: "700", color: "#0f172a", fontSize: "16px", marginTop: "4px" }}>Instant Chat</p>
-            <span style={{ fontSize: "13px", color: "#25d366", fontWeight: "600", marginTop: "8px", display: "inline-block" }}>Message on WhatsApp &rarr;</span>
-          </a>
-
-          <a href="mailto:yashdeliwala10@gmail.com" className="ads-card contact-channel-card" style={{ textDecoration: "none" }}>
-            <div className="contact-icon-badge contact-icon-badge--email">
-              <FaEnvelope />
-            </div>
-            <h3>Email</h3>
-            <p style={{ fontWeight: "700", color: "#0f172a", fontSize: "15px", marginTop: "4px" }}>yashdeliwala10@gmail.com</p>
-            <span style={{ fontSize: "13px", color: "var(--ads-blue)", fontWeight: "600", marginTop: "8px", display: "inline-block" }}>Send an email &rarr;</span>
-          </a>
-        </div>
+        <ContactChannelCards />
       </section>
 
       {/* Inquiry Form Section */}
@@ -169,17 +130,9 @@ export default function ContactPage() {
           </div>
         </div>
 
-        <form className="ads-form" action="https://api.web3forms.com/submit" method="POST">
-          <input type="hidden" name="access_key" value="2c6efe99-dc5c-4acc-b523-656523121182" />
-          <input type="text" name="name" required placeholder="Your name" />
-          <input type="email" name="email" required placeholder="Email address" />
-          <input type="tel" name="phone" placeholder="Phone or WhatsApp number" />
-          <textarea name="message" required rows={5} placeholder="Tell me about your business and Google Ads goal" />
-          <button className="ads-button ads-button--primary" type="submit" style={{ width: "100%", justifyContent: "center" }}>
-            Submit Inquiry
-          </button>
-        </form>
+        <ContactForm />
       </section>
     </SiteShell>
   );
 }
+

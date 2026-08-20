@@ -19,6 +19,7 @@ import {
 import { clients } from "./GoogleAdsSite";
 import GoogleAdsDashboards from "./GoogleAdsDashboards";
 import { PHONE_NUMBER, WHATSAPP_LINK } from "../lib/site-config";
+import { trackConversion } from "../lib/conversions";
 
 // ─── Static Data: module scope so these objects are NEVER recreated on re-render ───
 const LP_WHAT_YOU_GET = [
@@ -130,11 +131,8 @@ export default function GoogleAdsLp() {
     e.preventDefault();
     setLoading(true);
 
-    // Fire conversion event
-    trackConversionEvent("lp_form_submit", {
-      event_category: "Lead Generation",
-      event_label: "Google Ads LP Form Submission",
-    });
+    // Fire Google Ads & GA4 lead form conversion event
+    trackConversion("lead_form");
 
     const formData = new FormData(e.target);
 
@@ -155,17 +153,11 @@ export default function GoogleAdsLp() {
   }, []);
 
   const handleWhatsAppClick = useCallback(() => {
-    trackConversionEvent("lp_whatsapp_click", {
-      event_category: "Lead Generation",
-      event_label: "Google Ads LP WhatsApp Click",
-    });
+    trackConversion("whatsapp");
   }, []);
 
   const handleCallClick = useCallback(() => {
-    trackConversionEvent("lp_call_click", {
-      event_category: "Lead Generation",
-      event_label: "Google Ads LP Phone Call Click",
-    });
+    trackConversion("call");
   }, []);
 
   // Use module-level constants — no new arrays created on re-render

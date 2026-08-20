@@ -1,5 +1,8 @@
+"use client";
+
 import { FaPhoneAlt, FaWhatsapp } from "react-icons/fa";
 import { PHONE_NUMBER, WHATSAPP_LINK } from "../lib/site-config";
+import { trackConversion } from "../lib/conversions";
 
 const FloatingContactButtons = () => {
   return (
@@ -9,6 +12,7 @@ const FloatingContactButtons = () => {
         <a
           className="floating-contact-button floating-contact-button--phone"
           href={`tel:${PHONE_NUMBER}`}
+          onClick={() => trackConversion("call")}
           aria-label="Call Yash Deliwala"
         >
           <FaPhoneAlt />
@@ -18,6 +22,7 @@ const FloatingContactButtons = () => {
           href={WHATSAPP_LINK}
           target="_blank"
           rel="noopener noreferrer"
+          onClick={() => trackConversion("whatsapp")}
           aria-label="Message Yash Deliwala on WhatsApp"
         >
           <FaWhatsapp />
@@ -29,6 +34,7 @@ const FloatingContactButtons = () => {
         <a
           className="mobile-action-btn mobile-action-btn--call"
           href={`tel:${PHONE_NUMBER}`}
+          onClick={() => trackConversion("call")}
           aria-label="Call Yash Deliwala"
         >
           <FaPhoneAlt className="mobile-action-btn__icon" />
@@ -39,6 +45,7 @@ const FloatingContactButtons = () => {
           href={WHATSAPP_LINK}
           target="_blank"
           rel="noopener noreferrer"
+          onClick={() => trackConversion("whatsapp")}
           aria-label="Message Yash Deliwala on WhatsApp"
         >
           <FaWhatsapp className="mobile-action-btn__icon" />
