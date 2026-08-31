@@ -2118,6 +2118,234 @@
   flex-shrink: 0;
 }
 
+  .admin-blog-row .badge-draft {
+    color: #f59e0b;
+  }
+
+  .admin-blog-row .badge-published {
+    color: #10b981;
+  }
+
+.admin-tabs {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 10px !important;
+  margin: 16px 0 28px !important;
+  padding: 6px !important;
+  background: #eef4fb !important;
+  border: 1px solid #d0e1f9 !important;
+  border-radius: 12px !important;
+  width: fit-content !important;
+}
+
+.admin-tabs .admin-tab-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  background: #ffffff !important;
+  border: 1px solid #cbd5e1 !important;
+  color: #1e293b !important;
+  padding: 10px 22px !important;
+  border-radius: 8px !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease-in-out !important;
+  min-height: unset !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04) !important;
+  transform: none !important;
+}
+
+.admin-tabs .admin-tab-btn:hover {
+  background: #dbeafe !important;
+  color: #1d4ed8 !important;
+  border-color: #3b82f6 !important;
+  box-shadow: 0 3px 8px rgba(37, 99, 235, 0.15) !important;
+  transform: translateY(-1px) !important;
+}
+
+.admin-tabs .admin-tab-btn.active {
+  background: #2563eb !important;
+  color: #ffffff !important;
+  border-color: #2563eb !important;
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3) !important;
+}
+
+.admin-tabs .admin-tab-btn.active:hover {
+  background: #1d4ed8 !important;
+  color: #ffffff !important;
+  border-color: #1d4ed8 !important;
+}
+
+  .admin-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .admin-form-group label {
+    font-size: 13px;
+    font-weight: 700;
+    color: #334155;
+  }
+
+  .admin-hint-text {
+    margin: 2px 0 0;
+    font-size: 12px;
+    color: #64748b;
+    font-weight: 500;
+  }
+
+  .admin-form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  @media (max-width: 768px) {
+    .admin-form-row {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .admin-faq-section {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 18px;
+    margin: 8px 0;
+  }
+
+  .admin-faq-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  .admin-faq-header h3 {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 800;
+    color: #0f172a;
+  }
+
+  .admin-faq-item {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    padding: 14px;
+    border-radius: 10px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  }
+
+  .admin-faq-item input,
+  .admin-faq-item textarea {
+    width: 100%;
+    margin-bottom: 0;
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
+    color: #0f172a;
+  }
+
+  .admin-faq-item input:focus,
+  .admin-faq-item textarea:focus {
+    background: #ffffff;
+    border-color: #2563eb;
+  }
+
+  .admin-faq-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .admin-faq-item-header span {
+    font-size: 13px;
+    font-weight: 700;
+    color: #2563eb;
+  }
+
+  .btn-remove-faq {
+    background: #fee2e2 !important;
+    color: #dc2626 !important;
+    border: 1px solid #fca5a5 !important;
+    padding: 5px 12px !important;
+    font-size: 12px !important;
+    font-weight: 700 !important;
+    border-radius: 6px !important;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .btn-remove-faq:hover {
+    background: #ef4444 !important;
+    color: #ffffff !important;
+    border-color: #ef4444 !important;
+  }
+
+  .btn-add-faq {
+    background: #eff6ff !important;
+    color: #1d4ed8 !important;
+    border: 1px dashed #3b82f6 !important;
+    padding: 8px 16px !important;
+    border-radius: 8px !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    align-self: flex-start;
+  }
+
+  .btn-add-faq:hover {
+    background: #dbeafe !important;
+    border-color: #1d4ed8 !important;
+  }
+
+  .admin-view-link {
+    color: #2563eb;
+    font-weight: 700;
+    text-decoration: none;
+    font-size: 13px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 4px;
+  }
+
+  .admin-view-link:hover {
+    text-decoration: underline;
+    color: #1d4ed8;
+  }
+
+  .location-custom-content {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: clamp(24px, 4vw, 48px);
+    margin: 40px auto;
+    max-width: 1100px;
+  }
+
+  .location-custom-content h3 {
+    color: #fff;
+    font-size: clamp(20px, 1.8vw, 26px);
+    margin: 24px 0 12px;
+  }
+
+  .location-custom-content p {
+    color: #94a3b8;
+    line-height: 1.7;
+    font-size: 16px;
+    margin-bottom: 16px;
+  }
+
 @media (max-width: 1080px) {
   .admin-layout {
     grid-template-columns: 1fr;

@@ -882,8 +882,41 @@ export function GoogleAdsLanding({ blogs = [] }) {
   );
 }
 
-export function LocationSeoPage({ page }) {
-  const industryText = page.industries.join(", ");
+export function LocationSeoPage({ page, dynamicPages = [] }) {
+  const serviceName = page.service || "Google Ads";
+  const cityName = page.city || "India";
+  const stateName = page.state || "Gujarat";
+  const industryText = Array.isArray(page.industries)
+    ? page.industries.join(", ")
+    : "local businesses, clinics, manufacturers, real estate, and service providers";
+
+  const defaultFaqs = [
+    {
+      question: `Do you provide ${serviceName} management in ${cityName}?`,
+      answer: `Yes. Yash Deliwala provides professional ${serviceName} management for businesses in ${cityName}, including campaign setup, Search Ads, Performance Max, conversion tracking, and weekly optimization.`,
+    },
+    {
+      question: `Can you work as a ${serviceName} freelancer for ${cityName} businesses?`,
+      answer: `Yes. Yash works as a dedicated ${serviceName} freelancer and consultant for businesses that want direct support, quick communication, and high lead quality.`,
+    },
+    {
+      question: `What is the starting price for ${serviceName} management?`,
+      answer: `${serviceName} management starts from Rs. 15,000 per month. Recommended ad spend starts at Rs. 15,000 per month paid directly to Google.`,
+    },
+  ];
+
+  const faqsToDisplay =
+    Array.isArray(page.faq) && page.faq.length > 0
+      ? page.faq.filter((f) => f.question && f.answer)
+      : defaultFaqs;
+
+  // Combine static and dynamic pages for internal links
+  const allLocationLinks = [
+    ...locationPages,
+    ...dynamicPages.filter(
+      (dp) => !locationPages.some((lp) => lp.slug === dp.slug)
+    ),
+  ].filter((p) => p.slug !== page.slug);
 
   return (
     <div className="ads-site">
@@ -891,17 +924,17 @@ export function LocationSeoPage({ page }) {
       <AdsHeader variant="inner" />
 
       <main className="location-page">
+        {/* ── Hero Section ── */}
         <section className="location-hero">
           <div>
             <p className="ads-eyebrow">
               <FaMapMarkerAlt />
-              Google Ads Expert in {page.city}
+              {serviceName} Expert in {cityName}
             </p>
-            <h1>Google Ads Expert in {page.city} for Search Ads, Leads and Calls.</h1>
+            <h1>{page.h1 || `${serviceName} Expert in ${cityName} for Search Ads, Leads and Calls.`}</h1>
             <p>
-              Hire Yash Deliwala for Google Ads management in {page.city},
-              including Search Ads, PPC campaign setup, Performance Max,
-              conversion tracking, and weekly optimization for better enquiries.
+              {page.hero_subtitle ||
+                `Hire Yash Deliwala for ${serviceName} management in ${cityName}, including Search Ads, PPC campaign setup, Performance Max, conversion tracking, and weekly optimization for better enquiries.`}
             </p>
             <div className="ads-actions">
               <a className="ads-button ads-button--primary" href={WHATSAPP_LINK} target="_blank" rel="noreferrer">
@@ -915,34 +948,35 @@ export function LocationSeoPage({ page }) {
           </div>
 
           <div className="location-hero__card">
-            <img src="/clients/logo (2).jpeg" alt={`Yash Deliwala Google Ads expert in ${page.city}`} decoding="async" width="80" height="80" />
+            <img src={page.image_url || "/clients/logo (2).jpeg"} alt={`Yash Deliwala ${serviceName} expert in ${cityName}`} decoding="async" width="80" height="80" />
             <strong>Yash Deliwala</strong>
-            <span>Google Ads Freelancer & PPC Consultant</span>
+            <span>{serviceName} Freelancer &amp; Consultant</span>
           </div>
         </section>
 
+        {/* ── Services Grid ── */}
         <section className="ads-section location-section">
           <div className="ads-section__heading">
             <p className="ads-eyebrow">
               <FaGoogle />
-              PPC Services in {page.city}
+              {serviceName} Services in {cityName}
             </p>
-            <h2>Google Ads management for {page.city} businesses that need measurable leads.</h2>
+            <h2>{serviceName} management for {cityName} businesses that need measurable leads.</h2>
           </div>
 
           <div className="ads-seo-copy__grid">
             <div>
-              <h3>Google Search Ads in {page.city}</h3>
+              <h3>Google Search Ads in {cityName}</h3>
               <p>
                 Build campaigns around high-intent keywords, service searches,
                 location terms, and conversion-focused ad copy for people
-                searching in and around {page.city}.
+                searching in and around {cityName}.
               </p>
             </div>
             <div>
-              <h3>Google Ads Freelancer in {page.city}</h3>
+              <h3>{serviceName} Freelancer in {cityName}</h3>
               <p>
-                Work directly with a Google Ads freelancer for campaign setup,
+                Work directly with a {serviceName} freelancer for campaign setup,
                 budget planning, tracking, negative keywords, and ongoing PPC
                 improvement.
               </p>
@@ -951,22 +985,40 @@ export function LocationSeoPage({ page }) {
               <h3>Lead Generation Campaigns</h3>
               <p>
                 Generate calls, WhatsApp enquiries, form leads, and sales
-                conversations for {industryText} in {page.city}.
+                conversations for {industryText} in {cityName}.
               </p>
             </div>
           </div>
         </section>
 
+        {/* ── Custom In-Depth Content Block (if provided in DB) ── */}
+        {page.content && (
+          <section className="ads-section location-custom-content">
+            <div className="ads-section__heading">
+              <p className="ads-eyebrow">
+                <FaSearchDollar />
+                Strategy &amp; Growth
+              </p>
+              <h2>Tailored PPC Strategy for {cityName}</h2>
+            </div>
+            <BlogContent content={page.content} />
+          </section>
+        )}
+
         <GoogleAdsDashboards />
 
+        {/* ── Local Campaign Strategy ── */}
         <section className="ads-section location-section location-section--soft">
           <div className="location-content">
             <p className="ads-eyebrow">
               <FaSearchDollar />
               Local Campaign Strategy
             </p>
-            <h2>Why {page.city} campaigns need proper PPC structure.</h2>
-            <p>{page.angle}</p>
+            <h2>Why {cityName} campaigns need proper PPC structure.</h2>
+            <p>
+              {page.angle ||
+                `${cityName} businesses need high-intent keyword focus, negative keyword control, and dedicated landing pages to prevent wasted ad budget and maximize inbound client enquiries.`}
+            </p>
             <p>
               The goal is not just more clicks. The goal is to match search
               intent with the right landing page, track every important action,
@@ -975,39 +1027,23 @@ export function LocationSeoPage({ page }) {
           </div>
         </section>
 
+        {/* ── Interactive FAQ Section ── */}
         <section className="ads-section ads-faq">
           <div className="ads-section__heading">
             <p className="ads-eyebrow">
               <FaGoogle />
-              {page.city} Google Ads FAQ
+              {cityName} {serviceName} FAQ
             </p>
-            <h2>Questions before hiring a Google Ads expert in {page.city}.</h2>
+            <h2>Questions before hiring a {serviceName} expert in {cityName}.</h2>
           </div>
 
           <div className="ads-faq__list">
-            <details className="ads-faq__item">
-              <summary>Do you provide Google Ads management in {page.city}?</summary>
-              <p>
-                Yes. I provide Google Ads management for businesses in {page.city},
-                including campaign setup, Search Ads, Performance Max, conversion
-                tracking, and weekly optimization.
-              </p>
-            </details>
-            <details className="ads-faq__item">
-              <summary>Can you work as a Google Ads freelancer for {page.city} businesses?</summary>
-              <p>
-                Yes. I work as a Google Ads freelancer and PPC consultant for
-                businesses that want direct support without a large agency process.
-              </p>
-            </details>
-            <details className="ads-faq__item">
-              <summary>What is the starting price for Google Ads management?</summary>
-              <p>
-                Google Ads management starts from Rs. 15,000 per month. The
-                recommended minimum ad spend is Rs. 15,000 per month, paid
-                directly to Google.
-              </p>
-            </details>
+            {faqsToDisplay.map((faq, idx) => (
+              <details className="ads-faq__item" key={idx}>
+                <summary>{faq.question}</summary>
+                <p>{faq.answer}</p>
+              </details>
+            ))}
           </div>
         </section>
 
@@ -1018,7 +1054,7 @@ export function LocationSeoPage({ page }) {
               <FaMapMarkerAlt />
               Also Serving Across India
             </p>
-            <h2>Google Ads expert available in major Indian cities.</h2>
+            <h2>{serviceName} expert available in major Indian cities.</h2>
           </div>
           <div className="ads-also-serving__grid">
             <a href="/" className="ads-also-serving__card">
@@ -1029,14 +1065,12 @@ export function LocationSeoPage({ page }) {
               <strong>Google Ads Agency in India</strong>
               <span>Agency-style process, transparent reporting</span>
             </a>
-            {locationPages
-              .filter((p) => p.slug !== page.slug)
-              .map((p) => (
-                <a href={`/${p.slug}`} key={p.slug} className="ads-also-serving__card">
-                  <strong>Google Ads Expert in {p.city}</strong>
-                  <span>{p.state} — Search Ads &amp; Lead Generation</span>
-                </a>
-              ))}
+            {allLocationLinks.slice(0, 12).map((p) => (
+              <a href={`/${p.slug}`} key={p.slug} className="ads-also-serving__card">
+                <strong>{p.page_name || `${p.service || "Google Ads"} Expert in ${p.city}`}</strong>
+                <span>{p.city}{p.state ? `, ${p.state}` : ""} — Search Ads &amp; Lead Generation</span>
+              </a>
+            ))}
           </div>
         </section>
 
