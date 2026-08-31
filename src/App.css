@@ -494,35 +494,52 @@
   line-height: 1.75;
 }
 
-.location-hero__card {
-  display: grid;
-  justify-items: center;
-  padding: 30px;
-  border: 1px solid #d7e7fb;
-  border-radius: 8px;
+.location-hero__media {
+  border: 1px solid #cfe4fb;
+  border-radius: 12px;
   background: #ffffff;
-  text-align: center;
+  padding: 12px;
   box-shadow: 0 24px 70px rgba(15, 78, 163, 0.13);
+  max-width: 440px;
+  margin-left: auto;
+  width: 100%;
 }
 
-.location-hero__card img {
-  width: 112px;
-  height: 112px;
-  border-radius: 50%;
-  object-fit: contain;
+.location-hero__media-img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 4.5;
+  max-height: 420px;
+  border-radius: 8px;
+  object-fit: cover;
+  object-position: top center;
 }
 
-.location-hero__card strong {
-  margin-top: 18px;
-  color: var(--ads-heading);
-  font-size: 22px;
+.location-hero__media-caption {
+  padding: 14px 10px 4px;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 4px !important;
+  text-align: center !important;
 }
 
-.location-hero__card span {
-  margin-top: 7px;
-  color: var(--ads-blue-strong);
-  font-weight: 800;
-  line-height: 1.45;
+.location-hero__media-caption strong {
+  display: block !important;
+  color: var(--ads-heading, #0f2744) !important;
+  font-size: 20px !important;
+  font-weight: 850 !important;
+  line-height: 1.25 !important;
+}
+
+.location-hero__media-caption span {
+  display: block !important;
+  color: var(--ads-blue-strong, #1f7aec) !important;
+  font-weight: 800 !important;
+  font-size: 13.5px !important;
+  line-height: 1.3 !important;
+  margin-top: 2px !important;
 }
 
 .location-section {
@@ -2325,25 +2342,74 @@
   }
 
   .location-custom-content {
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 16px;
-    padding: clamp(24px, 4vw, 48px);
-    margin: 40px auto;
-    max-width: 1100px;
+    background: #ffffff !important;
+    border: 1px solid #d7e7fb !important;
+    border-radius: 16px !important;
+    padding: clamp(24px, 3.5vw, 44px) !important;
+    margin: 32px auto !important;
+    max-width: 1100px !important;
+    box-shadow: 0 16px 44px rgba(21, 82, 150, 0.07) !important;
+  }
+
+  .location-custom-content h1 {
+    color: var(--ads-heading, #0f2744) !important;
+    font-weight: 850 !important;
+    font-size: clamp(22px, 2.2vw, 30px) !important;
+    margin: 32px 0 12px !important;
+    line-height: 1.25 !important;
+  }
+
+  .location-custom-content h2 {
+    color: var(--ads-heading, #0f2744) !important;
+    font-weight: 850 !important;
+    font-size: clamp(19px, 1.8vw, 24px) !important;
+    margin: 28px 0 10px !important;
+    line-height: 1.25 !important;
+    border-bottom: 2px solid #edf4fc;
+    padding-bottom: 6px;
   }
 
   .location-custom-content h3 {
-    color: #fff;
-    font-size: clamp(20px, 1.8vw, 26px);
-    margin: 24px 0 12px;
+    font-size: clamp(16px, 1.2vw, 18px) !important;
+    font-weight: 750 !important;
+    color: #123a63 !important;
+    margin: 16px 0 4px !important;
+    line-height: 1.3 !important;
+    border: none !important;
+    padding: 0 !important;
+  }
+
+  .location-custom-content h4 {
+    font-size: 15px !important;
+    font-weight: 750 !important;
+    color: #174772 !important;
+    margin: 12px 0 3px !important;
+    line-height: 1.3 !important;
   }
 
   .location-custom-content p {
-    color: #94a3b8;
-    line-height: 1.7;
-    font-size: 16px;
-    margin-bottom: 16px;
+    color: #334e68 !important;
+    line-height: 1.55 !important;
+    font-size: 15px !important;
+    margin: 0 0 12px !important;
+  }
+
+  .location-custom-content ul,
+  .location-custom-content ol {
+    color: #334e68 !important;
+    margin: 0 0 16px 20px !important;
+  }
+
+  .location-custom-content li {
+    color: #334e68 !important;
+    font-size: 15px !important;
+    line-height: 1.55 !important;
+    margin-bottom: 4px !important;
+  }
+
+  .location-custom-content strong {
+    color: var(--ads-heading, #0f2744) !important;
+    font-weight: 800 !important;
   }
 
 @media (max-width: 1080px) {

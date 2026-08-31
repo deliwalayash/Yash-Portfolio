@@ -218,12 +218,26 @@ export function BlogContent({ content = "" }) {
     // Explicit markdown sub-headers
     if (line.startsWith("### ")) {
       flushList(index);
-      elements.push(<h3 key={index}>{line.replace(/^###\s*/, "")}</h3>);
+      elements.push(
+        <h3
+          key={index}
+          style={{ color: "#0f2744", fontWeight: 800, margin: "20px 0 4px 0", fontSize: "18px", lineHeight: "1.3" }}
+        >
+          {line.replace(/^###\s*/, "")}
+        </h3>
+      );
       continue;
     }
     if (line.startsWith("## ") || line.startsWith("# ")) {
       flushList(index);
-      elements.push(<h2 key={index}>{line.replace(/^###?\s*/, "")}</h2>);
+      elements.push(
+        <h2
+          key={index}
+          style={{ color: "#0f2744", fontWeight: 850, margin: "28px 0 10px 0", fontSize: "22px", lineHeight: "1.3", borderBottom: "2px solid #edf4fc", paddingBottom: "6px" }}
+        >
+          {line.replace(/^###?\s*/, "")}
+        </h2>
+      );
       continue;
     }
 
@@ -231,7 +245,7 @@ export function BlogContent({ content = "" }) {
     if (index === 0) {
       flushList(index);
       elements.push(
-        <p className="blog-content__lead" key={index}>
+        <p className="blog-content__lead" key={index} style={{ color: "#133a64", margin: "0 0 20px 0" }}>
           {line}
         </p>
       );
@@ -268,15 +282,36 @@ export function BlogContent({ content = "" }) {
     if (isExplicitHeader) {
       const cleanHeader = line.replace(/:$/, "");
       if (isNumberedHeading || line.length < 35) {
-        elements.push(<h3 key={index}>{cleanHeader}</h3>);
+        elements.push(
+          <h3
+            key={index}
+            style={{ color: "#0f2744", fontWeight: 800, margin: "16px 0 4px 0", fontSize: "17px", lineHeight: "1.3" }}
+          >
+            {cleanHeader}
+          </h3>
+        );
       } else {
-        elements.push(<h2 key={index}>{cleanHeader}</h2>);
+        elements.push(
+          <h2
+            key={index}
+            style={{ color: "#0f2744", fontWeight: 850, margin: "26px 0 10px 0", fontSize: "21px", lineHeight: "1.3", borderBottom: "2px solid #edf4fc", paddingBottom: "6px" }}
+          >
+            {cleanHeader}
+          </h2>
+        );
       }
       continue;
     }
 
     // Standard readable paragraph
-    elements.push(<p key={index}>{line}</p>);
+    elements.push(
+      <p
+        key={index}
+        style={{ color: "#334e68", fontSize: "15px", lineHeight: "1.55", margin: "0 0 12px 0" }}
+      >
+        {line}
+      </p>
+    );
   }
 
   flushList("final");
@@ -952,10 +987,55 @@ export function LocationSeoPage({ page, dynamicPages = [] }) {
             </div>
           </div>
 
-          <div className="location-hero__card">
-            <img src={page.image_url || "/clients/logo (2).jpeg"} alt={`Yash Deliwala ${serviceName} expert in ${cityName}`} decoding="async" width="80" height="80" />
-            <strong>Yash Deliwala</strong>
-            <span>{serviceName} Freelancer &amp; Consultant</span>
+          <div className="location-hero__media" aria-label={`Yash Deliwala ${serviceName} Expert in ${cityName}`}>
+            <img
+              src="/clients/yash-deliwala.jpeg"
+              alt={`Yash Deliwala ${serviceName} expert in ${cityName}`}
+              decoding="async"
+              width="440"
+              height="480"
+              className="location-hero__media-img"
+            />
+            <div
+              className="location-hero__media-caption"
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                textAlign: "center",
+                padding: "16px 12px 6px",
+                width: "100%",
+              }}
+            >
+              <strong
+                style={{
+                  display: "block",
+                  color: "#0f2744",
+                  fontSize: "20px",
+                  fontWeight: "850",
+                  lineHeight: "1.25",
+                  textAlign: "center",
+                  width: "100%",
+                }}
+              >
+                Yash Deliwala
+              </strong>
+              <span
+                style={{
+                  display: "block",
+                  color: "#1f7aec",
+                  fontWeight: "800",
+                  fontSize: "14px",
+                  lineHeight: "1.3",
+                  marginTop: "4px",
+                  textAlign: "center",
+                  width: "100%",
+                }}
+              >
+                Verified {serviceName} Expert &amp; Consultant
+              </span>
+            </div>
           </div>
         </section>
 
