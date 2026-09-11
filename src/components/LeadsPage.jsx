@@ -1,7 +1,19 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { FaBuilding, FaCheck, FaPhoneAlt, FaRegCalendarAlt, FaSave, FaSignOutAlt, FaUserTie, FaSearch, FaSync, FaWhatsapp } from "react-icons/fa";
+import {
+  FaBuilding,
+  FaCheck,
+  FaPhoneAlt,
+  FaRegCalendarAlt,
+  FaSave,
+  FaSignOutAlt,
+  FaUserTie,
+  FaSearch,
+  FaSync,
+  FaWhatsapp,
+  FaInstagram,
+} from "react-icons/fa";
 import { ConfigNotice } from "./GoogleAdsSite";
 import { isSupabaseConfigured, supabase } from "../lib/supabase";
 
@@ -10,6 +22,7 @@ const initialForm = {
   name: "",
   phone: "",
   company: "",
+  instagramLink: "",
   source: "Meeting",
   services: ["Google Ads"],
   requirement: "",
@@ -20,12 +33,28 @@ const initialForm = {
 const clientServices = ["Google Ads", "Social Media", "WhatsApp API", "Website", "SEO", "Meta Ads", "AI Video", "GMB"];
 const supplierServices = ["GMB", "AI Video", "Website", "WhatsApp API", "Social Media", "SEO", "Design", "Development"];
 const sources = ["Meeting", "Instagram", "WhatsApp", "Call", "Referral", "Website", "Other"];
+
 const getWhatsappLink = (phone) => {
   const cleaned = String(phone || "").replace(/\D/g, "");
   if (cleaned.length === 10) {
     return `https://wa.me/91${cleaned}`;
   }
   return `https://wa.me/${cleaned}`;
+};
+
+const getInstagramUrl = (linkOrHandle) => {
+  if (!linkOrHandle) return "";
+  let clean = String(linkOrHandle).trim();
+  if (clean.startsWith("@")) {
+    clean = clean.slice(1);
+  }
+  if (clean.startsWith("http://") || clean.startsWith("https://")) {
+    return clean;
+  }
+  if (clean.includes("instagram.com/")) {
+    return `https://${clean.replace(/^https?:\/\//, "")}`;
+  }
+  return `https://instagram.com/${clean}`;
 };
 
 export default function LeadsPage() {
@@ -39,18 +68,22 @@ export default function LeadsPage() {
   const [isSaving, setIsSaving] = useState(false);
   const [lastSaved, setLastSaved] = useState(null);
 
-  // New Dashboard States
+  // Dashboard States
   const [view, setView] = useState("capture"); // "capture" or "list"
-  const [leadsData, setLeadsData] = useState({ clients: [], suppliers: [] });
+  const [leadsData, setLeadsData] = useState({ clients: [], suppliers: [], influencers: [] });
   const [leadsLoading, setLeadsLoading] = useState(false);
   const [leadsError, setLeadsError] = useState("");
   const [leadsSearch, setLeadsSearch] = useState("");
-  const [leadsFilterType, setLeadsFilterType] = useState("clients"); // "clients" or "suppliers"
+  const [leadsFilterType, setLeadsFilterType] = useState("clients"); // "clients", "suppliers", "influencers"
   const [needsRefresh, setNeedsRefresh] = useState(false);
   const [isSavingRefresh, setIsSavingRefresh] = useState(false);
 
   const hasLeads = useMemo(() => {
-    return leadsData.clients.length > 0 || leadsData.suppliers.length > 0;
+    return (
+      (leadsData.clients && leadsData.clients.length > 0) ||
+      (leadsData.suppliers && leadsData.suppliers.length > 0) ||
+      (leadsData.influencers && leadsData.influencers.length > 0)
+    );
   }, [leadsData]);
 
   const serviceOptions = useMemo(
@@ -63,7 +96,12 @@ export default function LeadsPage() {
       const cached = localStorage.getItem("leads_data");
       if (cached) {
         try {
-          setLeadsData(JSON.parse(cached));
+          const parsed = JSON.parse(cached);
+          setLeadsData({
+            clients: parsed.clients || [],
+            suppliers: parsed.suppliers || [],
+            influencers: parsed.influencers || [],
+          });
         } catch (e) {
           console.error("Failed to parse cached leads:", e);
         }
@@ -101,6 +139,7 @@ export default function LeadsPage() {
       const newLeads = {
         clients: data.clients || [],
         suppliers: data.suppliers || [],
+        influencers: data.influencers || [],
       };
       setLeadsData(newLeads);
       if (typeof window !== "undefined") {
@@ -124,13 +163,20 @@ export default function LeadsPage() {
   }, [session, view, needsRefresh, hasLeads]);
 
   const filteredLeads = useMemo(() => {
-    const list = leadsFilterType === "suppliers" ? leadsData.suppliers : leadsData.clients;
+    const list =
+      leadsFilterType === "suppliers"
+        ? leadsData.suppliers || []
+        : leadsFilterType === "influencers"
+        ? leadsData.influencers || []
+        : leadsData.clients || [];
+
     if (!leadsSearch.trim()) return list;
     const query = leadsSearch.toLowerCase();
     return list.filter((lead) => {
       const name = String(lead.name || "").toLowerCase();
       const phone = String(lead.phone || "").toLowerCase();
       const company = String(lead.company || "").toLowerCase();
+      const instagramLink = String(lead.instagramLink || "").toLowerCase();
       const services = String(lead.servicesText || lead.services || "").toLowerCase();
       const notes = String(lead.notes || "").toLowerCase();
       const requirement = String(lead.requirement || "").toLowerCase();
@@ -138,6 +184,7 @@ export default function LeadsPage() {
         name.includes(query) ||
         phone.includes(query) ||
         company.includes(query) ||
+        instagramLink.includes(query) ||
         services.includes(query) ||
         notes.includes(query) ||
         requirement.includes(query)
@@ -155,7 +202,7 @@ export default function LeadsPage() {
   const handleLogout = async () => {
     await supabase.auth.signOut();
     setLastSaved(null);
-    setLeadsData({ clients: [], suppliers: [] });
+    setLeadsData({ clients: [], suppliers: [], influencers: [] });
     if (typeof window !== "undefined") {
       localStorage.removeItem("leads_data");
     }
@@ -173,8 +220,8 @@ export default function LeadsPage() {
     setForm((current) => ({
       ...current,
       leadType,
-      source: leadType === "supplier" ? "Instagram" : "Meeting",
-      services: [defaultService],
+      source: leadType === "supplier" || leadType === "influencer" ? "Instagram" : "Meeting",
+      services: leadType === "influencer" ? [] : [defaultService],
     }));
     setMessage("");
   };
@@ -195,8 +242,8 @@ export default function LeadsPage() {
     setForm((current) => ({
       ...initialForm,
       leadType: current.leadType,
-      source: current.leadType === "supplier" ? "Instagram" : "Meeting",
-      services: [current.leadType === "supplier" ? "GMB" : "Google Ads"],
+      source: current.leadType === "supplier" || current.leadType === "influencer" ? "Instagram" : "Meeting",
+      services: current.leadType === "supplier" ? ["GMB"] : current.leadType === "influencer" ? [] : ["Google Ads"],
     }));
   };
 
@@ -224,7 +271,10 @@ export default function LeadsPage() {
         name: form.name,
         phone: form.phone,
         leadType: form.leadType,
-        services: form.services.join(", "),
+        services:
+          form.leadType === "influencer"
+            ? form.instagramLink || "Instagram"
+            : form.services.join(", "),
         time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
       });
       setMessage("Saved to Google Sheet.");
@@ -287,7 +337,7 @@ export default function LeadsPage() {
         <div className="leads-header">
           <div>
             <p className="ads-eyebrow">Lead Capture CRM</p>
-            <h1>Clients and Suppliers Lead Management</h1>
+            <h1>Clients, Suppliers & Influencers Management</h1>
           </div>
           <button className="leads-logout" type="button" onClick={handleLogout}>
             <FaSignOutAlt aria-hidden="true" />
@@ -332,93 +382,170 @@ export default function LeadsPage() {
                   <FaBuilding aria-hidden="true" />
                   Supplier
                 </button>
+                <button
+                  type="button"
+                  className={form.leadType === "influencer" ? "active" : ""}
+                  onClick={() => changeLeadType("influencer")}
+                >
+                  <FaInstagram aria-hidden="true" />
+                  Influencer
+                </button>
               </div>
 
-              <div className="leads-grid">
-                <label>
-                  Name
-                  <input
-                    required
-                    value={form.name}
-                    onChange={(event) => updateField("name", event.target.value)}
-                    placeholder="Person name"
-                  />
-                </label>
-                <label>
-                  Phone
-                  <input
-                    required
-                    value={form.phone}
-                    onChange={(event) => updateField("phone", event.target.value)}
-                    placeholder="+91 98765 43210"
-                    inputMode="tel"
-                  />
-                </label>
-                <label>
-                  Company
-                  <input
-                    value={form.company}
-                    onChange={(event) => updateField("company", event.target.value)}
-                    placeholder="Company or page name"
-                  />
-                </label>
-                <label>
-                  Source
-                  <select value={form.source} onChange={(event) => updateField("source", event.target.value)}>
-                    {sources.map((source) => (
-                      <option key={source} value={source}>
-                        {source}
-                      </option>
-                    ))}
-                  </select>
-                </label>
-              </div>
+              {form.leadType === "influencer" ? (
+                <>
+                  <div className="leads-grid">
+                    <label>
+                      Influencer Name *
+                      <input
+                        required
+                        value={form.name}
+                        onChange={(event) => updateField("name", event.target.value)}
+                        placeholder="e.g. Rahul Sharma"
+                      />
+                    </label>
+                    <label>
+                      Phone Number *
+                      <input
+                        required
+                        value={form.phone}
+                        onChange={(event) => updateField("phone", event.target.value)}
+                        placeholder="+91 98765 43210"
+                        inputMode="tel"
+                      />
+                    </label>
+                    <label style={{ gridColumn: "1 / -1" }}>
+                      Instagram Profile / Link *
+                      <input
+                        required
+                        value={form.instagramLink}
+                        onChange={(event) => updateField("instagramLink", event.target.value)}
+                        placeholder="https://instagram.com/username or @username"
+                      />
+                    </label>
+                    <label>
+                      Source
+                      <select value={form.source} onChange={(event) => updateField("source", event.target.value)}>
+                        {sources.map((source) => (
+                          <option key={source} value={source}>
+                            {source}
+                          </option>
+                        ))}
+                      </select>
+                    </label>
+                    <label>
+                      Follow up date
+                      <input
+                        type="date"
+                        value={form.followUpDate}
+                        onChange={(event) => updateField("followUpDate", event.target.value)}
+                      />
+                    </label>
+                  </div>
 
-              <fieldset className="service-picker">
-                <legend>{form.leadType === "supplier" ? "Supplier services" : "Client requirement"}</legend>
-                <div>
-                  {serviceOptions.map((service) => (
-                    <button
-                      type="button"
-                      key={service}
-                      className={form.services.includes(service) ? "selected" : ""}
-                      onClick={() => toggleService(service)}
-                    >
-                      {form.services.includes(service) && <FaCheck aria-hidden="true" />}
-                      {service}
-                    </button>
-                  ))}
-                </div>
-              </fieldset>
+                  <label>
+                    Notes & Pricing Details
+                    <textarea
+                      rows={3}
+                      value={form.notes}
+                      onChange={(event) => updateField("notes", event.target.value)}
+                      placeholder="Niche, pricing per reel/story, follower count, collab details..."
+                    />
+                  </label>
+                </>
+              ) : (
+                <>
+                  <div className="leads-grid">
+                    <label>
+                      Name
+                      <input
+                        required
+                        value={form.name}
+                        onChange={(event) => updateField("name", event.target.value)}
+                        placeholder="Person name"
+                      />
+                    </label>
+                    <label>
+                      Phone
+                      <input
+                        required
+                        value={form.phone}
+                        onChange={(event) => updateField("phone", event.target.value)}
+                        placeholder="+91 98765 43210"
+                        inputMode="tel"
+                      />
+                    </label>
+                    <label>
+                      Company
+                      <input
+                        value={form.company}
+                        onChange={(event) => updateField("company", event.target.value)}
+                        placeholder="Company or page name"
+                      />
+                    </label>
+                    <label>
+                      Source
+                      <select value={form.source} onChange={(event) => updateField("source", event.target.value)}>
+                        {sources.map((source) => (
+                          <option key={source} value={source}>
+                            {source}
+                          </option>
+                        ))}
+                      </select>
+                    </label>
+                  </div>
 
-              <label>
-                Requirement
-                <textarea
-                  rows={4}
-                  value={form.requirement}
-                  onChange={(event) => updateField("requirement", event.target.value)}
-                  placeholder={form.leadType === "supplier" ? "What do they provide, price, city, quality notes..." : "Budget, service need, timeline, discussion details..."}
-                />
-              </label>
+                  <fieldset className="service-picker">
+                    <legend>{form.leadType === "supplier" ? "Supplier services" : "Client requirement"}</legend>
+                    <div>
+                      {serviceOptions.map((service) => (
+                        <button
+                          type="button"
+                          key={service}
+                          className={form.services.includes(service) ? "selected" : ""}
+                          onClick={() => toggleService(service)}
+                        >
+                          {form.services.includes(service) && <FaCheck aria-hidden="true" />}
+                          {service}
+                        </button>
+                      ))}
+                    </div>
+                  </fieldset>
 
-              <label>
-                Follow up date
-                <input
-                  type="date"
-                  value={form.followUpDate}
-                  onChange={(event) => updateField("followUpDate", event.target.value)}
-                />
-              </label>
+                  <label>
+                    Requirement
+                    <textarea
+                      rows={4}
+                      value={form.requirement}
+                      onChange={(event) => updateField("requirement", event.target.value)}
+                      placeholder={
+                        form.leadType === "supplier"
+                          ? "What do they provide, price, city, quality notes..."
+                          : "Budget, service need, timeline, discussion details..."
+                      }
+                    />
+                  </label>
 
-              <label>
-                Notes
-                <textarea
-                  rows={3}
-                  value={form.notes}
-                  onChange={(event) => updateField("notes", event.target.value)}
-                  placeholder="Extra memory, pricing, next step, Instagram handle..."
-                />
-              </label>
+                  <label>
+                    Follow up date
+                    <input
+                      type="date"
+                      value={form.followUpDate}
+                      onChange={(event) => updateField("followUpDate", event.target.value)}
+                    />
+                  </label>
+
+                  <label>
+                    Notes
+                    <textarea
+                      rows={3}
+                      value={form.notes}
+                      onChange={(event) => updateField("notes", event.target.value)}
+                      placeholder="Extra memory, pricing, next step, Instagram handle..."
+                    />
+                  </label>
+                </>
+              )}
 
               <div className="leads-actions">
                 <button type="submit" disabled={isSaving}>
@@ -435,12 +562,27 @@ export default function LeadsPage() {
             <aside className="leads-summary">
               <div>
                 <span>
-                  <FaPhoneAlt aria-hidden="true" />
+                  {form.leadType === "influencer" ? (
+                    <FaInstagram aria-hidden="true" />
+                  ) : (
+                    <FaPhoneAlt aria-hidden="true" />
+                  )}
                 </span>
-                <h2>{form.leadType === "supplier" ? "Supplier tab" : "Client tab"}</h2>
+                <h2>
+                  {form.leadType === "supplier"
+                    ? "Supplier tab"
+                    : form.leadType === "influencer"
+                    ? "Influencer tab"
+                    : "Client tab"}
+                </h2>
                 <p>
-                  This entry will be sent to the {form.leadType === "supplier" ? "Suppliers" : "Clients"} sheet with service,
-                  source, follow up date, and notes.
+                  This entry will be sent to the{" "}
+                  {form.leadType === "supplier"
+                    ? "Suppliers"
+                    : form.leadType === "influencer"
+                    ? "Influencers"
+                    : "Clients"}{" "}
+                  sheet.
                 </p>
               </div>
               <div>
@@ -448,7 +590,7 @@ export default function LeadsPage() {
                   <FaRegCalendarAlt aria-hidden="true" />
                 </span>
                 <h2>Fast follow-up memory</h2>
-                <p>Use it right after meetings, calls, WhatsApp chats, or Instagram supplier conversations.</p>
+                <p>Use it right after meetings, calls, WhatsApp chats, or Instagram conversations.</p>
               </div>
               {lastSaved && (
                 <div className="last-saved">
@@ -473,20 +615,35 @@ export default function LeadsPage() {
                   className={leadsFilterType === "clients" ? "active" : ""}
                   onClick={() => setLeadsFilterType("clients")}
                 >
-                  Clients ({leadsData.clients.length})
+                  Clients ({leadsData.clients?.length || 0})
                 </button>
                 <button
                   type="button"
                   className={leadsFilterType === "suppliers" ? "active" : ""}
                   onClick={() => setLeadsFilterType("suppliers")}
                 >
-                  Suppliers ({leadsData.suppliers.length})
+                  Suppliers ({leadsData.suppliers?.length || 0})
+                </button>
+                <button
+                  type="button"
+                  className={leadsFilterType === "influencers" ? "active" : ""}
+                  onClick={() => setLeadsFilterType("influencers")}
+                >
+                  Influencers ({leadsData.influencers?.length || 0})
                 </button>
               </div>
 
               <div className="leads-list-controls">
                 <div style={{ position: "relative", display: "inline-block" }}>
-                  <FaSearch style={{ position: "absolute", left: "12px", top: "50%", transform: "translateY(-50%)", color: "#64748b" }} />
+                  <FaSearch
+                    style={{
+                      position: "absolute",
+                      left: "12px",
+                      top: "50%",
+                      transform: "translateY(-50%)",
+                      color: "#64748b",
+                    }}
+                  />
                   <input
                     type="text"
                     className="leads-search-input"
@@ -518,84 +675,124 @@ export default function LeadsPage() {
             {leadsError && (
               <div className="leads-list-error">
                 <p>Error: {leadsError}</p>
-                <button type="button" onClick={fetchLeads} className="leads-refresh-btn">Try Again</button>
+                <button type="button" onClick={fetchLeads} className="leads-refresh-btn">
+                  Try Again
+                </button>
               </div>
             )}
 
             {(!leadsLoading || hasLeads) && !isSavingRefresh && !leadsError && filteredLeads.length === 0 && (
               <div className="leads-list-empty">
-                <p>No leads found.</p>
+                <p>No {leadsFilterType} found.</p>
               </div>
             )}
 
             {(!leadsLoading || hasLeads) && !isSavingRefresh && !leadsError && filteredLeads.length > 0 && (
               <div className="leads-grid-list">
-                {filteredLeads.map((lead, idx) => (
-                  <div key={idx} className="lead-card">
-                    <div className="lead-card-header">
-                      <div>
-                        <h3>{lead.name}</h3>
-                        <p className="lead-card-company">{lead.company || "No Company"}</p>
+                {filteredLeads.map((lead, idx) => {
+                  const instaUrl = getInstagramUrl(lead.instagramLink || (leadsFilterType === "influencers" ? lead.company : ""));
+                  return (
+                    <div key={idx} className="lead-card">
+                      <div className="lead-card-header">
+                        <div>
+                          <h3>{lead.name}</h3>
+                          <p className="lead-card-company">
+                            {lead.instagramLink || lead.company || "No Company"}
+                          </p>
+                        </div>
+                        <span className="lead-card-status">{lead.status || "New"}</span>
                       </div>
-                      <span className="lead-card-status">{lead.status || "New"}</span>
-                    </div>
-                    <div className="lead-card-body">
-                      <div className="lead-card-info">
-                        <div className="lead-phone-row">
-                          <strong>Phone: </strong>
-                          <a href={`tel:${lead.phone}`} className="lead-phone-link">
-                            {lead.phone}
-                          </a>
-                          <div className="lead-phone-actions">
-                            <a
-                              href={`tel:${lead.phone}`}
-                              className="lead-action-btn lead-action-call"
-                              title={`Call ${lead.name}`}
-                            >
-                              <FaPhoneAlt />
+                      <div className="lead-card-body">
+                        <div className="lead-card-info">
+                          <div className="lead-phone-row">
+                            <strong>Phone: </strong>
+                            <a href={`tel:${lead.phone}`} className="lead-phone-link">
+                              {lead.phone}
                             </a>
-                            <a
-                              href={getWhatsappLink(lead.phone)}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="lead-action-btn lead-action-whatsapp"
-                              title={`WhatsApp ${lead.name}`}
-                            >
-                              <FaWhatsapp />
-                            </a>
+                            <div className="lead-phone-actions">
+                              <a
+                                href={`tel:${lead.phone}`}
+                                className="lead-action-btn lead-action-call"
+                                title={`Call ${lead.name}`}
+                              >
+                                <FaPhoneAlt />
+                              </a>
+                              <a
+                                href={getWhatsappLink(lead.phone)}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="lead-action-btn lead-action-whatsapp"
+                                title={`WhatsApp ${lead.name}`}
+                              >
+                                <FaWhatsapp />
+                              </a>
+                              {instaUrl && (
+                                <a
+                                  href={instaUrl}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="lead-action-btn lead-action-instagram"
+                                  title={`Open Instagram profile for ${lead.name}`}
+                                >
+                                  <FaInstagram />
+                                </a>
+                              )}
+                            </div>
+                          </div>
+                          <div>
+                            <strong>Source: </strong>
+                            {lead.source || "N/A"}
+                          </div>
+                          <div>
+                            <strong>Follow Up: </strong>
+                            {lead.followUpDate
+                              ? new Date(lead.followUpDate).toLocaleDateString([], {
+                                  month: "short",
+                                  day: "numeric",
+                                  year: "numeric",
+                                })
+                              : "None"}
+                          </div>
+                          <div>
+                            <strong>Submitted: </strong>
+                            {lead.submittedAt
+                              ? new Date(lead.submittedAt).toLocaleString([], {
+                                  dateStyle: "short",
+                                  timeStyle: "short",
+                                })
+                              : "N/A"}
                           </div>
                         </div>
-                        <div>
-                          <strong>Source: </strong>
-                          {lead.source || "N/A"}
-                        </div>
-                        <div>
-                          <strong>Follow Up: </strong>
-                          {lead.followUpDate ? new Date(lead.followUpDate).toLocaleDateString([], { month: "short", day: "numeric", year: "numeric" }) : "None"}
-                        </div>
-                        <div>
-                          <strong>Submitted: </strong>
-                          {lead.submittedAt ? new Date(lead.submittedAt).toLocaleString([], { dateStyle: 'short', timeStyle: 'short' }) : "N/A"}
-                        </div>
+
+                        {lead.servicesText || lead.services ? (
+                          <div className="lead-card-services">
+                            {(lead.servicesText || lead.services)
+                              .split(", ")
+                              .map((s) => (
+                                <span key={s} className="service-tag">
+                                  {s}
+                                </span>
+                              ))}
+                          </div>
+                        ) : null}
+
+                        {lead.requirement && (
+                          <div className="lead-card-text">
+                            <strong>Requirement</strong>
+                            <p>{lead.requirement}</p>
+                          </div>
+                        )}
+
+                        {lead.notes && (
+                          <div className="lead-card-text lead-card-notes">
+                            <strong>Notes</strong>
+                            <p>{lead.notes}</p>
+                          </div>
+                        )}
                       </div>
-                      <div className="lead-card-services">
-                        {(lead.servicesText || lead.services) ? (lead.servicesText || lead.services).split(", ").map(s => <span key={s} className="service-tag">{s}</span>) : null}
-                      </div>
-                      {lead.requirement && (
-                        <div className="lead-card-text">
-                          <strong>Requirement</strong>
-                          <p>{lead.requirement}</p>
-                        </div>
-                      )}
-                      {lead.notes && (
-                        <div className="lead-card-text lead-card-notes">
-                          <strong>Notes</strong>
-                          <p>{lead.notes}</p>
-                        </div>
-                      )}
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             )}
           </div>

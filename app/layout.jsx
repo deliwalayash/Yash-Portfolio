@@ -10,6 +10,14 @@ const sora = Sora({
   weight: ["300", "400", "500", "600", "700", "800"],
 });
 
+export const viewport = {
+  themeColor: "#0f172a",
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  viewportFit: "cover",
+};
+
 export const metadata = {
   metadataBase: new URL("https://yashdeliwala.com"),
   applicationName: "Yash Google Ads Expert",
@@ -34,10 +42,17 @@ export const metadata = {
   authors: [{ name: "Yash Deliwala" }],
   creator: "Yash Deliwala",
   publisher: "Yash Google Ads Expert",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "Leads CRM",
+  },
   icons: {
     icon: "/clients/logo (2).jpeg",
     shortcut: "/clients/logo (2).jpeg",
-    apple: "/clients/logo (2).jpeg",
+    apple: [
+      { url: "/clients/logo (2).jpeg", sizes: "180x180", type: "image/jpeg" },
+    ],
   },
   openGraph: {
     title: "Google Ads Expert in India | Freelancer & PPC Consultant",

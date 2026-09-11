@@ -22,7 +22,7 @@ const supplierServices = [
   "Development",
 ];
 
-const validLeadTypes = new Set(["client", "supplier"]);
+const validLeadTypes = new Set(["client", "supplier", "influencer"]);
 const validSources = new Set(["Meeting", "Instagram", "WhatsApp", "Call", "Referral", "Website", "Other"]);
 
 const json = (body, status = 200) =>
@@ -39,6 +39,7 @@ const clean = (value, maxLength = 500) =>
     .slice(0, maxLength);
 
 const normalizeServices = (services, leadType) => {
+  if (leadType === "influencer") return [];
   const allowed = new Set(leadType === "supplier" ? supplierServices : clientServices);
   return Array.isArray(services)
     ? services.map((service) => clean(service, 80)).filter((service) => allowed.has(service))
@@ -93,13 +94,14 @@ export async function POST(request) {
     const body = await request.json();
     const leadType = clean(body.leadType, 20).toLowerCase();
     if (!validLeadTypes.has(leadType)) {
-      return json({ message: "Please choose client or supplier." }, 400);
+      return json({ message: "Please choose client, supplier, or influencer." }, 400);
     }
 
     const name = clean(body.name, 120);
     const phone = clean(body.phone, 40);
     const company = clean(body.company, 160);
-    const source = clean(body.source, 40);
+    const instagramLink = clean(body.instagramLink, 300);
+    const source = clean(body.source, 40) || (leadType === "influencer" ? "Instagram" : "Meeting");
     const services = normalizeServices(body.services, leadType);
     const requirement = clean(body.requirement, 1200);
     const notes = clean(body.notes, 1200);
@@ -113,12 +115,16 @@ export async function POST(request) {
       return json({ message: "Please select a valid source." }, 400);
     }
 
+    const sheetName =
+      leadType === "supplier" ? "Suppliers" : leadType === "influencer" ? "Influencers" : "Clients";
+
     const payload = {
       leadType,
-      sheetName: leadType === "supplier" ? "Suppliers" : "Clients",
+      sheetName,
       name,
       phone,
-      company,
+      company: company || instagramLink,
+      instagramLink: instagramLink || company,
       source,
       services,
       servicesText: services.join(", "),

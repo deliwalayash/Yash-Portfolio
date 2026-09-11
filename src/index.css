@@ -94,7 +94,7 @@ body{
 
 .lead-type-toggle {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 8px;
     padding: 6px;
     border: 1px solid rgba(255, 255, 255, 0.14);
@@ -2397,7 +2397,7 @@ header {
 
 .lead-type-toggle {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 6px;
     padding: 5px;
     border: 1px solid #d9e9fb;
@@ -2996,6 +2996,10 @@ header {
 
 .lead-action-whatsapp {
   background: #25d366;
+}
+
+.lead-action-instagram {
+  background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
 }
 
 /* Mobile Sticky Bottom Action Bar (Full-width Call Now & WhatsApp Split) */
