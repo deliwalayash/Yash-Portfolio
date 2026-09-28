@@ -72,7 +72,7 @@ export default function AdsHeader({ variant = "home" }) {
         onClick={() => handleCallClick("Header Call Click")}
       >
         <FaPhoneAlt />
-        <span>Call Now</span>
+        <span>9712952456</span>
       </a>
 
       <button
@@ -114,7 +114,7 @@ export default function AdsHeader({ variant = "home" }) {
               }}
             >
               <FaPhoneAlt />
-              Call Now
+              9712952456
             </a>
           </aside>
         </div>

@@ -27,9 +27,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: clamp(16px, 2vw, 28px);
-  min-height: 82px;
-  padding: 12px clamp(18px, 5vw, 72px);
+  gap: clamp(14px, 2vw, 28px);
+  min-height: 68px;
+  padding: 8px clamp(16px, 4vw, 56px);
   border-bottom: 1px solid var(--ads-border);
   background: rgba(255, 255, 255, 0.94);
   backdrop-filter: blur(16px);
@@ -38,15 +38,15 @@
 .ads-brand {
   display: inline-flex;
   align-items: center;
-  gap: 12px;
-  min-width: 230px;
+  gap: 10px;
+  min-width: 210px;
   color: var(--ads-heading);
   font-weight: 800;
 }
 
 .ads-brand img {
-  width: 48px;
-  height: 48px;
+  width: 42px;
+  height: 42px;
   border-radius: 50%;
   object-fit: contain;
 }
@@ -317,20 +317,24 @@
 .ads-hero {
   width: min(1320px, calc(100% - 48px));
   margin: 0 auto;
+  min-height: calc(100vh - 68px);
+  min-height: calc(100dvh - 68px);
   display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
-  align-items: flex-start;
-  gap: clamp(24px, 4vw, 64px);
-  padding: clamp(40px, 5.5vw, 72px) 0 clamp(32px, 4vw, 56px);
+  grid-template-columns: minmax(0, 1.05fr) minmax(360px, 0.95fr);
+  align-items: center;
+  align-content: center;
+  gap: clamp(24px, 3.5vw, 56px);
+  padding: clamp(12px, 1.8vh, 28px) 0 clamp(12px, 1.8vh, 24px);
+  box-sizing: border-box;
 }
 
 .ads-eyebrow {
   display: inline-flex;
   align-items: center;
-  gap: 9px;
+  gap: 8px;
   margin: 0;
   color: var(--ads-blue-strong);
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0;
@@ -343,42 +347,42 @@
 .ads-hero h1,
 .ads-section h2,
 .ads-contact h2 {
-  margin: 14px 0 0;
+  margin: 10px 0 0;
   color: var(--ads-heading);
   font-weight: 850;
   letter-spacing: 0;
-  line-height: 1.08;
+  line-height: 1.1;
 }
 
 .ads-hero h1 {
-  max-width: 760px;
-  font-size: clamp(30px, 3.2vw, 56px);
+  max-width: 740px;
+  font-size: clamp(26px, 2.6vw, 48px);
 }
 
 .ads-hero__text,
 .ads-contact__copy p {
-  max-width: 680px;
-  margin: 14px 0 0;
+  max-width: 660px;
+  margin: 10px 0 0;
   color: #49647d;
-  font-size: clamp(15px, 1.25vw, 18px);
-  line-height: 1.65;
+  font-size: clamp(14px, 1.05vw, 16px);
+  line-height: 1.55;
 }
 
 .ads-logo-panel {
   display: inline-flex;
   align-items: center;
-  gap: 14px;
-  margin-top: 18px;
-  padding: 10px 14px 10px 10px;
+  gap: 12px;
+  margin-top: 14px;
+  padding: 6px 12px;
   border: 1px solid #d7e7fb;
   border-radius: 8px;
   background: #ffffff;
-  box-shadow: 0 14px 34px rgba(21, 82, 150, 0.08);
+  box-shadow: 0 12px 28px rgba(21, 82, 150, 0.07);
 }
 
 .ads-logo-panel img {
-  width: 62px;
-  height: 62px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   object-fit: contain;
 }
@@ -390,28 +394,28 @@
 
 .ads-logo-panel strong {
   color: var(--ads-heading);
-  font-size: 16px;
+  font-size: 15px;
 }
 
 .ads-logo-panel span {
   margin-top: 2px;
   color: var(--ads-blue-strong);
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 800;
 }
 
 .ads-actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 22px;
+  gap: 10px;
+  margin-top: 16px;
 }
 
 .ads-hero__proof {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 12px;
-  margin-top: 24px;
+  gap: 10px;
+  margin-top: 18px;
 }
 
 .ads-hero__proof div,
@@ -420,34 +424,34 @@
   border: 1px solid #d7e7fb;
   border-radius: 8px;
   background: #ffffff;
-  box-shadow: 0 18px 48px rgba(21, 82, 150, 0.08);
+  box-shadow: 0 14px 36px rgba(21, 82, 150, 0.06);
 }
 
 .ads-hero__proof div {
-  padding: 14px;
+  padding: 10px 14px;
 }
 
 .ads-hero__proof strong {
   display: block;
   color: var(--ads-blue-strong);
-  font-size: clamp(18px, 1.5vw, 22px);
+  font-size: clamp(16px, 1.25vw, 20px);
 }
 
 .ads-hero__proof span {
   display: block;
-  margin-top: 4px;
+  margin-top: 2px;
   color: #5a7188;
-  font-size: 13px;
-  line-height: 1.4;
+  font-size: 12px;
+  line-height: 1.35;
 }
 
 .ads-hero__media {
   border: 1px solid #cfe4fb;
-  border-radius: 8px;
+  border-radius: 12px;
   background: #ffffff;
   padding: 10px;
-  box-shadow: 0 24px 70px rgba(15, 78, 163, 0.13);
-  max-width: 480px;
+  box-shadow: 0 20px 56px rgba(15, 78, 163, 0.12);
+  max-width: 520px;
   margin-left: auto;
   width: 100%;
 }
@@ -455,11 +459,11 @@
 .ads-hero__media img {
   display: block;
   width: 100%;
-  aspect-ratio: 4 / 4.6;
-  max-height: 440px;
-  border-radius: 6px;
+  aspect-ratio: 1 / 1;
+  max-height: clamp(340px, 54vh, 480px);
+  border-radius: 8px;
   object-fit: cover;
-  object-position: top center;
+  object-position: center;
 }
 
 
@@ -1410,10 +1414,11 @@
 .blog-card img {
   display: block;
   width: 100%;
-  aspect-ratio: 16 / 9.5;
-  object-fit: cover;
-  object-position: top center;
+  height: auto;
+  aspect-ratio: auto;
+  object-fit: contain;
   border-radius: 10px 10px 0 0;
+  background: #f4f8fc;
 }
 
 .blog-template {
@@ -1598,16 +1603,17 @@
   margin-bottom: 32px;
   border-radius: 10px;
   overflow: hidden;
-  max-height: 460px;
   box-shadow: 0 14px 38px rgba(21, 82, 150, 0.08);
+  background: #f8fafc;
 }
 
-.blog-cover-wrapper img {
+.blog-cover-wrapper img,
+.blog-detail-img {
   display: block;
   width: 100%;
-  max-height: 460px;
-  object-fit: cover;
-  object-position: top center;
+  height: auto;
+  object-fit: contain;
+  border-radius: 10px;
 }
 
 .blog-content {
@@ -2418,9 +2424,10 @@
   }
 }
 
-@media (min-width: 901px) and (max-width: 1366px) {
+@media (min-width: 901px) and (max-width: 1440px) {
   .ads-header {
-    padding: 10px clamp(16px, 3vw, 36px);
+    min-height: 64px;
+    padding: 8px clamp(14px, 2.5vw, 32px);
   }
 
   .ads-nav {
@@ -2430,45 +2437,123 @@
 
   .ads-nav a,
   .ads-nav-dropdown > button {
-    padding: 8px 10px;
+    padding: 6px 9px;
   }
 
   .ads-hero {
-    gap: 28px;
-    padding-top: 36px;
-    padding-bottom: 36px;
+    min-height: calc(100vh - 64px);
+    min-height: calc(100dvh - 64px);
+    grid-template-columns: minmax(0, 1.05fr) minmax(340px, 0.95fr);
+    gap: clamp(20px, 2.8vw, 44px);
+    padding: clamp(12px, 1.6vh, 26px) 0 clamp(12px, 1.6vh, 22px);
   }
 
   .ads-hero h1 {
-    font-size: clamp(30px, 3.2vw, 46px);
+    font-size: clamp(26px, 2.5vw, 40px);
   }
 
   .ads-hero__media {
-    max-width: 420px;
+    max-width: clamp(380px, 38vw, 480px);
   }
 
   .ads-hero__media img {
-    max-height: 390px;
-    aspect-ratio: 4 / 4.4;
+    max-height: clamp(320px, 50vh, 440px);
+    aspect-ratio: 1 / 1;
+  }
+}
+
+@media (min-width: 901px) and (max-height: 800px) {
+  .ads-header {
+    min-height: 60px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+  }
+
+  .ads-hero {
+    min-height: calc(100vh - 60px);
+    min-height: calc(100dvh - 60px);
+    grid-template-columns: minmax(0, 1.08fr) minmax(320px, 0.92fr);
+    padding-top: 10px;
+    padding-bottom: 10px;
+    gap: 22px;
+  }
+
+  .ads-hero h1 {
+    font-size: clamp(24px, 2.4vw, 36px);
+    margin-top: 6px;
+  }
+
+  .ads-hero__text {
+    margin-top: 6px;
+    font-size: 14px;
+    line-height: 1.45;
+  }
+
+  .ads-logo-panel {
+    margin-top: 10px;
+    padding: 4px 10px;
+  }
+
+  .ads-logo-panel img {
+    width: 38px;
+    height: 38px;
+  }
+
+  .ads-actions {
+    margin-top: 12px;
+  }
+
+  .ads-actions .ads-button {
+    min-height: 38px;
+    padding: 0 16px;
+    font-size: 13.5px;
+  }
+
+  .ads-hero__proof {
+    margin-top: 12px;
+    gap: 8px;
+  }
+
+  .ads-hero__proof div {
+    padding: 8px 10px;
+  }
+
+  .ads-hero__proof strong {
+    font-size: 17px;
+  }
+
+  .ads-hero__proof span {
+    font-size: 11.5px;
+  }
+
+  .ads-hero__media {
+    max-width: clamp(340px, 35vw, 440px);
+  }
+
+  .ads-hero__media img {
+    max-height: clamp(300px, 48vh, 390px);
+    aspect-ratio: 1 / 1;
   }
 }
 
 @media (min-width: 1441px) {
   .ads-hero {
-    gap: 64px;
-    padding: 64px 0 56px;
+    min-height: calc(100vh - 68px);
+    min-height: calc(100dvh - 68px);
+    gap: 48px;
+    padding: 40px 0 36px;
   }
 
   .ads-hero h1 {
-    font-size: 56px;
+    font-size: 48px;
   }
 
   .ads-hero__media {
-    max-width: 520px;
+    max-width: 540px;
   }
 
   .ads-hero__media img {
-    max-height: 480px;
+    max-height: 500px;
   }
 }
 
@@ -2497,6 +2582,7 @@
   .ads-hero,
   .location-hero,
   .ads-contact {
+    min-height: auto;
     grid-template-columns: 1fr;
   }
 

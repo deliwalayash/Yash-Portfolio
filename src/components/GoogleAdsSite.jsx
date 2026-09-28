@@ -153,7 +153,12 @@ export function calculateReadingTime(text) {
 
 export const BlogVisual = memo(function BlogVisual({ blog, variant = "card" }) {
   const imgSrc = blog?.image_url || "/clients/yash-deliwala.jpeg";
-  const className = variant === "thumb" ? "blog-thumb-img" : "blog-card-img";
+  const className =
+    variant === "thumb"
+      ? "blog-thumb-img"
+      : variant === "detail"
+      ? "blog-detail-img"
+      : "blog-card-img";
 
   return (
     <img
@@ -162,8 +167,6 @@ export const BlogVisual = memo(function BlogVisual({ blog, variant = "card" }) {
       className={className}
       loading="lazy"
       decoding="async"
-      width="400"
-      height="225"
     />
   );
 });
