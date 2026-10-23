@@ -2,7 +2,7 @@
 // Updated navigation header - Admin link removed
 
 import { useState } from "react";
-import { FaBars, FaChevronDown, FaPhoneAlt, FaTimes } from "react-icons/fa";
+import { FaBars, FaChevronDown, FaPhoneAlt, FaTimes, FaYoutube } from "react-icons/fa";
 import { locationPages } from "../lib/location-pages";
 import { PHONE_NUMBER } from "../lib/site-config";
 import { handleCallClick } from "../lib/tracking";
@@ -67,12 +67,37 @@ export default function AdsHeader({ variant = "home" }) {
       </nav>
 
       <a
+        className="ads-header-youtube"
+        href="https://www.youtube.com/@yashgoogleads"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="YouTube Channel @yashgoogleads"
+        title="Visit @yashgoogleads on YouTube"
+        style={{
+          display: "inline-flex",
+          alignItems: "center",
+          gap: "6px",
+          padding: "8px 14px",
+          borderRadius: "999px",
+          background: "#fee2e2",
+          color: "#ef4444",
+          fontSize: "13px",
+          fontWeight: "750",
+          textDecoration: "none",
+        }}
+      >
+        <FaYoutube style={{ fontSize: "15px" }} />
+        <span>@yashgoogleads</span>
+      </a>
+
+      <a
         className="ads-header-call"
         href={`tel:${PHONE_NUMBER}`}
         onClick={() => handleCallClick("Header Call Click")}
+        suppressHydrationWarning
       >
         <FaPhoneAlt />
-        <span>9712952456</span>
+        <span suppressHydrationWarning>{PHONE_NUMBER}</span>
       </a>
 
       <button
@@ -115,6 +140,30 @@ export default function AdsHeader({ variant = "home" }) {
             >
               <FaPhoneAlt />
               9712952456
+            </a>
+
+            <a
+              className="ads-mobile-menu__youtube"
+              href="https://www.youtube.com/@yashgoogleads"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "8px",
+                padding: "12px",
+                background: "#fee2e2",
+                color: "#ef4444",
+                borderRadius: "10px",
+                fontWeight: "750",
+                fontSize: "14px",
+                textDecoration: "none",
+                marginTop: "10px",
+              }}
+            >
+              <FaYoutube style={{ fontSize: "18px" }} />
+              <span>@yashgoogleads YouTube</span>
             </a>
           </aside>
         </div>

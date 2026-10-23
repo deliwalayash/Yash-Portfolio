@@ -3,6 +3,7 @@ import Script from "next/script";
 import "../src/index.css";
 import "../src/App.css";
 import GoogleAnalytics from "../src/components/GoogleAnalytics";
+import FloatingCornerVideo from "../src/components/FloatingCornerVideo";
 
 const sora = Sora({
   subsets: ["latin"],
@@ -197,6 +198,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           dangerouslySetInnerHTML={{ __html: JSON.stringify(siteNavigationSchema) }}
         />
         {children}
+        <FloatingCornerVideo />
       </body>
     </html>
   );
