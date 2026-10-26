@@ -27,6 +27,9 @@ import { locationPages } from "../lib/location-pages";
 import { isSupabaseConfigured } from "../lib/supabase";
 import { PHONE_NUMBER, WHATSAPP_LINK } from "../lib/site-config";
 import { TrackedWhatsAppLink, TrackedCallLink } from "./TrackedLinks";
+import { GoogleAdsVideosSection, GoogleAdsShortsSection } from "./YouTubeVideosAndShorts";
+
+export { GoogleAdsVideosSection, GoogleAdsShortsSection };
 
 const services = [
   {
@@ -1444,6 +1447,9 @@ export function LocationSeoPage({ page, dynamicPages = [] }) {
         )}
 
         <GoogleAdsDashboards />
+
+        <GoogleAdsVideosSection cityName={cityName} serviceName={serviceName} />
+        <GoogleAdsShortsSection cityName={cityName} />
 
         {/* ── Local Campaign Strategy ── */}
         <section className="ads-section location-section location-section--soft">

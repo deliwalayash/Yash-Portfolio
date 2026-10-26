@@ -26,7 +26,13 @@ import {
   FaWhatsapp,
 } from "react-icons/fa";
 import AdsHeader from "./AdsHeader";
-import { AdsFooter, BlogCard, clients } from "./GoogleAdsSite";
+import {
+  AdsFooter,
+  BlogCard,
+  clients,
+  GoogleAdsVideosSection,
+  GoogleAdsShortsSection,
+} from "./GoogleAdsSite";
 import FloatingContactButtons from "./FloatingContactButtons";
 import GoogleAdsDashboards from "./GoogleAdsDashboards";
 import { PHONE_NUMBER, WHATSAPP_LINK } from "../lib/site-config";
@@ -554,6 +560,9 @@ export default function GoogleAdsAgencyIndia({ blogs = [] }) {
             ))}
           </div>
         </section>
+
+        <GoogleAdsVideosSection />
+        <GoogleAdsShortsSection />
 
         {/* Section 8: Pricing/Packages Teaser */}
         <section id="pricing" className="ads-section ads-pricing">
