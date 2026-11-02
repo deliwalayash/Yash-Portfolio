@@ -2,7 +2,8 @@
 // Updated navigation header - Admin link removed
 
 import { useState, useEffect } from "react";
-import { FaBars, FaChevronDown, FaPhoneAlt, FaTimes } from "react-icons/fa";
+import { FaBars, FaChevronDown, FaPhoneAlt, FaTimes, FaYoutube } from "react-icons/fa";
+import { handleCallClick } from "../lib/tracking";
 import { locationPages } from "../lib/location-pages";
 import { PHONE_NUMBER } from "../lib/site-config";
 import CertificateModal from "./CertificateModal";
