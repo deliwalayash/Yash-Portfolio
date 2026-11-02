@@ -24,7 +24,7 @@ import { trackConversion } from "../lib/conversions";
 // ─── Static Data: module scope so these objects are NEVER recreated on re-render ───
 const LP_WHAT_YOU_GET = [
   {
-    title: "1-on-1 Paid Consultation (₹1000)",
+    title: "1-on-1 Strategy Consultation",
     description:
       "Direct consultation & strategy session to eliminate wasted ad spend, negative keyword leaks, and bad targeting.",
     icon: <FaSearchDollar className="text-blue-500" />,
@@ -223,7 +223,7 @@ export default function GoogleAdsLp() {
             {/* Right Form */}
             <div className="lp-hero-right">
               <div className="lp-form-card">
-                <h3>Book 1-on-1 Consultation (₹1000)</h3>
+                <h3>Book 1-on-1 Consultation</h3>
                 <p>Book a dedicated 1-on-1 strategy session to review &amp; fix your Google Ads campaigns.</p>
 
                 {formSubmitted ? (
@@ -293,7 +293,7 @@ export default function GoogleAdsLp() {
                     </div>
 
                     <button type="submit" disabled={loading} className="lp-form-submit">
-                      {loading ? "Submitting..." : "Book Consultation (₹1000)"}
+                      {loading ? "Submitting..." : "Book Consultation"}
                     </button>
 
                     <div className="lp-form-trust">
@@ -483,7 +483,7 @@ export default function GoogleAdsLp() {
                 href="#hero"
                 className="lp-button lp-button--primary"
               >
-                Book Consultation (₹1000)
+                Book Consultation
               </a>
 
               <a

@@ -21,7 +21,7 @@ const localBusinessSchema = {
   url: "https://yashdeliwala.com",
   telephone: "+919712952456",
   email: "yashdeliwala10@gmail.com",
-  priceRange: "Google Ads management from Rs. 15,000/month",
+  priceRange: "Starting from ***/month",
   address: {
     "@type": "PostalAddress",
     addressLocality: "Surat",

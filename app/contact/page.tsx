@@ -14,7 +14,7 @@ import { ContactHeroActions, ContactChannelCards } from "../../src/components/Co
 export const metadata = {
   title: "Contact Yash Deliwala | Google Ads Expert in India",
   description:
-    "Book a 1-on-1 Google Ads consultation (Rs. 1000) or contact Yash Deliwala directly via phone, email, or WhatsApp for Search Ads and PPC campaigns.",
+    "Book a 1-on-1 Google Ads consultation or contact Yash Deliwala directly via phone, email, or WhatsApp for Search Ads and PPC campaigns.",
   alternates: {
     canonical: "/contact",
   },
@@ -55,7 +55,7 @@ export default function ContactPage() {
           </p>
           <h1>Get in Touch with Yash Deliwala</h1>
           <p className="ads-hero__text">
-            Looking to start a high-ROI Google Ads campaign or optimize your existing account? Book a 1-on-1 consultation (Rs. 1000) or message directly on WhatsApp.
+            Looking to start a high-ROI Google Ads campaign or optimize your existing account? Book a 1-on-1 consultation or message directly on WhatsApp.
           </p>
 
           <div style={{ margin: "20px 0", display: "flex", flexDirection: "column", gap: "10px" }}>
@@ -120,10 +120,6 @@ export default function ContactPage() {
           <p>
             Share your business, target location, monthly budget, and current ad goal. I will help you understand what to fix first and how to run your Google Ads more cleanly.
           </p>
-          <div className="ads-consultation-price">
-            <span>Consultation charge</span>
-            <strong>Rs. 1000</strong>
-          </div>
           <div className="ads-contact__quick">
             <a href={`tel:${PHONE_NUMBER}`}>{PHONE_NUMBER}</a>
             <a href="mailto:yashdeliwala10@gmail.com">yashdeliwala10@gmail.com</a>

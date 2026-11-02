@@ -127,7 +127,7 @@ export default async function LocationPage({ params }) {
     },
     {
       question: `What is the starting price for ${serviceName} management?`,
-      answer: `${serviceName} management starts from Rs. 15,000 per month. The recommended minimum ad spend is Rs. 15,000 per month, paid directly to Google.`,
+      answer: `${serviceName} management plans are customized based on business goals and requirements. The recommended minimum ad spend is flexible, paid directly to Google.`,
     },
   ];
 

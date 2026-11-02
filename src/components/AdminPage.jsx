@@ -38,7 +38,7 @@ const emptySeoForm = {
     },
     {
       question: "What is the monthly management fee?",
-      answer: "Google Ads management starts from Rs. 15,000/month, with direct WhatsApp communication and transparent reporting.",
+      answer: "Google Ads management plans are customized based on your goals, with direct WhatsApp communication and transparent reporting.",
     },
   ],
   image_url: "",
