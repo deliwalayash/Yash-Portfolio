@@ -124,7 +124,7 @@ export const faqItems = [
   {
     question: "How much does Google Ads management cost in India?",
     answer:
-      "Google Ads management starts from Rs. 15,000 per month, with a recommended minimum ad spend of Rs. 15,000 per month paid directly to Google.",
+      "Google Ads management pricing is tailored to your business goals and campaign scale, with direct WhatsApp communication and transparent reporting.",
   },
   {
     question: "Can Google Search Ads work for local and India-wide businesses?",
@@ -337,7 +337,7 @@ export function BlogSidebar({ suggestedBlogs = [] }) {
         <h3>Need Google Ads Results?</h3>
         <p>Get a direct campaign review and Search Ads structure built for your business goals.</p>
         <a href="#contact" className="ads-button ads-button--secondary">
-          Book Rs. 1000 Consultation
+          Book Consultation
         </a>
       </div>
     </aside>
@@ -480,7 +480,7 @@ export function AdsFooter({ locationLabel = "Surat, Gujarat" }) {
                 <a href="/contact" style={{ display: "flex", alignItems: "center", gap: "8px", color: "#475569", fontSize: "13.5px", fontWeight: "600", textDecoration: "none" }}><FaChevronRight style={{ color: "var(--ads-blue)", fontSize: "11px", flexShrink: 0 }} /> Contact</a>
               </li>
               <li>
-                <a href="/#contact" style={{ display: "flex", alignItems: "center", gap: "8px", color: "#475569", fontSize: "13.5px", fontWeight: "600", textDecoration: "none" }}><FaChevronRight style={{ color: "var(--ads-blue)", fontSize: "11px", flexShrink: 0 }} /> Free Consultation</a>
+                <a href="/#contact" style={{ display: "flex", alignItems: "center", gap: "8px", color: "#475569", fontSize: "13.5px", fontWeight: "600", textDecoration: "none" }}><FaChevronRight style={{ color: "var(--ads-blue)", fontSize: "11px", flexShrink: 0 }} /> Book Consultation</a>
               </li>
               <li>
                 <a href="/lp" style={{ display: "flex", alignItems: "center", gap: "8px", color: "#475569", fontSize: "13.5px", fontWeight: "600", textDecoration: "none" }}><FaChevronRight style={{ color: "var(--ads-blue)", fontSize: "11px", flexShrink: 0 }} /> Get Free Audit</a>
@@ -509,7 +509,7 @@ export function AdsFooter({ locationLabel = "Surat, Gujarat" }) {
               </div>
               <div className="site-footer__help-content">
                 <strong style={{ display: "block", color: "#0f172a", fontSize: "14.5px", fontWeight: "800" }}>Need Help?</strong>
-                <p style={{ margin: "3px 0 0", color: "#334155", fontSize: "12px", lineHeight: "1.4" }}>Book a ₹1000 Consultation and grow your business faster.</p>
+                <p style={{ margin: "3px 0 0", color: "#334155", fontSize: "12px", lineHeight: "1.4" }}>Book a Consultation and grow your business faster.</p>
               </div>
             </a>
           </div>
@@ -634,7 +634,7 @@ export function GoogleAdsLanding({ blogs = [] }) {
                 WhatsApp Yash
               </a>
               <a className="ads-button ads-button--secondary" href="#contact">
-                Book Rs. 1000 Consultation
+                Book Consultation
               </a>
             </div>
 
@@ -748,39 +748,19 @@ export function GoogleAdsLanding({ blogs = [] }) {
           <div className="ads-pricing-grid">
             <div className="ads-pricing-card">
               <span>Campaign management</span>
-              <strong>Starting from Rs. 15,000/month</strong>
+              <strong>Starting from ***/month</strong>
               <p>Monthly charge for planning, setup, optimization, tracking, and campaign reporting.</p>
             </div>
             <div className="ads-pricing-card">
               <span>Minimum ad spend</span>
-              <strong>Rs. 15,000/month</strong>
+              <strong>***/month</strong>
               <p>Recommended minimum Google Ads budget paid directly for running campaigns.</p>
             </div>
             <div className="ads-pricing-card ads-pricing-card--highlight">
               <span>Consultation</span>
-              <strong>Rs. 1000</strong>
+              <strong>Book Consultation</strong>
               <p>One-time consultation to review your business, campaign goals, and next steps.</p>
             </div>
-          </div>
-        </section>
-
-        <section id="video" className="ads-section ads-video-section">
-          <div className="ads-section__heading">
-            <p className="ads-eyebrow">
-              <FaGoogle />
-              Google Ads Video
-            </p>
-            <h2>Watch how Google Search Ads can help generate better leads.</h2>
-          </div>
-
-          <div className="ads-video-frame">
-            <iframe
-              src="https://www.youtube.com/embed/KdnXToNgYKA"
-              title="Google Ads video by Yash Deliwala"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowFullScreen
-              loading="lazy"
-            ></iframe>
           </div>
         </section>
 
@@ -856,10 +836,6 @@ export function GoogleAdsLanding({ blogs = [] }) {
               ad goal. I will help you understand what to fix first and how to
               run your Google Ads more cleanly.
             </p>
-            <div className="ads-consultation-price">
-              <span>Consultation charge</span>
-              <strong>Rs. 1000</strong>
-            </div>
             <div className="ads-contact__quick">
               <a href={`tel:${PHONE_NUMBER}`}>{PHONE_NUMBER}</a>
               <a href="mailto:yashdeliwala10@gmail.com">yashdeliwala10@gmail.com</a>
@@ -901,7 +877,7 @@ export function LocationSeoPage({ page, dynamicPages = [] }) {
     },
     {
       question: `What is the starting price for ${serviceName} management?`,
-      answer: `${serviceName} management starts from Rs. 15,000 per month. Recommended ad spend starts at Rs. 15,000 per month paid directly to Google.`,
+      answer: `${serviceName} management plans are customized based on your business requirements, target location, and monthly ad budget.`,
     },
   ];
 
@@ -942,7 +918,7 @@ export function LocationSeoPage({ page, dynamicPages = [] }) {
                 WhatsApp Yash
               </a>
               <a className="ads-button ads-button--secondary" href="#contact">
-                Book Rs. 1000 Consultation
+                Book Consultation
               </a>
             </div>
           </div>
@@ -1085,10 +1061,6 @@ export function LocationSeoPage({ page, dynamicPages = [] }) {
               Share your business, service area, budget, and current campaign
               goal. I will help you understand what needs to be fixed first.
             </p>
-            <div className="ads-consultation-price">
-              <span>Consultation charge</span>
-              <strong>Rs. 1000</strong>
-            </div>
             <div className="ads-contact__quick">
               <a href={`tel:${PHONE_NUMBER}`}>{PHONE_NUMBER}</a>
               <a href="mailto:yashdeliwala10@gmail.com">yashdeliwala10@gmail.com</a>

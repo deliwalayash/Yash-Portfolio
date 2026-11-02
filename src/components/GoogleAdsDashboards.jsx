@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useMemo, useState } from "react";
+import GoogleAdsConsoleDashboard from "./GoogleAdsConsoleDashboard";
 import {
   FaBuilding,
   FaCheckCircle,
@@ -215,6 +216,9 @@ export default function GoogleAdsDashboards() {
           Explore real Google Ads campaigns across healthcare, courier, furniture, legal, manufacturing, real estate, salon, and solar energy industries with daily budgets ranging from ₹400 to ₹1,000/day.
         </p>
       </div>
+
+      {/* Google Ads Live Console Dashboard (Interactive Performance & Graphs) */}
+      <GoogleAdsConsoleDashboard />
 
       {/* Category Filter Tabs */}
       <div className="ads-dashboard-tabs" role="tablist" aria-label="Filter dashboards by industry">

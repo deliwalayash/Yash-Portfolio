@@ -1,10 +1,11 @@
 "use client";
 // Updated navigation header - Admin link removed
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FaBars, FaChevronDown, FaPhoneAlt, FaTimes } from "react-icons/fa";
 import { locationPages } from "../lib/location-pages";
 import { PHONE_NUMBER } from "../lib/site-config";
+import CertificateModal from "./CertificateModal";
 
 const homeLinks = [
   { href: "#results", label: "Real Results" },
@@ -34,13 +35,25 @@ const pageLinks = [
 
 export default function AdsHeader({ variant = "home" }) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [certModalOpen, setCertModalOpen] = useState(false);
+
+  const openCertModal = (e) => {
+    if (e) e.preventDefault();
+    setCertModalOpen(true);
+  };
+
+  useEffect(() => {
+    const handleOpenCert = () => setCertModalOpen(true);
+    window.addEventListener("open-certificate", handleOpenCert);
+    return () => window.removeEventListener("open-certificate", handleOpenCert);
+  }, []);
   const links = variant === "inner" ? innerLinks : homeLinks;
 
   const closeMenu = () => setMenuOpen(false);
 
   return (
     <header className="ads-header">
-      <a className="ads-brand" href={variant === "inner" ? "/" : "#home"} aria-label="Yash Google Ads Expert">
+      <a className="ads-brand" href="#certificate" onClick={openCertModal} title="Click to view Google Ads Search Certificate" aria-label="Yash Google Ads Expert - View Certificate">
         <img src="/clients/logo (2).jpeg" alt="Yash Deliwala Google Ads Expert logo" decoding="async" width="40" height="40" />
         <span>Yash Google Ads Expert</span>
       </a>
@@ -83,7 +96,7 @@ export default function AdsHeader({ variant = "home" }) {
         <div className="ads-menu-layer" role="presentation" onClick={closeMenu}>
           <aside className="ads-mobile-menu" aria-label="Mobile navigation" onClick={(event) => event.stopPropagation()}>
             <div className="ads-mobile-menu__top">
-              <a className="ads-brand" href={variant === "inner" ? "/" : "#home"} onClick={closeMenu}>
+              <a className="ads-brand" href="#certificate" onClick={(e) => { closeMenu(); openCertModal(e); }} title="Click to view Google Ads Search Certificate">
                 <img src="/clients/logo (2).jpeg" alt="Yash Deliwala Google Ads Expert logo" decoding="async" width="40" height="40" />
                 <span>Yash Google Ads Expert</span>
               </a>
@@ -107,6 +120,7 @@ export default function AdsHeader({ variant = "home" }) {
           </aside>
         </div>
       )}
+      <CertificateModal isOpen={certModalOpen} onClose={() => setCertModalOpen(false)} />
     </header>
   );
 }

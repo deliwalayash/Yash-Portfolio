@@ -4632,3 +4632,1041 @@
 
 
 
+
+
+/* ==========================================================================
+   Certificate Modal & Animation Styles
+   ========================================================================== */
+
+@keyframes certFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes certPopIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.9) translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.cert-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+  background: rgba(15, 23, 42, 0.78);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  animation: certFadeIn 0.22s ease-out forwards;
+}
+
+.cert-modal-dialog {
+  position: relative;
+  width: min(840px, 100%);
+  max-height: 92vh;
+  background: #ffffff;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 25px 60px -10px rgba(15, 23, 42, 0.4), 0 0 0 1px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: certPopIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.cert-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  background: #f8fafc;
+  border-bottom: 1px solid #e2e8f0;
+  gap: 16px;
+}
+
+.cert-modal-header__title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.cert-modal-badge {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #eff6ff;
+  border: 2px solid #bfdbfe;
+  color: #2563eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 19px;
+  flex-shrink: 0;
+}
+
+.cert-modal-verified-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 800;
+  color: #059669;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.cert-modal-header h2 {
+  margin: 1px 0 0;
+  font-size: clamp(16px, 1.4vw, 19px);
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1.25;
+}
+
+.cert-modal-close {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+  color: #475569;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.cert-modal-close:hover {
+  background: #fee2e2;
+  border-color: #fca5a5;
+  color: #dc2626;
+  transform: rotate(90deg);
+}
+
+.cert-modal-body {
+  padding: 16px 20px;
+  overflow-y: auto;
+  max-height: calc(92vh - 140px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f1f5f9;
+}
+
+.cert-image-frame {
+  width: 100%;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 6px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e2e8f0;
+}
+
+.cert-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 8px;
+  object-fit: contain;
+}
+
+.cert-modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 12px 20px;
+  background: #ffffff;
+  border-top: 1px solid #e2e8f0;
+}
+
+.cert-meta-info {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  font-size: 12.5px;
+  color: #64748b;
+}
+
+.cert-meta-info strong {
+  color: #1e293b;
+}
+
+.cert-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cert-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 13.5px;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+}
+
+.cert-btn--download {
+  background: #2563eb;
+  color: #ffffff;
+  border-color: #1d4ed8;
+}
+
+.cert-btn--download:hover {
+  background: #1d4ed8;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+.cert-btn--close {
+  background: #f1f5f9;
+  color: #334155;
+  border-color: #cbd5e1;
+}
+
+.cert-btn--close:hover {
+  background: #e2e8f0;
+}
+
+/* Header brand hover hint */
+.ads-brand {
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.ads-brand:hover {
+  transform: translateY(-1px);
+}
+
+.ads-brand:hover img {
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.25);
+  transform: scale(1.05);
+  transition: all 0.2s ease;
+}
+
+.ads-logo-panel {
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.ads-logo-panel:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(21, 82, 150, 0.12);
+}
+
+
+/* ==========================================================================
+   Google Ads Live Console Dashboard (Matches Official Google Ads UI)
+   ========================================================================== */
+
+.gads-console-wrapper {
+  width: min(1320px, calc(100% - 32px));
+  margin: 0 auto 52px auto;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Sora", sans-serif;
+}
+
+.gads-console-card {
+  background: #ffffff;
+  border: 1px solid #dadce0;
+  border-radius: 14px;
+  box-shadow: 0 4px 28px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+}
+
+/* ── Top Bar ── */
+.gads-top-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+  padding: 14px 20px;
+  background: #ffffff;
+  border-bottom: 1px solid #e8eaed;
+}
+
+.gads-top-nav__left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.gads-logo-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  background: #eff6ff;
+  color: #1a73e8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 19px;
+  flex-shrink: 0;
+}
+
+.gads-top-title {
+  display: flex;
+  flex-direction: column;
+}
+
+.gads-account-label {
+  font-size: 15px;
+  font-weight: 800;
+  color: #202124;
+  line-height: 1.25;
+}
+
+.gads-account-sub {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #5f6368;
+}
+
+.gads-top-nav__actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.gads-date-picker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 14px;
+  background: #f8f9fa;
+  border: 1px solid #dadce0;
+  border-radius: 8px;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #3c4043;
+}
+
+.gads-date-picker svg {
+  color: #5f6368;
+  font-size: 13px;
+}
+
+.gads-dropdown-arrow {
+  font-size: 10px !important;
+  color: #70757a !important;
+}
+
+.gads-nav-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 14px;
+  background: #ffffff;
+  border: 1px solid #dadce0;
+  border-radius: 8px;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #3c4043;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.gads-nav-btn:hover {
+  background: #f1f3f4;
+  border-color: #bdc1c6;
+}
+
+/* ── Subnav Strip ── */
+.gads-subnav-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  background: #fafbfc;
+  border-bottom: 1px solid #e8eaed;
+  overflow-x: auto;
+  gap: 16px;
+}
+
+.gads-subnav-tabs {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.gads-subnav-tab {
+  padding: 12px 16px;
+  background: transparent;
+  border: none;
+  border-bottom: 3px solid transparent;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #5f6368;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.gads-subnav-tab:hover {
+  color: #1a73e8;
+}
+
+.gads-subnav-tab--active {
+  color: #1a73e8;
+  border-bottom-color: #1a73e8;
+}
+
+.gads-new-camp-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 16px;
+  background: #1a73e8;
+  color: #ffffff;
+  border: none;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(26, 115, 232, 0.25);
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.gads-new-camp-btn:hover {
+  background: #1557b0;
+  transform: translateY(-1px);
+}
+
+/* ── Main 2-Column Split ── */
+.gads-console-body {
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
+  background: #ffffff;
+}
+
+/* ── Left Sidebar: Industry Filter ── */
+.gads-sidebar {
+  background: #f8f9fa;
+  border-right: 1px solid #e8eaed;
+  padding: 18px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.gads-sidebar__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 6px 6px 6px;
+}
+
+.gads-sidebar__title {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12.5px;
+  font-weight: 800;
+  color: #5f6368;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.gads-sidebar__count {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #70757a;
+  background: #e8eaed;
+  padding: 2px 7px;
+  border-radius: 12px;
+}
+
+.gads-sidebar__list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.gads-sidebar__item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.15s ease;
+  font-family: inherit;
+}
+
+.gads-sidebar__item:hover {
+  background: #edf2f7;
+}
+
+.gads-sidebar__item-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.gads-sidebar__item-icon {
+  color: #5f6368;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.gads-sidebar__item-label {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #3c4043;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.gads-sidebar__item-badge {
+  font-size: 11px;
+  font-weight: 700;
+  color: #70757a;
+  background: #ffffff;
+  border: 1px solid #dadce0;
+  padding: 2px 6px;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+
+.gads-sidebar__item--active {
+  background: #e8f0fe !important;
+  border-color: #c2e7ff;
+}
+
+.gads-sidebar__item--active .gads-sidebar__item-label {
+  color: #1a73e8 !important;
+  font-weight: 800;
+}
+
+.gads-sidebar__item--active .gads-sidebar__item-icon {
+  color: #1a73e8 !important;
+}
+
+.gads-sidebar__item--active .gads-sidebar__item-badge {
+  background: #1a73e8 !important;
+  color: #ffffff !important;
+  border-color: #1a73e8;
+}
+
+.gads-sidebar__tip {
+  margin-top: auto;
+  padding: 12px;
+  border-radius: 8px;
+  background: #ffffff;
+  border: 1px solid #dadce0;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.gads-sidebar__tip-icon {
+  color: #1a73e8;
+  font-size: 14px;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.gads-sidebar__tip p {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.45;
+  color: #5f6368;
+}
+
+/* ── Right Column: Google Ads Main Panel ── */
+.gads-main-panel {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background: #ffffff;
+}
+
+/* ── 1. Google Top Insights Banner (Matches User Screenshot Image 2) ── */
+.gads-insights-card {
+  background: #ffffff;
+  border: 1px solid #e8eaed;
+  border-radius: 12px;
+  padding: 18px 20px;
+  box-shadow: 0 1px 3px rgba(60, 64, 67, 0.08);
+}
+
+.gads-insights-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.gads-insights-card__title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14.5px;
+  color: #202124;
+}
+
+.gads-sparkle-badge {
+  color: #8430ce;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+}
+
+.gads-insights-chips {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.gads-chip {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 16px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+
+.gads-insights-lead {
+  margin: 0 0 10px 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: #1a73e8;
+}
+
+.gads-insights-bullets {
+  margin: 0;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.gads-insights-bullets li {
+  font-size: 13px;
+  color: #3c4043;
+  line-height: 1.5;
+}
+
+/* ── 2. Metric Scorecards (Exact 4 Tabs from Image 2) ── */
+.gads-metric-cards-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+  background: #dadce0;
+  border: 1px solid #dadce0;
+  border-radius: 10px 10px 0 0;
+  overflow: hidden;
+}
+
+.gads-metric-card {
+  padding: 16px 18px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  position: relative;
+  user-select: none;
+}
+
+.gads-metric-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.gads-metric-card__value {
+  font-size: clamp(24px, 2.2vw, 32px);
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 6px;
+  letter-spacing: -0.5px;
+}
+
+.gads-metric-card__sub {
+  font-size: 11.5px;
+  font-weight: 600;
+}
+
+/* Blue Clicks Card */
+.gads-metric-card--clicks {
+  background: #1a73e8;
+  color: #ffffff;
+}
+
+.gads-metric-card--clicks .gads-metric-card__sub {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* Red Impressions Card */
+.gads-metric-card--impr {
+  background: #d93025;
+  color: #ffffff;
+}
+
+.gads-metric-card--impr .gads-metric-card__sub {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* Amber Conversions Card */
+.gads-metric-card--conv {
+  background: #f9ab00;
+  color: #202124;
+}
+
+.gads-metric-card--conv .gads-metric-card__value {
+  color: #202124;
+}
+
+.gads-metric-card--conv .gads-metric-card__sub {
+  color: #3c4043;
+}
+
+/* White Cost Card */
+.gads-metric-card--cost {
+  background: #ffffff;
+  color: #5f6368;
+}
+
+.gads-metric-card__value--dark {
+  color: #202124;
+}
+
+.gads-metric-card__sub--dark {
+  color: #5f6368;
+}
+
+/* ── 3. Chart Container & SVG Multi-Line Chart ── */
+.gads-chart-container {
+  background: #ffffff;
+  border: 1px solid #dadce0;
+  border-top: none;
+  border-radius: 0 0 10px 10px;
+  padding: 16px 20px 20px;
+  position: relative;
+}
+
+.gads-chart-legend {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 18px;
+  margin-bottom: 12px;
+  font-size: 12.5px;
+  font-weight: 700;
+}
+
+.gads-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.gads-legend-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+}
+
+.gads-legend-dot--blue {
+  background: #1a73e8;
+}
+
+.gads-legend-dot--red {
+  background: #d93025;
+}
+
+.gads-legend-dot--amber {
+  background: #f9ab00;
+}
+
+.gads-legend-date-range {
+  margin-left: auto;
+  color: #70757a;
+  font-size: 11.5px;
+  font-weight: 600;
+}
+
+.gads-svg-wrapper {
+  position: relative;
+  width: 100%;
+  height: 220px;
+}
+
+.gads-svg-chart {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+}
+
+.gads-hover-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  pointer-events: auto;
+}
+
+.gads-hover-col {
+  flex: 1;
+  height: 100%;
+  cursor: crosshair;
+}
+
+.gads-chart-tooltip {
+  position: absolute;
+  top: 10px;
+  transform: translateX(-50%);
+  background: #202124;
+  color: #ffffff;
+  padding: 8px 12px;
+  border-radius: 8px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.28);
+  font-size: 11.5px;
+  pointer-events: none;
+  z-index: 10;
+  min-width: 130px;
+  animation: certFadeIn 0.15s ease-out;
+}
+
+.gads-tooltip-date {
+  font-weight: 800;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  padding-bottom: 4px;
+  margin-bottom: 4px;
+  color: #e8eaed;
+}
+
+.gads-tooltip-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 1px 0;
+}
+
+.gads-tooltip-row--blue strong {
+  color: #8ab4f8;
+}
+
+.gads-tooltip-row--red strong {
+  color: #f28b82;
+}
+
+.gads-tooltip-row--amber strong {
+  color: #fdd663;
+}
+
+.gads-tooltip-row--cost strong {
+  color: #81c995;
+}
+
+.gads-chart-dates {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 30px 0;
+  color: #70757a;
+  font-size: 11.5px;
+  font-weight: 600;
+}
+
+.gads-chart-date-empty {
+  visibility: hidden;
+}
+
+/* ── 4. Google Ads Campaign Performance Table ── */
+.gads-table-container {
+  background: #ffffff;
+  border: 1px solid #dadce0;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.gads-table-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  background: #f8f9fa;
+  border-bottom: 1px solid #e8eaed;
+  font-size: 13.5px;
+  color: #202124;
+}
+
+.gads-table-header span {
+  font-size: 12px;
+  color: #5f6368;
+  font-weight: 600;
+}
+
+.gads-table-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.gads-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  text-align: left;
+}
+
+.gads-table th {
+  background: #fafbfc;
+  color: #5f6368;
+  font-weight: 700;
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  padding: 10px 14px;
+  border-bottom: 1px solid #dadce0;
+  white-space: nowrap;
+}
+
+.gads-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid #f1f3f4;
+  color: #3c4043;
+  white-space: nowrap;
+}
+
+.gads-col-name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  color: #1a73e8 !important;
+}
+
+.gads-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #188038;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.gads-status-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #137333;
+  background: #e6f4ea;
+  padding: 2px 7px;
+  border-radius: 10px;
+}
+
+.gads-col-budget {
+  font-weight: 700;
+  color: #b06000;
+}
+
+.gads-col-clicks {
+  font-weight: 700;
+  color: #1a73e8;
+}
+
+.gads-col-conv {
+  color: #b06000;
+}
+
+.gads-table-total-row td {
+  background: #f8f9fa;
+  border-top: 2px solid #dadce0;
+  font-weight: 800;
+  color: #202124;
+}
+
+/* ── Mobile & Responsive Breakpoints ── */
+@media (max-width: 991px) {
+  .gads-console-body {
+    grid-template-columns: 1fr;
+  }
+
+  .gads-sidebar {
+    border-right: none;
+    border-bottom: 1px solid #e8eaed;
+  }
+
+  .gads-sidebar__list {
+    flex-direction: row;
+    overflow-x: auto;
+    padding-bottom: 6px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .gads-sidebar__item {
+    width: auto;
+    flex-shrink: 0;
+  }
+
+  .gads-sidebar__tip {
+    display: none;
+  }
+
+  .gads-metric-cards-strip {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .gads-metric-cards-strip {
+    grid-template-columns: 1fr;
+  }
+
+  .gads-top-nav {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .gads-top-nav__actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .gads-main-panel {
+    padding: 14px;
+  }
+
+  .gads-insights-card {
+    padding: 14px;
+  }
+}

@@ -307,7 +307,7 @@ export default function GoogleAdsAgencyIndia({ blogs = [] }) {
             <div className="ads-actions">
               <a className="ads-button ads-button--primary" href="#contact">
                 <FaCheckCircle />
-                Book Consultation (Rs. 1000)
+                Book Consultation
               </a>
               <a
                 className="ads-button ads-button--secondary"
@@ -693,11 +693,6 @@ export default function GoogleAdsAgencyIndia({ blogs = [] }) {
               I will analyze your current campaign structure and outline a step-by-step PPC strategy.
             </p>
 
-            <div className="ads-consultation-price">
-              <span>1-on-1 Consultation</span>
-              <strong>Rs. 1000 Consultation Charge</strong>
-            </div>
-
             <div className="ads-contact__quick">
               <a href={`tel:${PHONE_NUMBER}`}>
                 <FaPhoneAlt className="inline mr-2" /> {PHONE_NUMBER}
@@ -726,7 +721,7 @@ export default function GoogleAdsAgencyIndia({ blogs = [] }) {
               placeholder="Tell me about your business, target locations (Surat or India-wide), and Google Ads goal"
             />
             <button type="submit" className="ads-button ads-button--primary w-full">
-              Book Consultation (Rs. 1000)
+              Book Consultation
             </button>
           </form>
         </section>
