@@ -11,11 +11,18 @@ import CertificateModal from "./CertificateModal";
 const homeLinks = [
   { href: "#results", label: "Real Results" },
   { href: "#services", label: "Services" },
+  { href: "#pricing", label: "Pricing" },
+  { href: "/blogs", label: "Blogs" },
+];
+
+const mobileLinks = [
+  { href: "#results", label: "Real Results" },
+  { href: "#services", label: "Services" },
+  { href: "#pricing", label: "Pricing" },
   { href: "/google-ads-agency-india", label: "Agency India" },
+  { href: "#clients", label: "Clients" },
   { href: "/blogs", label: "Blogs" },
   { href: "/contact", label: "Contact" },
-  { href: "#pricing", label: "Pricing" },
-  { href: "#clients", label: "Clients" },
 ];
 
 const innerLinks = [
@@ -25,12 +32,14 @@ const innerLinks = [
 ];
 
 const pageLinks = [
-  { href: "/", label: "Google Ads Expert in India" },
-  { href: "/google-ads-agency-india", label: "Google Ads Agency in India" },
+  { href: "/google-ads-agency-india", label: "Agency India (Full PPC)" },
+  { href: "/#clients", label: "Client Work" },
+  { href: "/contact", label: "Contact" },
+  { href: "/lp", label: "Free Google Ads Audit" },
   { href: "/blogs", label: "Google Ads Blog" },
   ...locationPages.map((page) => ({
     href: `/${page.slug}`,
-    label: `Google Ads Expert in ${page.city}`,
+    label: `Google Ads in ${page.city}`,
   })),
 ];
 
@@ -81,7 +90,7 @@ export default function AdsHeader({ variant = "home" }) {
 
       <a
         className="ads-header-youtube"
-        href="https://www.youtube.com/@yashgoogleads"
+        href="https://www.youtube.com/@yashgoogleads/shorts"
         target="_blank"
         rel="noopener noreferrer"
         aria-label="YouTube Channel @yashgoogleads"
@@ -97,9 +106,11 @@ export default function AdsHeader({ variant = "home" }) {
           fontSize: "13px",
           fontWeight: "750",
           textDecoration: "none",
+          whiteSpace: "nowrap",
+          flexShrink: 0,
         }}
       >
-        <FaYoutube style={{ fontSize: "15px" }} />
+        <FaYoutube style={{ fontSize: "16px", color: "#ef4444" }} />
         <span>@yashgoogleads</span>
       </a>
 
@@ -136,7 +147,7 @@ export default function AdsHeader({ variant = "home" }) {
             </div>
 
             <nav className="ads-mobile-menu__links">
-              {links.map((link) => (
+              {(variant === "home" ? mobileLinks : innerLinks).map((link) => (
                 <a href={link.href} key={link.href} onClick={closeMenu}>
                   {link.label}
                 </a>
@@ -157,7 +168,7 @@ export default function AdsHeader({ variant = "home" }) {
 
             <a
               className="ads-mobile-menu__youtube"
-              href="https://www.youtube.com/@yashgoogleads"
+              href="https://www.youtube.com/@yashgoogleads/shorts"
               target="_blank"
               rel="noopener noreferrer"
               style={{

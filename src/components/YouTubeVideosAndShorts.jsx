@@ -1,61 +1,31 @@
-import { FaGoogle, FaYoutube } from "react-icons/fa";
+"use client";
 
-export const featuredVideos = [
-  {
-    id: "HY7Td-AJ45A",
-    src: "https://www.youtube.com/embed/HY7Td-AJ45A?si=wI_VhKjM2Q8hZbVs",
-    title: "Google Ads Account Suspended: Policy Solutions & Review",
-    tag: "Account Recovery",
-  },
-  {
-    id: "Ai40t_K5DjM",
-    src: "https://www.youtube.com/embed/Ai40t_K5DjM?si=MKOU-w5D9HHevDOd",
-    title: "Start Google Ads with ₹500/day: Step-by-Step Setup",
-    tag: "Budget Strategy",
-  },
-  {
-    id: "QSFD_ExZtcE",
-    src: "https://www.youtube.com/embed/QSFD_ExZtcE?si=UfTiwJyg9a-kgb77",
-    title: "Google Ads Expert in India: Full PPC Management",
-    tag: "Case Study & Growth",
-  },
-];
+import { useState, useEffect } from "react";
+import { FaGoogle, FaPlus, FaYoutube } from "react-icons/fa";
+import {
+  FALLBACK_VIDEOS,
+  FALLBACK_SHORTS,
+  YOUTUBE_CHANNEL_URL,
+} from "../lib/youtube";
 
-export const featuredShorts = [
-  {
-    id: "PcZNwNi0yFc",
-    src: "https://www.youtube.com/embed/PcZNwNi0yFc",
-    title: "Google Ads Quick Tip 1",
-  },
-  {
-    id: "5b8GE5syzz8",
-    src: "https://www.youtube.com/embed/5b8GE5syzz8",
-    title: "Google Ads Quick Tip 2",
-  },
-  {
-    id: "ikHYcYjwlls",
-    src: "https://www.youtube.com/embed/ikHYcYjwlls",
-    title: "Google Ads Quick Tip 3",
-  },
-  {
-    id: "GqSuj30px6U",
-    src: "https://www.youtube.com/embed/GqSuj30px6U",
-    title: "Google Ads Quick Tip 4",
-  },
-  {
-    id: "XmMnltqFCrM",
-    src: "https://www.youtube.com/embed/XmMnltqFCrM",
-    title: "Google Ads Quick Tip 5",
-  },
-];
+// ── Curated Full 16:9 Landscape YouTube Guides ──
+export const featuredVideos = FALLBACK_VIDEOS;
 
+// ── All 15 YouTube Shorts ──
+export const featuredShorts = FALLBACK_SHORTS.map((s) => ({
+  id: s.id,
+  src: `https://www.youtube.com/embed/${s.id}`,
+  title: s.title,
+}));
+
+// ── Google Ads Long Form Videos Section ──
 export function GoogleAdsVideosSection({ cityName, serviceName = "Google Ads" }) {
   const heading = cityName
     ? `Watch how ${serviceName} drives real leads in ${cityName} & across India.`
     : "Watch how Google Search Ads can help generate better leads.";
 
   return (
-    <section id="video" className="ads-section ads-video-section" style={{ background: "#f8fafc", padding: "64px 20px" }}>
+    <section id="video" className="ads-section ads-video-section" style={{ background: "#f8fafc", padding: "64px 20px" }} suppressHydrationWarning>
       <div className="ads-section__heading" style={{ maxWidth: "840px", margin: "0 auto 36px", textAlign: "center" }}>
         <p className="ads-eyebrow" style={{ display: "inline-flex", alignItems: "center", gap: "8px", color: "#1f7aec", fontWeight: 800, textTransform: "uppercase", fontSize: "13px" }}>
           <FaGoogle />
@@ -69,10 +39,10 @@ export function GoogleAdsVideosSection({ cityName, serviceName = "Google Ads" })
       <div style={{ maxWidth: "1280px", margin: "0 auto", width: "100%", boxSizing: "border-box" }}>
         <div className="ads-video-grid-responsive">
           {featuredVideos.map((video) => (
-            <article className="ads-custom-video-card" key={video.id}>
+            <article className="ads-custom-video-card" key={video.id} suppressHydrationWarning>
               <div className="ads-custom-video-frame">
                 <iframe
-                  src={video.src}
+                  src={`https://www.youtube.com/embed/${video.id}`}
                   title={video.title}
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   referrerPolicy="strict-origin-when-cross-origin"
@@ -133,7 +103,7 @@ export function GoogleAdsVideosSection({ cityName, serviceName = "Google Ads" })
                   Yash Google Ads
                 </h3>
                 <a
-                  href="https://www.youtube.com/@yashgoogleads"
+                  href={YOUTUBE_CHANNEL_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{
@@ -148,7 +118,7 @@ export function GoogleAdsVideosSection({ cityName, serviceName = "Google Ads" })
                     textDecoration: "none",
                   }}
                 >
-                  @yashgoogleads
+                  @yashgoogleads/shorts
                 </a>
               </div>
               <p style={{ margin: "4px 0 0", color: "#94a3b8", fontSize: "13.5px", lineHeight: "1.4" }}>
@@ -158,7 +128,7 @@ export function GoogleAdsVideosSection({ cityName, serviceName = "Google Ads" })
           </div>
 
           <a
-            href="https://www.youtube.com/@yashgoogleads?sub_confirmation=1"
+            href="https://www.youtube.com/@yashgoogleads/shorts?sub_confirmation=1"
             target="_blank"
             rel="noopener noreferrer"
             style={{
@@ -181,110 +151,44 @@ export function GoogleAdsVideosSection({ cityName, serviceName = "Google Ads" })
           </a>
         </div>
       </div>
-
-      <style>{`
-        .ads-video-grid-responsive {
-          display: grid;
-          grid-template-columns: repeat(3, minmax(0, 1fr));
-          gap: 26px;
-          width: 100%;
-          box-sizing: border-box;
-        }
-        @media (max-width: 992px) {
-          .ads-video-grid-responsive {
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 20px;
-          }
-        }
-        @media (max-width: 640px) {
-          .ads-video-grid-responsive {
-            grid-template-columns: 1fr;
-            gap: 18px;
-          }
-        }
-        .ads-custom-video-card {
-          display: flex;
-          flex-direction: column;
-          background: #ffffff;
-          border: 1px solid #dbeafe;
-          border-radius: 14px;
-          overflow: hidden;
-          box-shadow: 0 10px 30px rgba(15, 78, 163, 0.07);
-          transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-        }
-        .ads-custom-video-card:hover {
-          transform: translateY(-4px);
-          border-color: #93c5fd;
-          box-shadow: 0 20px 45px rgba(15, 78, 163, 0.14);
-        }
-        .ads-custom-video-frame {
-          position: relative;
-          width: 100%;
-          padding-bottom: 56.25%;
-          height: 0;
-          background: #000000;
-          overflow: hidden;
-        }
-        .ads-custom-video-frame iframe {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          border: 0;
-        }
-        .ads-custom-video-body {
-          padding: 18px 20px 22px;
-          display: flex;
-          flex-direction: column;
-          flex: 1;
-          background: #ffffff;
-        }
-        .ads-custom-video-tag {
-          display: inline-block;
-          align-self: flex-start;
-          font-size: 11px;
-          font-weight: 700;
-          color: #1f7aec;
-          background: #eff6ff;
-          border: 1px solid #bfdbfe;
-          padding: 3px 10px;
-          border-radius: 9999px;
-          margin-bottom: 10px;
-          text-transform: uppercase;
-          letter-spacing: 0.5px;
-        }
-        .ads-custom-video-title {
-          margin: 0;
-          font-size: 15px;
-          font-weight: 750;
-          color: #0f2744;
-          line-height: 1.42;
-          flex: 1;
-        }
-        .ads-custom-video-footer {
-          display: flex;
-          align-items: center;
-          gap: 7px;
-          font-size: 12px;
-          color: #64748b;
-          font-weight: 600;
-          margin-top: 14px;
-          padding-top: 12px;
-          border-top: 1px solid #f1f5f9;
-        }
-        .ads-youtube-icon {
-          color: #ef4444;
-          font-size: 16px;
-        }
-      `}</style>
     </section>
   );
 }
 
+// ── Google Ads Shorts Section (Vertical 9:16 Cards - Live Auto-Updated with Load More) ──
 export function GoogleAdsShortsSection({ cityName }) {
+  const [shorts, setShorts] = useState(featuredShorts);
+  const [visibleCount, setVisibleCount] = useState(5);
+
+  // Automatically fetch newest shorts from YouTube channel feed
+  useEffect(() => {
+    let isMounted = true;
+    fetch("/api/youtube")
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (isMounted && data?.shorts?.length > 0) {
+          const apiShorts = data.shorts.map((s) => ({
+            id: s.id,
+            src: `https://www.youtube.com/embed/${s.id}`,
+            title: s.title,
+          }));
+          setShorts(apiShorts);
+        }
+      })
+      .catch((err) => {
+        console.warn("Could not fetch latest YouTube Shorts from API, using default list:", err);
+      });
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  const handleLoadMore = () => {
+    setVisibleCount((prev) => Math.min(prev + 5, shorts.length));
+  };
+
   return (
-    <section id="shorts" className="ads-section ads-shorts-section" style={{ background: "#ffffff", padding: "64px 20px" }}>
+    <section id="shorts" className="ads-section ads-shorts-section" style={{ background: "#ffffff", padding: "64px 20px" }} suppressHydrationWarning>
       <div className="ads-section__heading" style={{ maxWidth: "840px", margin: "0 auto 36px", textAlign: "center" }}>
         <p className="ads-eyebrow" style={{ display: "inline-flex", alignItems: "center", gap: "8px", color: "#ef4444", fontWeight: 800, textTransform: "uppercase", fontSize: "13px" }}>
           <FaYoutube style={{ color: "#ef4444", fontSize: "16px" }} />
@@ -293,12 +197,15 @@ export function GoogleAdsShortsSection({ cityName }) {
         <h2 style={{ fontSize: "clamp(26px, 3.2vw, 42px)", fontWeight: 850, color: "#0f2744", marginTop: "10px", lineHeight: 1.15 }}>
           Quick Google Ads Insights &amp; Growth Tips
         </h2>
+        <p style={{ margin: "10px auto 0", maxWidth: "600px", color: "#64748b", fontSize: "14px" }}>
+          Watch quick 60-second fixes for policy suspensions, verification, and lead generation from @yashgoogleads/shorts.
+        </p>
       </div>
 
       <div style={{ maxWidth: "1280px", margin: "0 auto", width: "100%", boxSizing: "border-box" }}>
         <div className="ads-shorts-grid-responsive">
-          {featuredShorts.map((short, idx) => (
-            <article className="ads-custom-short-card" key={short.id || idx}>
+          {shorts.slice(0, visibleCount).map((short, idx) => (
+            <article className="ads-custom-short-card" key={short.id || idx} suppressHydrationWarning>
               <div className="ads-custom-short-frame">
                 <iframe
                   src={short.src}
@@ -312,68 +219,71 @@ export function GoogleAdsShortsSection({ cityName }) {
             </article>
           ))}
         </div>
-      </div>
 
-      <style>{`
-        .ads-shorts-grid-responsive {
-          display: grid;
-          grid-template-columns: repeat(5, minmax(0, 1fr));
-          gap: 20px;
-          width: 100%;
-          box-sizing: border-box;
-        }
-        @media (max-width: 1100px) {
-          .ads-shorts-grid-responsive {
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 18px;
-          }
-        }
-        @media (max-width: 768px) {
-          .ads-shorts-grid-responsive {
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 14px;
-          }
-        }
-        @media (max-width: 480px) {
-          .ads-shorts-grid-responsive {
-            grid-template-columns: 1fr;
-            max-width: 290px;
-            margin: 0 auto;
-            gap: 16px;
-          }
-        }
-        .ads-custom-short-card {
-          display: flex;
-          flex-direction: column;
-          background: #000000;
-          border: 1px solid #e2e8f0;
-          border-radius: 16px;
-          overflow: hidden;
-          box-shadow: 0 10px 25px rgba(15, 78, 163, 0.08);
-          transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-        }
-        .ads-custom-short-card:hover {
-          transform: translateY(-4px);
-          border-color: #ef4444;
-          box-shadow: 0 18px 40px rgba(239, 68, 68, 0.2);
-        }
-        .ads-custom-short-frame {
-          position: relative;
-          width: 100%;
-          padding-bottom: 177.77%; /* 9:16 Aspect Ratio for Shorts */
-          height: 0;
-          background: #000000;
-          overflow: hidden;
-        }
-        .ads-custom-short-frame iframe {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          border: 0;
-        }
-      `}</style>
+        {/* Action Buttons: Load More & View All on YouTube */}
+        <div
+          className="ads-shorts-actions"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "16px",
+            marginTop: "36px",
+            flexWrap: "wrap",
+          }}
+        >
+          {visibleCount < shorts.length && (
+            <button
+              type="button"
+              onClick={handleLoadMore}
+              className="ads-shorts-load-more-btn"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "10px",
+                padding: "13px 28px",
+                background: "#0f172a",
+                color: "#ffffff",
+                fontWeight: "750",
+                fontSize: "14.5px",
+                borderRadius: "12px",
+                border: "1px solid rgba(255, 255, 255, 0.15)",
+                cursor: "pointer",
+                boxShadow: "0 8px 24px rgba(15, 23, 42, 0.16)",
+                transition: "all 0.2s ease",
+              }}
+            >
+              <FaPlus style={{ fontSize: "12px" }} />
+              <span>Load More Shorts ({shorts.length - visibleCount} more)</span>
+            </button>
+          )}
+
+          <a
+            href={YOUTUBE_CHANNEL_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="ads-shorts-view-all-btn"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "10px",
+              padding: "13px 28px",
+              background: "#fee2e2",
+              color: "#ef4444",
+              fontWeight: "750",
+              fontSize: "14.5px",
+              borderRadius: "12px",
+              border: "1px solid rgba(239, 68, 68, 0.25)",
+              textDecoration: "none",
+              boxShadow: "0 8px 24px rgba(239, 68, 68, 0.15)",
+              transition: "all 0.2s ease",
+            }}
+          >
+            <FaYoutube style={{ fontSize: "18px" }} />
+            <span>View All on YouTube Shorts</span>
+          </a>
+        </div>
+      </div>
     </section>
   );
 }

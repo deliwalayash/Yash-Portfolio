@@ -155,7 +155,7 @@ export default function FloatingCornerVideo() {
             </div>
             <div className="floating-corner-video__footer">
               <a
-                href="https://www.youtube.com/@yashgoogleads?sub_confirmation=1"
+                href="https://www.youtube.com/@yashgoogleads/shorts?sub_confirmation=1"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="floating-corner-video__channel-link"
@@ -235,7 +235,7 @@ export default function FloatingCornerVideo() {
             {/* Modal Footer with Channel Info & Call to Action */}
             <div className="floating-video-modal__footer">
               <a
-                href="https://www.youtube.com/@yashgoogleads?sub_confirmation=1"
+                href="https://www.youtube.com/@yashgoogleads/shorts?sub_confirmation=1"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="floating-video-modal__subscribe-pill"

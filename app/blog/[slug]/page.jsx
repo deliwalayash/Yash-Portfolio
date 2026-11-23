@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { GoogleAdsVideosSection, GoogleAdsShortsSection } from "../../../src/components/YouTubeVideosAndShorts";
 import {
   BlogAuthorBio,
   BlogContent,
@@ -153,6 +154,9 @@ export default async function BlogDetailPage({ params }) {
             <BlogSidebar suggestedBlogs={suggestedBlogs} />
           </div>
         </div>
+
+        <GoogleAdsVideosSection />
+        <GoogleAdsShortsSection />
       </main>
     </SiteShell>
   );

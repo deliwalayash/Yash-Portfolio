@@ -1,4 +1,5 @@
 import { BlogCard, ConfigNotice, SiteShell } from "../../src/components/GoogleAdsSite";
+import { GoogleAdsVideosSection, GoogleAdsShortsSection } from "../../src/components/YouTubeVideosAndShorts";
 import { getPublishedBlogs } from "../../src/lib/blog-data";
 import { isSupabaseConfigured } from "../../src/lib/supabase";
 
@@ -54,6 +55,9 @@ export default async function BlogsPage() {
             ))}
           </div>
         </section>
+
+        <GoogleAdsVideosSection />
+        <GoogleAdsShortsSection />
       </main>
     </SiteShell>
   );

@@ -25,7 +25,7 @@ import GoogleAdsDashboards from "./GoogleAdsDashboards";
 import ContactForm from "./HomeContactForm";
 import { locationPages } from "../lib/location-pages";
 import { isSupabaseConfigured } from "../lib/supabase";
-import { PHONE_NUMBER, WHATSAPP_LINK } from "../lib/site-config";
+import { PHONE_NUMBER, WHATSAPP_LINK, INSTAGRAM_LINK } from "../lib/site-config";
 import { TrackedWhatsAppLink, TrackedCallLink } from "./TrackedLinks";
 import { GoogleAdsVideosSection, GoogleAdsShortsSection } from "./YouTubeVideosAndShorts";
 
@@ -519,10 +519,10 @@ export function AdsFooter({ locationLabel = "Surat, Gujarat" }) {
               <a href="https://www.linkedin.com/in/yash-deliwala/" target="_blank" rel="noreferrer" aria-label="LinkedIn" className="site-footer__social-btn" style={{ width: "36px", height: "36px", borderRadius: "50%", background: "#e2e8f0", color: "var(--ads-blue)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "15px", textDecoration: "none" }}>
                 <FaLinkedin />
               </a>
-              <a href="https://instagram.com" target="_blank" rel="noreferrer" aria-label="Instagram" className="site-footer__social-btn" style={{ width: "36px", height: "36px", borderRadius: "50%", background: "#e2e8f0", color: "var(--ads-blue)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "15px", textDecoration: "none" }}>
+              <a href={INSTAGRAM_LINK} target="_blank" rel="noreferrer" aria-label="Instagram @suremarketing_digi" className="site-footer__social-btn" style={{ width: "36px", height: "36px", borderRadius: "50%", background: "#e2e8f0", color: "var(--ads-blue)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "15px", textDecoration: "none" }}>
                 <FaInstagram />
               </a>
-              <a href="https://www.youtube.com/@yashgoogleads" target="_blank" rel="noreferrer" aria-label="YouTube Channel @yashgoogleads" className="site-footer__social-btn" style={{ width: "36px", height: "36px", borderRadius: "50%", background: "#fee2e2", color: "#ef4444", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "16px", textDecoration: "none" }}>
+              <a href="https://www.youtube.com/@yashgoogleads/shorts" target="_blank" rel="noreferrer" aria-label="YouTube Shorts @yashgoogleads" className="site-footer__social-btn" style={{ width: "36px", height: "36px", borderRadius: "50%", background: "#fee2e2", color: "#ef4444", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "16px", textDecoration: "none" }}>
                 <FaYoutube />
               </a>
             </div>
@@ -815,6 +815,9 @@ export function GoogleAdsLanding({ blogs = [] }) {
         </section>
 
         <GoogleAdsDashboards />
+
+        <GoogleAdsVideosSection />
+        <GoogleAdsShortsSection />
 
         <section id="services" className="ads-section">
           <div className="ads-section__heading">
